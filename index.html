@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABHISHEK SHARMA // SOC Analyst Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root {
+  --cyan:#00f5ff; --green:#00ff88; --red:#ff003c; --orange:#ff6600;
+  --dark:#020810; --panel:rgba(0,20,40,0.85); --border:rgba(0,245,255,0.25);
+  --glow:0 0 20px rgba(0,245,255,0.4); --glow-strong:0 0 40px rgba(0,245,255,0.7);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:#c8e6f0;font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:20px;height:20px;border:1px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen;}
+.cursor-dot{position:fixed;width:4px;height:4px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;}
+.scanlines{position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:1;}
+.noise{position:fixed;top:-50%;left:-50%;width:200%;height:200%;pointer-events:none;z-index:1;opacity:.35;animation:noise-shift 8s steps(2) infinite;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
+@keyframes noise-shift{0%,100%{transform:translate(0,0);}25%{transform:translate(-2%,-1%);}50%{transform:translate(1%,2%);}75%{transform:translate(2%,-2%);}}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.6);}}
+@keyframes blink{50%{opacity:0;}}
+@keyframes fade-up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(2,8,16,.88);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
+.nav-logo{font-family:'Orbitron',monospace;font-weight:900;font-size:1rem;color:var(--cyan);text-shadow:var(--glow);letter-spacing:3px;display:flex;align-items:center;gap:10px;}
+.nav-logo::before{content:'';width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 10px var(--green);animation:pulse-dot 2s infinite;}
+.nav-links{display:flex;gap:26px;list-style:none;}
+.nav-links a{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:rgba(200,230,240,.6);text-decoration:none;letter-spacing:2px;text-transform:uppercase;transition:color .3s,text-shadow .3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s;}
+.nav-links a:hover{color:var(--cyan);text-shadow:var(--glow);}
+.nav-links a:hover::after{width:100%;}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.nav-status{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--green);letter-spacing:1px;display:flex;align-items:center;gap:8px;}
+.status-bar{width:50px;height:4px;background:rgba(0,255,136,.2);border-radius:2px;overflow:hidden;}
+.status-fill{height:100%;background:var(--green);animation:status-scan 3s infinite;}
+@keyframes status-scan{0%{width:0%;}50%{width:100%;}100%{width:0%;}}
+.admin-hint{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(0,245,255,.25);letter-spacing:1px;border:1px solid rgba(0,245,255,.1);padding:4px 8px;cursor:none;transition:all .3s;}
+.admin-hint:hover{color:rgba(0,245,255,.5);border-color:rgba(0,245,255,.3);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:5px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--cyan);transition:all .3s;}
+
+/* MAIN */
+main{position:relative;z-index:10;}
+section{min-height:100vh;padding:100px 40px 60px;position:relative;}
+
+/* HERO */
+#hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:100vh;padding-top:80px;}
+.hero-tag{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:4px;color:var(--green);text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fade-up .8s .5s forwards;}
+.hero-name{font-family:'Orbitron',monospace;font-size:clamp(2rem,7vw,5.5rem);font-weight:900;line-height:1.05;margin-bottom:10px;opacity:0;animation:fade-up .8s .8s forwards;}
+.hero-name .line1{color:#fff;display:block;}
+.hero-name .line2{color:var(--cyan);display:block;text-shadow:var(--glow-strong);position:relative;}
+.hero-name .line2::after{content:attr(data-text);position:absolute;left:0;top:0;color:var(--cyan);filter:blur(8px);opacity:.5;}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(.85rem,2.5vw,1.25rem);font-weight:300;letter-spacing:6px;text-transform:uppercase;color:rgba(200,230,240,.6);margin-bottom:8px;opacity:0;animation:fade-up .8s 1.1s forwards;}
+.hero-location{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:rgba(0,245,255,.5);letter-spacing:2px;margin-bottom:26px;opacity:0;animation:fade-up .8s 1.25s forwards;}
+.terminal-line{font-family:'Share Tech Mono',monospace;font-size:clamp(.68rem,1.8vw,.85rem);color:var(--green);margin-bottom:40px;opacity:0;animation:fade-up .8s 1.4s forwards;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;}
+.terminal-line::before{content:'> ';color:var(--cyan);}
+.hero-btns{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fade-up .8s 1.7s forwards;}
+.btn-primary{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;padding:13px 28px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);cursor:none;position:relative;overflow:hidden;transition:color .3s;text-decoration:none;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:translateX(-100%);transition:transform .3s;}
+.btn-primary:hover{color:var(--dark);}
+.btn-primary:hover::before{transform:translateX(0);}
+.btn-secondary{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;padding:13px 28px;background:rgba(0,245,255,.05);border:1px solid rgba(0,245,255,.2);color:rgba(200,230,240,.7);cursor:none;transition:all .3s;text-decoration:none;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,245,255,.1);}
+.hero-stats{display:flex;gap:36px;margin-top:56px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fade-up .8s 2s forwards;}
+.stat{text-align:center;position:relative;}
+.stat::after{content:'';position:absolute;right:-18px;top:20%;height:60%;width:1px;background:var(--border);}
+.stat:last-child::after{display:none;}
+.stat-num{font-family:'Orbitron',monospace;font-size:1.9rem;font-weight:700;color:var(--cyan);text-shadow:var(--glow);display:block;}
+.stat-label{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:2px;color:rgba(200,230,240,.4);text-transform:uppercase;}
+
+/* SECTION HEADERS */
+.section-header{display:flex;align-items:center;gap:18px;margin-bottom:44px;}
+.section-tag{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;opacity:.6;}
+.section-title{font-family:'Orbitron',monospace;font-size:clamp(1.2rem,3vw,1.9rem);font-weight:700;color:#fff;letter-spacing:2px;}
+.section-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+
+/* PROJECTS */
+#projects{background:rgba(0,5,15,.3);}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px;}
+.project-card{background:var(--panel);border:1px solid var(--border);position:relative;overflow:hidden;cursor:none;transition:transform .3s,border-color .3s,box-shadow .3s;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%);}
+.project-card::after{content:'';position:absolute;top:0;right:0;width:20px;height:20px;background:linear-gradient(225deg,var(--cyan) 50%,transparent 50%);opacity:.5;transition:opacity .3s;}
+.project-card:hover{transform:translateY(-5px);border-color:rgba(0,245,255,.5);box-shadow:0 12px 40px rgba(0,245,255,.15);}
+.project-card:hover::after{opacity:1;}
+.card-header{padding:18px 22px 0;display:flex;align-items:flex-start;justify-content:space-between;}
+.card-icon{width:42px;height:42px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--cyan);background:rgba(0,245,255,.05);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);}
+.card-badge{font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:2px;padding:4px 9px;border:1px solid;text-transform:uppercase;}
+.badge-red{color:var(--red);border-color:rgba(255,0,60,.3);background:rgba(255,0,60,.05);}
+.badge-orange{color:var(--orange);border-color:rgba(255,102,0,.3);background:rgba(255,102,0,.05);}
+.badge-green{color:var(--green);border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.05);}
+.badge-cyan{color:var(--cyan);border-color:rgba(0,245,255,.3);background:rgba(0,245,255,.05);}
+.card-body{padding:13px 22px;}
+.card-title{font-family:'Orbitron',monospace;font-size:.82rem;font-weight:700;color:#fff;letter-spacing:1px;margin-bottom:6px;}
+.card-desc{font-size:.84rem;line-height:1.6;color:rgba(200,230,240,.6);margin-bottom:12px;}
+.card-bullets{margin-bottom:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:4px;}
+.card-bullets li{font-family:'Share Tech Mono',monospace;font-size:.63rem;color:rgba(200,230,240,.52);padding-left:14px;position:relative;line-height:1.5;}
+.card-bullets li::before{content:'›';position:absolute;left:0;color:var(--cyan);}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.tag{font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:1px;padding:3px 7px;background:rgba(0,245,255,.05);border:1px solid rgba(0,245,255,.15);color:rgba(0,245,255,.7);text-transform:uppercase;}
+.card-footer{padding:12px 22px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-link{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--cyan);text-decoration:none;text-transform:uppercase;transition:text-shadow .3s;display:flex;align-items:center;gap:5px;cursor:none;}
+.card-link:hover{text-shadow:var(--glow);}
+.card-link::after{content:'→';}
+.threat-level{display:flex;gap:3px;}
+.threat-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.12);}
+.threat-dot.active-red{background:var(--red);box-shadow:0 0 6px var(--red);}
+.threat-dot.active-orange{background:var(--orange);box-shadow:0 0 6px var(--orange);}
+.threat-dot.active-green{background:var(--green);box-shadow:0 0 6px var(--green);}
+
+/* SKILLS */
+#skills{background:rgba(0,2,10,.5);}
+.skills-wrapper{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;}
+.skill-group{border:1px solid var(--border);background:rgba(0,15,30,.6);padding:20px;backdrop-filter:blur(8px);transition:border-color .3s;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);}
+.skill-group:hover{border-color:rgba(0,245,255,.4);}
+.skill-group-title{font-family:'Orbitron',monospace;font-size:.68rem;font-weight:700;color:var(--cyan);letter-spacing:2px;margin-bottom:12px;text-transform:uppercase;display:flex;align-items:center;gap:8px;}
+.skill-group-title::before{content:'';width:3px;height:13px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.skill-tag{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:1px;padding:4px 9px;border:1px solid rgba(0,245,255,.18);background:rgba(0,245,255,.04);color:rgba(200,230,240,.72);text-transform:uppercase;transition:all .2s;}
+.skill-tag:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,245,255,.08);}
+
+/* CERTS */
+#certifications{background:rgba(0,2,10,.5);}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;}
+.cert-card{border:1px solid var(--border);padding:20px;background:rgba(0,15,30,.6);backdrop-filter:blur(8px);display:flex;gap:15px;align-items:flex-start;transition:all .3s;cursor:none;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);}
+.cert-card:hover{border-color:rgba(0,245,255,.4);box-shadow:0 0 28px rgba(0,245,255,.1);}
+.cert-badge{width:46px;height:46px;flex-shrink:0;border:2px solid;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.15rem;}
+.cert-badge.gold{border-color:#ffd700;box-shadow:0 0 14px rgba(255,215,0,.3);}
+.cert-badge.cyan{border-color:var(--cyan);box-shadow:0 0 14px rgba(0,245,255,.3);}
+.cert-badge.purple{border-color:#a855f7;box-shadow:0 0 14px rgba(168,85,247,.3);}
+.cert-badge.green{border-color:var(--green);box-shadow:0 0 14px rgba(0,255,136,.3);}
+.cert-info{flex:1;}
+.cert-name{font-family:'Orbitron',monospace;font-size:.75rem;font-weight:700;color:#fff;margin-bottom:4px;letter-spacing:1px;}
+.cert-issuer{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:1px;color:var(--cyan);opacity:.7;text-transform:uppercase;margin-bottom:5px;}
+.cert-status{font-family:'Share Tech Mono',monospace;font-size:.5rem;letter-spacing:1px;padding:2px 7px;border-radius:1px;display:inline-block;text-transform:uppercase;}
+.status-active{background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.3);}
+
+/* EXPERIENCE */
+#experience{background:rgba(0,4,12,.4);}
+.exp-card{border:1px solid var(--border);background:rgba(0,15,30,.6);padding:26px;backdrop-filter:blur(8px);max-width:860px;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));transition:border-color .3s;}
+.exp-card:hover{border-color:rgba(0,245,255,.4);}
+.exp-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
+.exp-role{font-family:'Orbitron',monospace;font-size:.95rem;font-weight:700;color:#fff;letter-spacing:1px;margin-bottom:3px;}
+.exp-company{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;}
+.exp-date{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:2px;color:rgba(200,230,240,.4);padding:5px 10px;border:1px solid var(--border);}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.exp-bullets li{font-size:.86rem;color:rgba(200,230,240,.63);padding-left:17px;position:relative;line-height:1.6;}
+.exp-bullets li::before{content:'//';position:absolute;left:0;color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:.66rem;}
+
+/* ABOUT */
+#about{background:rgba(0,4,12,.4);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:start;}
+.about-text p{font-size:.9rem;line-height:1.8;color:rgba(200,230,240,.63);margin-bottom:14px;}
+.about-highlights{display:flex;flex-direction:column;gap:10px;}
+.highlight-row{display:flex;align-items:center;gap:12px;padding:11px 15px;border:1px solid var(--border);background:rgba(0,245,255,.02);transition:all .3s;}
+.highlight-row:hover{border-color:rgba(0,245,255,.3);background:rgba(0,245,255,.04);}
+.highlight-icon{font-size:1rem;}
+.highlight-text{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:1px;color:rgba(200,230,240,.68);line-height:1.5;}
+.highlight-text strong{color:var(--cyan);display:block;margin-bottom:2px;}
+
+/* CONTACT */
+#contact{background:rgba(0,4,12,.4);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:38px;align-items:start;}
+.contact-info h3{font-family:'Orbitron',monospace;font-size:.95rem;color:#fff;margin-bottom:12px;letter-spacing:2px;}
+.contact-info p{font-size:.88rem;line-height:1.7;color:rgba(200,230,240,.58);margin-bottom:24px;}
+.contact-links{display:flex;flex-direction:column;gap:9px;}
+.contact-link{display:flex;align-items:center;gap:13px;padding:10px 15px;border:1px solid var(--border);background:rgba(0,245,255,.02);text-decoration:none;transition:all .3s;cursor:none;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
+.contact-link:hover{border-color:var(--cyan);background:rgba(0,245,255,.06);padding-left:20px;}
+.contact-link-icon{font-size:.95rem;}
+.contact-link-text{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:2px;color:rgba(200,230,240,.7);text-transform:uppercase;}
+.contact-link:hover .contact-link-text{color:var(--cyan);}
+.contact-form{display:flex;flex-direction:column;gap:13px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-label{font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;opacity:.7;}
+.form-input,.form-textarea{background:rgba(0,15,30,.6);border:1px solid var(--border);color:rgba(200,230,240,.9);padding:10px 13px;font-family:'Rajdhani',sans-serif;font-size:.88rem;outline:none;transition:border-color .3s,box-shadow .3s;width:100%;resize:none;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);}
+.form-input:focus,.form-textarea:focus{border-color:var(--cyan);box-shadow:0 0 13px rgba(0,245,255,.1);}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(200,230,240,.28);}
+.form-submit{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;padding:12px 22px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);cursor:none;position:relative;overflow:hidden;transition:color .3s;align-self:flex-start;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.form-submit::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:translateX(-100%);transition:transform .3s;}
+.form-submit:hover{color:var(--dark);}
+.form-submit:hover::before{transform:translateX(0);}
+.form-submit span{position:relative;z-index:1;}
+.form-btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.btn-whatsapp{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;padding:12px 22px;background:transparent;border:1px solid #25d366;color:#25d366;cursor:none;position:relative;overflow:hidden;transition:color .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+.btn-whatsapp::before{content:'';position:absolute;inset:0;background:#25d366;transform:translateX(-100%);transition:transform .3s;}
+.btn-whatsapp:hover{color:var(--dark);}
+.btn-whatsapp:hover::before{transform:translateX(0);}
+.btn-whatsapp span{position:relative;z-index:1;}
+.form-status{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:2px;padding:10px 14px;border:1px solid;display:none;margin-top:4px;}
+.form-status.success{color:var(--green);border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.05);display:block;}
+.form-status.error{color:var(--red);border-color:rgba(255,0,60,.3);background:rgba(255,0,60,.05);display:block;}
+.form-status.sending{color:var(--cyan);border-color:rgba(0,245,255,.3);background:rgba(0,245,255,.05);display:block;}
+.field-error{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:var(--red);letter-spacing:1px;margin-top:3px;display:none;}
+.field-error.show{display:block;}
+.form-input.invalid,.form-textarea.invalid{border-color:var(--red);}
+.formspree-note{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(0,245,255,.25);letter-spacing:1px;margin-top:6px;line-height:1.6;}
+.formspree-note a{color:rgba(0,245,255,.45);text-decoration:none;}
+.formspree-note a:hover{color:var(--cyan);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(38px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+
+/* GLITCH */
+.glitch{position:relative;display:inline-block;}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;}
+.glitch::before{color:var(--red);animation:glitch1 4s infinite;clip-path:polygon(0 0,100% 0,100% 35%,0 35%);}
+.glitch::after{color:var(--cyan);animation:glitch2 4s infinite;clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);}
+@keyframes glitch1{0%,88%,100%{transform:translate(0);}89%{transform:translate(-2px,1px);}91%{transform:translate(2px,-1px);}93%{transform:translate(-1px,2px);}}
+@keyframes glitch2{0%,88%,100%{transform:translate(0);}89%{transform:translate(2px,-1px);}91%{transform:translate(-2px,1px);}93%{transform:translate(1px,2px);}}
+
+/* FOOTER */
+footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(--border);background:rgba(2,8,16,.93);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:rgba(200,230,240,.28);}
+.footer-status{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--green);}
+
+/* MOBILE NAV */
+.mobile-nav{display:none;position:fixed;top:0;right:-100%;width:280px;height:100vh;background:rgba(2,8,16,.97);border-left:1px solid var(--border);z-index:200;padding:80px 28px 28px;flex-direction:column;gap:16px;transition:right .3s ease;backdrop-filter:blur(16px);}
+.mobile-nav.open{right:0;}
+.mobile-nav a{font-family:'Share Tech Mono',monospace;font-size:.8rem;letter-spacing:3px;color:rgba(200,230,240,.68);text-decoration:none;text-transform:uppercase;padding:10px 0;border-bottom:1px solid var(--border);transition:color .3s;}
+.mobile-nav a:hover{color:var(--cyan);}
+.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;}
+.mobile-overlay.open{display:block;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:14px 18px;}
+  .nav-links,.nav-status,.admin-hint{display:none;}
+  .hamburger{display:flex;}
+  .mobile-nav{display:flex;}
+  section{padding:80px 18px 48px;}
+  .contact-grid{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  footer{padding:16px 18px;}
+}
+@media(max-width:600px){
+  .hero-btns{flex-direction:column;align-items:center;}
+  .btn-primary,.btn-secondary{width:220px;text-align:center;}
+  .projects-grid{grid-template-columns:1fr;}
+  .cert-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:18px;}
+  .stat::after{display:none;}
+}
+
+/* ═══════════════════════════════════════════════════════
+   ADMIN PANEL
+═══════════════════════════════════════════════════════ */
+#admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,2,6,.97);z-index:10000;overflow-y:auto;backdrop-filter:blur(4px);}
+#admin-overlay.active{display:block;}
+.admin-shell{max-width:980px;margin:0 auto;padding:30px 24px 60px;}
+.admin-topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:28px;}
+.admin-title{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--cyan);text-shadow:var(--glow);letter-spacing:3px;display:flex;align-items:center;gap:10px;}
+.admin-title::before{content:'⚙';font-size:.9rem;}
+.admin-subtitle{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(0,245,255,.4);letter-spacing:2px;margin-top:4px;}
+.admin-close{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:2px;color:var(--red);border:1px solid rgba(255,0,60,.3);background:rgba(255,0,60,.05);padding:8px 16px;cursor:pointer;transition:all .3s;}
+.admin-close:hover{background:rgba(255,0,60,.15);border-color:var(--red);}
+.admin-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:28px;overflow-x:auto;}
+.admin-tab{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;padding:10px 18px;color:rgba(200,230,240,.4);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .3s;white-space:nowrap;}
+.admin-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.admin-tab:hover:not(.active){color:rgba(200,230,240,.7);}
+.admin-panel{display:none;}
+.admin-panel.active{display:block;}
+.admin-section-title{font-family:'Orbitron',monospace;font-size:.75rem;font-weight:700;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.admin-section-title::before{content:'';width:3px;height:12px;background:var(--green);box-shadow:0 0 8px var(--green);}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.admin-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
+.admin-field{display:flex;flex-direction:column;gap:5px;}
+.admin-field.full{grid-column:1/-1;}
+.admin-label{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:2px;color:rgba(0,245,255,.6);text-transform:uppercase;}
+.admin-input,.admin-textarea,.admin-select{background:rgba(0,15,30,.8);border:1px solid rgba(0,245,255,.2);color:#c8e6f0;padding:9px 12px;font-family:'Share Tech Mono',monospace;font-size:.72rem;outline:none;width:100%;transition:border-color .3s;border-radius:0;}
+.admin-input:focus,.admin-textarea:focus,.admin-select:focus{border-color:var(--cyan);box-shadow:0 0 10px rgba(0,245,255,.08);}
+.admin-textarea{resize:vertical;min-height:80px;}
+.admin-select option{background:#020810;color:#c8e6f0;}
+.admin-divider{height:1px;background:var(--border);margin:20px 0;}
+
+/* Project cards in admin */
+.project-admin-list{display:flex;flex-direction:column;gap:16px;margin-bottom:20px;}
+.project-admin-card{border:1px solid var(--border);background:rgba(0,15,30,.5);padding:18px;}
+.project-admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.project-admin-num{font-family:'Orbitron',monospace;font-size:.68rem;color:var(--cyan);letter-spacing:2px;}
+.project-admin-actions{display:flex;gap:8px;}
+.btn-admin-del{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:1px;color:var(--red);border:1px solid rgba(255,0,60,.3);background:rgba(255,0,60,.05);padding:5px 10px;cursor:pointer;transition:all .3s;}
+.btn-admin-del:hover{background:rgba(255,0,60,.15);}
+
+/* Skill & cert admin */
+.skill-admin-group{border:1px solid var(--border);background:rgba(0,15,30,.5);padding:16px;margin-bottom:14px;}
+.skill-admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.cert-admin-list{display:flex;flex-direction:column;gap:14px;margin-bottom:18px;}
+.cert-admin-card{border:1px solid var(--border);background:rgba(0,15,30,.5);padding:16px;}
+.cert-admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+
+/* Bullets admin */
+.bullets-list{display:flex;flex-direction:column;gap:6px;margin-bottom:8px;}
+.bullet-row{display:flex;gap:6px;align-items:center;}
+.bullet-input{flex:1;background:rgba(0,15,30,.8);border:1px solid rgba(0,245,255,.15);color:#c8e6f0;padding:6px 10px;font-family:'Share Tech Mono',monospace;font-size:.65rem;outline:none;}
+.bullet-input:focus{border-color:var(--cyan);}
+.btn-del-bullet{background:none;border:none;color:rgba(255,0,60,.6);cursor:pointer;font-size:1rem;padding:0 4px;transition:color .3s;}
+.btn-del-bullet:hover{color:var(--red);}
+
+/* Add buttons */
+.btn-admin-add{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:2px;color:var(--green);border:1px solid rgba(0,255,136,.3);background:rgba(0,255,136,.05);padding:7px 14px;cursor:pointer;transition:all .3s;text-transform:uppercase;}
+.btn-admin-add:hover{background:rgba(0,255,136,.12);border-color:var(--green);}
+
+/* Save button */
+.admin-save-bar{position:sticky;bottom:0;background:rgba(2,8,16,.97);border-top:1px solid var(--border);padding:16px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:30px;}
+.btn-save-all{font-family:'Share Tech Mono',monospace;font-size:.75rem;letter-spacing:3px;text-transform:uppercase;padding:13px 28px;background:transparent;border:1px solid var(--green);color:var(--green);cursor:pointer;position:relative;overflow:hidden;transition:color .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.btn-save-all::before{content:'';position:absolute;inset:0;background:var(--green);transform:translateX(-100%);transition:transform .3s;}
+.btn-save-all:hover{color:var(--dark);}
+.btn-save-all:hover::before{transform:translateX(0);}
+.btn-save-all span{position:relative;z-index:1;}
+.btn-export{font-family:'Share Tech Mono',monospace;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;padding:13px 22px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);cursor:pointer;position:relative;overflow:hidden;transition:color .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.btn-export::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:translateX(-100%);transition:transform .3s;}
+.btn-export:hover{color:var(--dark);}
+.btn-export:hover::before{transform:translateX(0);}
+.btn-export span{position:relative;z-index:1;}
+.export-hint{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(0,245,255,.3);letter-spacing:1px;line-height:1.6;}
+.save-status{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(200,230,240,.4);letter-spacing:1px;}
+
+/* Admin hint toast */
+.admin-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:rgba(0,15,30,.97);border:1px solid var(--cyan);color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:2px;padding:12px 24px;z-index:9999;transition:transform .4s ease,opacity .4s ease;opacity:0;white-space:nowrap;}
+.admin-toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+/* ═══ PASSWORD MODAL ═══ */
+#pw-modal{display:none;position:fixed;inset:0;z-index:20000;align-items:center;justify-content:center;background:rgba(0,2,8,.96);backdrop-filter:blur(8px);}
+#pw-modal.active{display:flex;}
+.pw-box{border:1px solid var(--border);background:rgba(0,15,30,.97);padding:40px 36px;max-width:400px;width:90%;position:relative;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));box-shadow:0 0 60px rgba(0,245,255,.12);}
+.pw-corner{position:absolute;width:16px;height:16px;}
+.pw-corner.tl{top:-1px;left:-1px;border-top:2px solid var(--cyan);border-left:2px solid var(--cyan);}
+.pw-corner.tr{top:-1px;right:-1px;border-top:2px solid var(--cyan);border-right:2px solid var(--cyan);}
+.pw-corner.bl{bottom:-1px;left:-1px;border-bottom:2px solid var(--cyan);border-left:2px solid var(--cyan);}
+.pw-corner.br{bottom:-1px;right:-1px;border-bottom:2px solid var(--cyan);border-right:2px solid var(--cyan);}
+.pw-icon{font-size:2rem;margin-bottom:14px;display:block;text-align:center;}
+.pw-title{font-family:'Orbitron',monospace;font-size:.9rem;font-weight:900;color:var(--cyan);letter-spacing:3px;text-align:center;margin-bottom:4px;text-shadow:var(--glow);}
+.pw-sub{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:rgba(200,230,240,.35);text-align:center;margin-bottom:28px;text-transform:uppercase;}
+.pw-label{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:3px;color:rgba(0,245,255,.6);text-transform:uppercase;display:block;margin-bottom:6px;}
+.pw-input-wrap{position:relative;margin-bottom:8px;}
+.pw-input{width:100%;background:rgba(0,15,30,.8);border:1px solid rgba(0,245,255,.2);color:#c8e6f0;padding:12px 44px 12px 14px;font-family:'Share Tech Mono',monospace;font-size:.82rem;letter-spacing:3px;outline:none;transition:border-color .3s,box-shadow .3s;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);}
+.pw-input:focus{border-color:var(--cyan);box-shadow:0 0 16px rgba(0,245,255,.1);}
+.pw-input.error{border-color:var(--red);box-shadow:0 0 16px rgba(255,0,60,.15);animation:shake .4s ease;}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(0,245,255,.4);cursor:pointer;font-size:.85rem;transition:color .2s;padding:4px;}
+.pw-toggle:hover{color:var(--cyan);}
+.pw-error{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:1px;color:var(--red);height:16px;margin-bottom:18px;text-align:center;transition:opacity .3s;}
+.pw-submit{width:100%;font-family:'Share Tech Mono',monospace;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;padding:13px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);cursor:pointer;position:relative;overflow:hidden;transition:color .3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);margin-bottom:16px;}
+.pw-submit::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:translateX(-100%);transition:transform .3s;}
+.pw-submit:hover{color:var(--dark);}
+.pw-submit:hover::before{transform:translateX(0);}
+.pw-submit span{position:relative;z-index:1;}
+.pw-cancel{display:block;text-align:center;font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:2px;color:rgba(200,230,240,.25);cursor:pointer;text-transform:uppercase;transition:color .3s;}
+.pw-cancel:hover{color:rgba(200,230,240,.6);}
+.pw-attempts{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:1px;color:rgba(255,102,0,.5);text-align:center;margin-top:10px;height:14px;}
+.pw-locked{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:2px;color:var(--red);text-align:center;padding:12px;border:1px solid rgba(255,0,60,.3);background:rgba(255,0,60,.05);margin-bottom:16px;display:none;}
+.pw-change-section{margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:none;}
+.pw-change-section.visible{display:block;}
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
+
+/* ═══ CHANGE PASSWORD (inside admin) ═══ */
+.change-pw-panel{border:1px solid rgba(255,102,0,.2);background:rgba(255,102,0,.03);padding:20px;margin-top:24px;}
+.change-pw-title{font-family:'Orbitron',monospace;font-size:.7rem;color:var(--orange);letter-spacing:2px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.change-pw-title::before{content:'🔑';}
+.change-pw-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+/* Threat feed & metrics */
+#threats{background:rgba(0,4,12,.4);}
+.threat-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.threat-feed{border:1px solid var(--border);background:rgba(0,15,30,.6);padding:18px;height:300px;overflow:hidden;position:relative;backdrop-filter:blur(8px);}
+.feed-header{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.feed-header::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse-dot 1.5s infinite;}
+.feed-item{padding:6px 0;border-bottom:1px solid rgba(0,245,255,.06);font-family:'Share Tech Mono',monospace;font-size:.64rem;display:flex;gap:10px;align-items:flex-start;}
+.feed-time{color:rgba(200,230,240,.28);white-space:nowrap;}
+.feed-msg{color:rgba(200,230,240,.68);line-height:1.4;}
+.feed-msg .hi{color:var(--red);}
+.feed-msg .med{color:var(--orange);}
+.feed-msg .low{color:var(--green);}
+.metrics-panel{display:flex;flex-direction:column;gap:12px;}
+.metric-row{border:1px solid var(--border);background:rgba(0,15,30,.6);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;backdrop-filter:blur(8px);transition:border-color .3s;}
+.metric-row:hover{border-color:rgba(0,245,255,.4);}
+.metric-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:rgba(200,230,240,.48);text-transform:uppercase;flex:1;}
+.metric-value{font-family:'Orbitron',monospace;font-size:1.25rem;font-weight:700;}
+.v-cyan{color:var(--cyan);text-shadow:var(--glow);}
+.v-green{color:var(--green);text-shadow:0 0 15px rgba(0,255,136,.5);}
+.v-red{color:var(--red);text-shadow:0 0 15px rgba(255,0,60,.5);}
+.metric-bar-wrap{flex:2;height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;}
+.metric-bar{height:100%;border-radius:2px;}
+.bar-cyan{background:linear-gradient(90deg,rgba(0,245,255,.3),var(--cyan));}
+.bar-green{background:linear-gradient(90deg,rgba(0,255,136,.3),var(--green));}
+.bar-red{background:linear-gradient(90deg,rgba(255,0,60,.3),var(--red));}
+
+/* Tools */
+#tools{background:rgba(0,5,15,.3);}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:13px;}
+.tool-item{border:1px solid var(--border);padding:16px 12px;text-align:center;cursor:none;transition:all .3s;background:rgba(0,15,30,.5);backdrop-filter:blur(6px);}
+.tool-item:hover{border-color:var(--cyan);box-shadow:var(--glow);transform:translateY(-2px);background:rgba(0,245,255,.05);}
+.tool-icon{font-size:1.5rem;margin-bottom:7px;display:block;}
+.tool-name{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:1px;color:rgba(200,230,240,.78);text-transform:uppercase;}
+.tool-cat{font-family:'Share Tech Mono',monospace;font-size:.5rem;letter-spacing:1px;color:var(--cyan);opacity:.55;margin-top:3px;text-transform:uppercase;}
+
+@media(max-width:900px){.threat-grid{grid-template-columns:1fr;}}
+@media(max-width:600px){.admin-grid{grid-template-columns:1fr;}.admin-grid-3{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<canvas id="bg-canvas"></canvas>
+<div class="scanlines"></div>
+<div class="noise"></div>
+<div class="admin-toast" id="adminToast"></div>
+
+<!-- ═══════ PASSWORD MODAL ═══════ -->
+<div id="pw-modal">
+  <div class="pw-box">
+    <div class="pw-corner tl"></div><div class="pw-corner tr"></div>
+    <div class="pw-corner bl"></div><div class="pw-corner br"></div>
+    <span class="pw-icon">🔐</span>
+    <div class="pw-title">ADMIN ACCESS</div>
+    <div class="pw-sub">// Restricted — Authorised Personnel Only</div>
+    <div class="pw-locked" id="pwLocked">⛔ TOO MANY ATTEMPTS — LOCKED FOR <span id="lockTimer">30</span>s</div>
+    <label class="pw-label">Enter Access Code</label>
+    <div class="pw-input-wrap">
+      <input class="pw-input" type="password" id="pwInput" placeholder="••••••••" maxlength="32" autocomplete="off">
+      <button class="pw-toggle" id="pwToggle" tabindex="-1">👁</button>
+    </div>
+    <div class="pw-error" id="pwError"></div>
+    <button class="pw-submit" id="pwSubmit"><span>AUTHENTICATE →</span></button>
+    <span class="pw-cancel" id="pwCancel">✕ Cancel</span>
+    <div class="pw-attempts" id="pwAttempts"></div>
+  </div>
+</div>
+
+<!-- ═══════ ADMIN PANEL OVERLAY ═══════ -->
+<div id="admin-overlay">
+  <div class="admin-shell">
+    <div class="admin-topbar">
+      <div>
+        <div class="admin-title">PORTFOLIO ADMIN PANEL</div>
+        <div class="admin-subtitle">// Edit your portfolio — changes save to browser storage and update live</div>
+      </div>
+      <button class="admin-close" id="adminClose">✕ CLOSE PANEL</button>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="identity">Identity</button>
+      <button class="admin-tab" data-tab="projects">Projects</button>
+      <button class="admin-tab" data-tab="skills">Skills</button>
+      <button class="admin-tab" data-tab="certs">Certifications</button>
+      <button class="admin-tab" data-tab="experience">Experience</button>
+      <button class="admin-tab" data-tab="contact">Contact</button>
+    </div>
+
+    <!-- TAB: IDENTITY -->
+    <div class="admin-panel active" id="tab-identity">
+      <div class="admin-section-title">Personal Info</div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">First Name</label><input class="admin-input" id="f-fname" placeholder="Abhishek"></div>
+        <div class="admin-field"><label class="admin-label">Last Name</label><input class="admin-input" id="f-lname" placeholder="Sharma"></div>
+        <div class="admin-field"><label class="admin-label">Role / Title</label><input class="admin-input" id="f-title" placeholder="SOC Analyst · Threat Detection · Incident Response"></div>
+        <div class="admin-field"><label class="admin-label">Location</label><input class="admin-input" id="f-location" placeholder="Ambala, Haryana"></div>
+        <div class="admin-field"><label class="admin-label">Hero Tag Line (small text above name)</label><input class="admin-input" id="f-herotag" placeholder="Final-Year B.Tech CSE — SOC / Blue Team"></div>
+        <div class="admin-field"><label class="admin-label">Nav Brand</label><input class="admin-input" id="f-navbrand" placeholder="ABHISHEK//SOC"></div>
+      </div>
+      <div class="admin-divider"></div>
+      <div class="admin-section-title">Stats Bar</div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Stat 1 Number</label><input class="admin-input" id="f-s1n" placeholder="2"></div>
+        <div class="admin-field"><label class="admin-label">Stat 1 Label</label><input class="admin-input" id="f-s1l" placeholder="SOC Projects"></div>
+        <div class="admin-field"><label class="admin-label">Stat 2 Number</label><input class="admin-input" id="f-s2n" placeholder="4"></div>
+        <div class="admin-field"><label class="admin-label">Stat 2 Label</label><input class="admin-input" id="f-s2l" placeholder="Certifications"></div>
+        <div class="admin-field"><label class="admin-label">Stat 3 Number</label><input class="admin-input" id="f-s3n" placeholder="7"></div>
+        <div class="admin-field"><label class="admin-label">Stat 3 Label</label><input class="admin-input" id="f-s3l" placeholder="CGPA / 10"></div>
+        <div class="admin-field"><label class="admin-label">Stat 4 Number</label><input class="admin-input" id="f-s4n" placeholder="2026"></div>
+        <div class="admin-field"><label class="admin-label">Stat 4 Label</label><input class="admin-input" id="f-s4l" placeholder="Grad Year"></div>
+      </div>
+      <div class="admin-divider"></div>
+      <div class="admin-section-title">About / Bio</div>
+      <div class="admin-grid">
+        <div class="admin-field full"><label class="admin-label">Bio Paragraph 1</label><textarea class="admin-textarea" id="f-bio1"></textarea></div>
+        <div class="admin-field full"><label class="admin-label">Bio Paragraph 2</label><textarea class="admin-textarea" id="f-bio2"></textarea></div>
+        <div class="admin-field full"><label class="admin-label">Bio Paragraph 3</label><textarea class="admin-textarea" id="f-bio3"></textarea></div>
+      </div>
+      <div class="admin-section-title">Typewriter Phrases (one per line)</div>
+      <div class="admin-field"><textarea class="admin-textarea" id="f-phrases" style="min-height:120px;"></textarea></div>
+      <div class="admin-divider"></div>
+      <div class="change-pw-panel">
+        <div class="change-pw-title">Change Admin Password</div>
+        <div class="change-pw-grid">
+          <div class="admin-field"><label class="admin-label">Current Password</label><input class="admin-input" type="password" id="f-pw-current" placeholder="••••••••"></div>
+          <div class="admin-field"><label class="admin-label">New Password</label><input class="admin-input" type="password" id="f-pw-new" placeholder="Min 6 characters"></div>
+          <div class="admin-field"><label class="admin-label">Confirm New Password</label><input class="admin-input" type="password" id="f-pw-confirm" placeholder="Repeat new password"></div>
+          <div class="admin-field" style="align-self:flex-end;">
+            <button class="btn-admin-add" id="btnChangePw" style="width:100%;padding:10px;">🔑 Update Password</button>
+          </div>
+        </div>
+        <div id="pwChangeStatus" style="font-family:'Share Tech Mono',monospace;font-size:.6rem;margin-top:10px;height:16px;letter-spacing:1px;"></div>
+      </div>
+    </div>
+    <div class="admin-panel" id="tab-projects">
+      <div class="admin-section-title">Projects <button class="btn-admin-add" id="btnAddProject" style="margin-left:12px;">+ Add Project</button></div>
+      <div class="project-admin-list" id="projectAdminList"></div>
+    </div>
+
+    <!-- TAB: SKILLS -->
+    <div class="admin-panel" id="tab-skills">
+      <div class="admin-section-title">Skill Groups <button class="btn-admin-add" id="btnAddSkillGroup" style="margin-left:12px;">+ Add Group</button></div>
+      <div id="skillAdminList"></div>
+    </div>
+
+    <!-- TAB: CERTIFICATIONS -->
+    <div class="admin-panel" id="tab-certs">
+      <div class="admin-section-title">Certifications <button class="btn-admin-add" id="btnAddCert" style="margin-left:12px;">+ Add Cert</button></div>
+      <div class="cert-admin-list" id="certAdminList"></div>
+    </div>
+
+    <!-- TAB: EXPERIENCE -->
+    <div class="admin-panel" id="tab-experience">
+      <div class="admin-section-title">Work Experience</div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Role / Position</label><input class="admin-input" id="f-exprole" placeholder="Software Engineering Intern"></div>
+        <div class="admin-field"><label class="admin-label">Company</label><input class="admin-input" id="f-expcompany" placeholder="MMEC, Ambala"></div>
+        <div class="admin-field"><label class="admin-label">Date Range</label><input class="admin-input" id="f-expdate" placeholder="Jun 2025 — Jul 2025"></div>
+      </div>
+      <div class="admin-section-title" style="margin-top:8px;">Bullet Points</div>
+      <div class="bullets-list" id="expBulletsList"></div>
+      <button class="btn-admin-add" id="btnAddExpBullet">+ Add Bullet</button>
+    </div>
+
+    <!-- TAB: CONTACT -->
+    <div class="admin-panel" id="tab-contact">
+      <div class="admin-section-title">Contact Details</div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Email</label><input class="admin-input" id="f-email" placeholder="sanhishek72@gmail.com"></div>
+        <div class="admin-field"><label class="admin-label">Phone</label><input class="admin-input" id="f-phone" placeholder="+91 94707 29289"></div>
+        <div class="admin-field"><label class="admin-label">LinkedIn URL</label><input class="admin-input" id="f-linkedin" placeholder="https://linkedin.com/in/..."></div>
+        <div class="admin-field"><label class="admin-label">GitHub URL</label><input class="admin-input" id="f-github" placeholder="https://github.com/..."></div>
+        <div class="admin-field"><label class="admin-label">Contact Intro Text</label><textarea class="admin-textarea" id="f-contactbio" style="min-height:70px;"></textarea></div>
+        <div class="admin-field"><label class="admin-label">Formspree Form ID <span style="color:var(--orange);font-size:.5rem;">(from formspree.io — e.g. xpwzgkrb)</span></label><input class="admin-input" id="f-formspree" placeholder="xpwzgkrb"></div>
+        <div class="admin-field"><label class="admin-label">WhatsApp Number <span style="color:var(--orange);font-size:.5rem;">(with country code, no spaces)</span></label><input class="admin-input" id="f-waphone" placeholder="919470729289"></div>
+        <div class="admin-field"><label class="admin-label">University / Footer</label><input class="admin-input" id="f-university" placeholder="MM University, Ambala · 2022–2026"></div>
+      </div>
+    </div>
+
+    <div class="admin-save-bar">
+      <div>
+        <div class="save-status" id="saveStatus">Press SAVE to apply changes to this session</div>
+        <div class="export-hint">⬆ After saving, click EXPORT to get the updated file → re-upload to Vercel</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn-save-all" id="btnSaveAll"><span>💾 SAVE CHANGES</span></button>
+        <button class="btn-export" id="btnExport"><span>⬇ EXPORT FOR VERCEL</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ PORTFOLIO ═══════ -->
+<nav>
+  <div class="nav-logo" id="navBrand">ABHISHEK//SOC</div>
+  <ul class="nav-links">
+    <li><a href="#hero">Init</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#threats">Intel</a></li>
+    <li><a href="#certifications">Creds</a></li>
+    <li><a href="#contact">Comms</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-status"><div class="status-bar"><div class="status-fill"></div></div>SOC_ONLINE</div>
+    <div class="admin-hint" id="adminHintBtn" title="Open Admin Panel">⚙ ADMIN</div>
+  </div>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#hero">Init</a>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#skills">Skills</a>
+  <a href="#threats">Intel</a>
+  <a href="#certifications">Creds</a>
+  <a href="#contact">Comms</a>
+</nav>
+
+<main>
+<section id="hero">
+  <div class="hero-tag" id="heroTag">// Final-Year B.Tech CSE — SOC / Blue Team</div>
+  <h1 class="hero-name">
+    <span class="line1" id="heroFname">ABHISHEK</span>
+    <span class="line2 glitch" id="heroLname" data-text="SHARMA">SHARMA</span>
+  </h1>
+  <div class="hero-title" id="heroTitle">SOC Analyst · Threat Detection · Incident Response</div>
+  <div class="hero-location" id="heroLocation">📍 Ambala, Haryana</div>
+  <div class="terminal-line">
+    <span id="typewriter"></span><span style="color:var(--cyan);animation:blink 1s step-end infinite;">_</span>
+  </div>
+  <div class="hero-btns">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="#contact" class="btn-secondary">Open Channel</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num" id="s1n" data-target="2">0</span><span class="stat-label" id="s1l">SOC Projects</span></div>
+    <div class="stat"><span class="stat-num" id="s2n" data-target="4">0</span><span class="stat-label" id="s2l">Certifications</span></div>
+    <div class="stat"><span class="stat-num" id="s3n" data-target="7">0</span><span class="stat-label" id="s3l">CGPA / 10</span></div>
+    <div class="stat"><span class="stat-num" id="s4n" data-target="2026">0</span><span class="stat-label" id="s4l">Grad Year</span></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-header reveal"><span class="section-tag">// IDENTITY</span><h2 class="section-title">Operator Profile</h2><div class="section-line"></div></div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p id="bio1"></p><p id="bio2"></p><p id="bio3"></p>
+    </div>
+    <div class="about-highlights reveal reveal-delay-1" id="aboutHighlights"></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-header reveal"><span class="section-tag">// OPS_LOG</span><h2 class="section-title">Active Operations</h2><div class="section-line"></div></div>
+  <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<section id="skills">
+  <div class="section-header reveal"><span class="section-tag">// CAPABILITIES</span><h2 class="section-title">Technical Skills</h2><div class="section-line"></div></div>
+  <div class="skills-wrapper" id="skillsWrapper"></div>
+</section>
+
+<section id="threats">
+  <div class="section-header reveal"><span class="section-tag">// INTEL_FEED</span><h2 class="section-title">SOC Intelligence</h2><div class="section-line"></div></div>
+  <div class="threat-grid reveal">
+    <div class="threat-feed"><div class="feed-header">Live Detection Feed</div><div id="feedContainer"></div></div>
+    <div class="metrics-panel">
+      <div class="metric-row"><div class="metric-label">Auth Events Analyzed</div><div class="metric-value v-cyan">12,400+</div><div class="metric-bar-wrap"><div class="metric-bar bar-cyan" style="width:90%"></div></div></div>
+      <div class="metric-row"><div class="metric-label">Brute-Force Detection</div><div class="metric-value v-green">Active</div><div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:100%"></div></div></div>
+      <div class="metric-row"><div class="metric-label">Ransomware Signatures</div><div class="metric-value v-red">Monitored</div><div class="metric-bar-wrap"><div class="metric-bar bar-red" style="width:80%"></div></div></div>
+      <div class="metric-row"><div class="metric-label">Severity Scoring</div><div class="metric-value v-cyan">Dynamic</div><div class="metric-bar-wrap"><div class="metric-bar bar-cyan" style="width:95%"></div></div></div>
+      <div class="metric-row"><div class="metric-label">Dashboard Uptime</div><div class="metric-value v-green">99.9%</div><div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:99.9%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="section-header reveal"><span class="section-tag">// ARSENAL</span><h2 class="section-title">Tool Stack</h2><div class="section-line"></div></div>
+  <div class="tools-grid reveal">
+    <div class="tool-item"><span class="tool-icon">🐍</span><div class="tool-name">Python</div><div class="tool-cat">Scripting</div></div>
+    <div class="tool-item"><span class="tool-icon">⚡</span><div class="tool-name">PowerShell</div><div class="tool-cat">Automation</div></div>
+    <div class="tool-item"><span class="tool-icon">🌐</span><div class="tool-name">Flask</div><div class="tool-cat">Dashboard</div></div>
+    <div class="tool-item"><span class="tool-icon">🐧</span><div class="tool-name">Linux</div><div class="tool-cat">OS</div></div>
+    <div class="tool-item"><span class="tool-icon">🪟</span><div class="tool-name">Windows</div><div class="tool-cat">OS / Logs</div></div>
+    <div class="tool-item"><span class="tool-icon">🦈</span><div class="tool-name">Wireshark</div><div class="tool-cat">Network</div></div>
+    <div class="tool-item"><span class="tool-icon">🐙</span><div class="tool-name">GitHub</div><div class="tool-cat">Version Control</div></div>
+    <div class="tool-item"><span class="tool-icon">🐳</span><div class="tool-name">Docker</div><div class="tool-cat">Containers</div></div>
+    <div class="tool-item"><span class="tool-icon">💻</span><div class="tool-name">VMware</div><div class="tool-cat">Virtualization</div></div>
+    <div class="tool-item"><span class="tool-icon">📊</span><div class="tool-name">Pandas</div><div class="tool-cat">Data Analysis</div></div>
+    <div class="tool-item"><span class="tool-icon">📋</span><div class="tool-name">JSON / CSV</div><div class="tool-cat">Data Handling</div></div>
+    <div class="tool-item"><span class="tool-icon">🔍</span><div class="tool-name">MITRE ATT&CK</div><div class="tool-cat">Framework</div></div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-header reveal"><span class="section-tag">// FIELD_OPS</span><h2 class="section-title">Experience</h2><div class="section-line"></div></div>
+  <div class="exp-card reveal" id="expCard">
+    <div class="exp-header">
+      <div><div class="exp-role" id="expRole">Software Engineering Intern</div><div class="exp-company" id="expCompany">MMEC, Ambala</div></div>
+      <div class="exp-date" id="expDate">Jun 2025 — Jul 2025</div>
+    </div>
+    <ul class="exp-bullets" id="expBulletsDisplay"></ul>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="section-header reveal"><span class="section-tag">// CREDENTIALS</span><h2 class="section-title">Certifications</h2><div class="section-line"></div></div>
+  <div class="cert-grid" id="certsGrid"></div>
+</section>
+
+<section id="contact">
+  <div class="section-header reveal"><span class="section-tag">// COMMS</span><h2 class="section-title">Open Channel</h2><div class="section-line"></div></div>
+  <div class="contact-grid reveal">
+    <div class="contact-info">
+      <h3>Establish Connection</h3>
+      <p id="contactBio"></p>
+      <div class="contact-links" id="contactLinks"></div>
+    </div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">// Sender ID</label>
+        <input type="text" class="form-input" id="fc-name" placeholder="your_name">
+        <span class="field-error" id="err-name">⛔ Name is required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">// Return Address</label>
+        <input type="email" class="form-input" id="fc-email" placeholder="your@email.com">
+        <span class="field-error" id="err-email">⛔ Valid email is required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">// Subject</label>
+        <input type="text" class="form-input" id="fc-subject" placeholder="SOC Role / Internship / Collaboration...">
+        <span class="field-error" id="err-subject">⛔ Subject is required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">// Message Payload</label>
+        <textarea class="form-textarea" id="fc-message" rows="5" placeholder="Describe your opportunity or inquiry..."></textarea>
+        <span class="field-error" id="err-message">⛔ Message cannot be empty</span>
+      </div>
+      <div class="form-status" id="formStatus"></div>
+      <div class="form-btn-row">
+        <button class="form-submit" id="formSubmit"><span id="formSubmitLabel">📧 Send via Email →</span></button>
+        <a class="btn-whatsapp" id="waBtn" href="#" target="_blank"><span>💬 WhatsApp</span></a>
+      </div>
+      <div class="formspree-note">
+        📧 Email delivery active via Formspree · 💬 WhatsApp opens directly in app
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-copy" id="footerCopy">© 2025 ABHISHEK SHARMA — B.TECH CSE '26 — MM UNIVERSITY</div>
+  <div class="footer-status"><div style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse-dot 2s infinite;"></div>SOC PIPELINE ACTIVE</div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════
+// DEFAULT DATA
+// ═══════════════════════════════════════════════
+const DEFAULT = {
+  fname:'ABHISHEK', lname:'SHARMA',
+  herotag:'// Final-Year B.Tech CSE — SOC / Blue Team',
+  title:'SOC Analyst · Threat Detection · Incident Response',
+  location:'📍 Ambala, Haryana',
+  navbrand:'ABHISHEK//SOC',
+  s1n:'2', s1l:'SOC Projects', s2n:'4', s2l:'Certifications',
+  s3n:'7', s3l:'CGPA / 10', s4n:'2026', s4l:'Grad Year',
+  bio1:'Final-year B.Tech Computer Science Engineering student at Maharishi Markandeshwar (Deemed to be University), Ambala. Actively transitioning into <span style="color:var(--cyan)">SOC / Blue Team</span> roles with hands-on experience building real security pipelines.',
+  bio2:'Specializes in <span style="color:var(--green)">threat detection, log analysis, and security automation</span>. Built a full SOC-style intrusion detection and incident response system from scratch using live Windows Security Event Logs, Python, and Flask.',
+  bio3:'Passionate about converting raw security events into actionable intelligence — driven by a curiosity to understand attacker behavior and close the detection gap.',
+  phrases:[
+    'Building SOC pipelines. Detecting threats in real-time.',
+    'Windows Event Logs 4624/4625 — analyzed & correlated.',
+    'Ransomware behavioral detection. Endpoint protection.',
+    'Blue Team mindset. Automation-first approach.',
+    'Graduating 2026. Ready to defend the perimeter.'
+  ],
+  exprole:'Software Engineering Intern', expcompany:'MMEC, Ambala', expdate:'Jun 2025 — Jul 2025',
+  expbullets:[
+    'Developed backend REST APIs and practiced structured development workflows with Git-based version control.',
+    'Worked on mini-projects simulating real-world use cases across multiple domains.',
+    'Improved debugging, deployment awareness, and collaborative engineering practices.'
+  ],
+  email:'sanhishek72@gmail.com', phone:'+91 94707 29289',
+  linkedin:'https://www.linkedin.com/in/abhishek-sharma-291a42250/',
+  github:'https://github.com/Abhi-Sh4rma',
+  contactbio:'Looking to hire a motivated SOC / Blue Team candidate? My systems are online. Available for internships, entry-level SOC roles, and collaborative security projects.',
+  university:'MM University, Ambala · 2022–2026',
+  formspree:'mjgenovg',
+  waphone:'919470729289',
+  projects:[
+    {
+      icon:'🛡', badge:'badge-red', badgeText:'CRITICAL',
+      title:'INTELLIGENT IDS-IR',
+      desc:'SOC-style intrusion detection & incident response pipeline for real-time authentication monitoring using live Windows Security Event Logs.',
+      bullets:[
+        'Collected & normalized Event ID 4625 (failed logon) and 4624 (successful logon) into structured detection logs',
+        'Implemented time-window brute-force detection, stateful alert persistence & success-after-failure correlation',
+        'Dynamic risk scoring & severity escalation with auto-refreshing Flask web dashboard',
+        'Captured from live VM environment — not simulated test data'
+      ],
+      tags:'Python,PowerShell,Flask,Windows Logs,Event Correlation',
+      link:'https://github.com/Abhi-Sh4rma',
+      dots:4, dotColor:'red'
+    },
+    {
+      icon:'🔐', badge:'badge-orange', badgeText:'HIGH',
+      title:'RANSOMWATCH',
+      desc:'Real-time ransomware behavioral detection engine running in a controlled Windows environment — simulating endpoint detection workflows.',
+      bullets:[
+        'Behavioral detection for rapid file modifications, bulk renaming & suspicious extension changes',
+        'Configurable threshold-based alerting via config.json for dynamic tuning',
+        'Built a ransomware simulation module to emulate encryption-like activity for validation',
+        'Structured alerts with risk scoring & severity classification'
+      ],
+      tags:'Python,PowerShell,Behavioral Analysis,EDR Simulation',
+      link:'https://github.com/Abhi-Sh4rma',
+      dots:3, dotColor:'orange'
+    }
+  ],
+  skills:[
+    { title:'Core Security', tags:'SOC Monitoring,SIEM Fundamentals,Log Analysis,Alert Triage,Incident Response,Risk Assessment,Event Correlation,Vulnerability Assessment,Threat Intelligence' },
+    { title:'Windows Event Logs', tags:'Event ID 4624,Event ID 4625,Event ID 4672,Event ID 4688,Log Normalization,Brute-Force Detection' },
+    { title:'Networking & Security', tags:'TCP/IP,DNS,HTTP/HTTPS,Firewall Concepts,IDS/IPS,Network Traffic Analysis' },
+    { title:'Frameworks', tags:'MITRE ATT&CK,Cyber Kill Chain' },
+    { title:'Languages & Scripting', tags:'Python,PowerShell,Bash' },
+    { title:'Tools & Platforms', tags:'Linux,Windows,Git / GitHub,Docker,VMware,Wireshark,Flask,Pandas,JSON/CSV' }
+  ],
+  certs:[
+    { icon:'🏆', color:'gold', name:'IBM Cybersecurity Analyst', issuer:'IBM — Professional Certificate' },
+    { icon:'🟢', color:'green', name:'Cyber Security 101', issuer:'TryHackMe' },
+    { icon:'🔐', color:'cyan', name:'Pre Security', issuer:'TryHackMe' },
+    { icon:'🐍', color:'purple', name:'Python Certificate', issuer:'Programming — Verified' }
+  ]
+};
+
+// ═══════════════════════════════════════════════
+// DATA STORE — load from localStorage or use default
+// ═══════════════════════════════════════════════
+function loadData() {
+  try {
+    const saved = localStorage.getItem('portfolio_data');
+    return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT));
+  } catch(e) { return JSON.parse(JSON.stringify(DEFAULT)); }
+}
+function saveData(d) {
+  localStorage.setItem('portfolio_data', JSON.stringify(d));
+}
+let DATA = loadData();
+
+// ═══════════════════════════════════════════════
+// RENDER PORTFOLIO FROM DATA
+// ═══════════════════════════════════════════════
+function renderPortfolio() {
+  const D = DATA;
+  // Identity
+  document.getElementById('navBrand').textContent = D.navbrand;
+  document.getElementById('heroTag').textContent = D.herotag;
+  document.getElementById('heroFname').textContent = D.fname;
+  const lnameEl = document.getElementById('heroLname');
+  lnameEl.textContent = D.lname; lnameEl.dataset.text = D.lname;
+  document.getElementById('heroTitle').textContent = D.title;
+  document.getElementById('heroLocation').textContent = '📍 ' + D.location;
+  document.getElementById('s1n').textContent = D.s1n; document.getElementById('s1n').dataset.target = D.s1n;
+  document.getElementById('s1l').textContent = D.s1l;
+  document.getElementById('s2n').textContent = D.s2n; document.getElementById('s2n').dataset.target = D.s2n;
+  document.getElementById('s2l').textContent = D.s2l;
+  document.getElementById('s3n').textContent = D.s3n; document.getElementById('s3n').dataset.target = D.s3n;
+  document.getElementById('s3l').textContent = D.s3l;
+  document.getElementById('s4n').textContent = D.s4n; document.getElementById('s4n').dataset.target = D.s4n;
+  document.getElementById('s4l').textContent = D.s4l;
+  document.title = `${D.fname} ${D.lname} // SOC Portfolio`;
+
+  // Bio
+  document.getElementById('bio1').innerHTML = D.bio1;
+  document.getElementById('bio2').innerHTML = D.bio2;
+  document.getElementById('bio3').innerHTML = D.bio3;
+
+  // About highlights
+  const highlights = [
+    {icon:'🎓', label:'Education', value: D.university},
+    {icon:'🔍', label:'Focus Area', value:'SOC Monitoring, SIEM, Log Analysis, Alert Triage, Incident Response'},
+    {icon:'⚙', label:'Primary Stack', value:'Python · PowerShell · Flask · Windows Event Logs · Bash'},
+    {icon:'🌐', label:'Frameworks', value:'MITRE ATT&CK (basic) · Cyber Kill Chain · TCP/IP · IDS/IPS'},
+    {icon:'💼', label:'Experience', value:`${D.exprole} — ${D.expcompany} · ${D.expdate}`}
+  ];
+  document.getElementById('aboutHighlights').innerHTML = highlights.map(h=>`
+    <div class="highlight-row">
+      <span class="highlight-icon">${h.icon}</span>
+      <div class="highlight-text"><strong>${h.label}</strong>${h.value}</div>
+    </div>`).join('');
+
+  // Projects
+  const dotMap = {red:'active-red', orange:'active-orange', green:'active-green'};
+  document.getElementById('projectsGrid').innerHTML = D.projects.map((p,i)=>`
+    <div class="project-card reveal${i>0?' reveal-delay-'+(i<3?i:'2'):''}">
+      <div class="card-header">
+        <div class="card-icon">${p.icon}</div>
+        <span class="card-badge ${p.badge}">${p.badgeText}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${p.title}</div>
+        <div class="card-desc">${p.desc}</div>
+        <ul class="card-bullets">${p.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+        <div class="card-tags">${p.tags.split(',').map(t=>`<span class="tag">${t.trim()}</span>`).join('')}</div>
+      </div>
+      <div class="card-footer">
+        <a href="${p.link}" target="_blank" class="card-link">GitHub Repo</a>
+        <div class="threat-level">${[...Array(5)].map((_,di)=>`<div class="threat-dot${di<p.dots?' '+dotMap[p.dotColor]:''}"></div>`).join('')}</div>
+      </div>
+    </div>`).join('');
+
+  // Skills
+  document.getElementById('skillsWrapper').innerHTML = D.skills.map((s,i)=>`
+    <div class="skill-group reveal${i%3===1?' reveal-delay-1':i%3===2?' reveal-delay-2':''}">
+      <div class="skill-group-title">${s.title}</div>
+      <div class="skill-tags">${s.tags.split(',').map(t=>`<span class="skill-tag">${t.trim()}</span>`).join('')}</div>
+    </div>`).join('');
+
+  // Experience
+  document.getElementById('expRole').textContent = D.exprole;
+  document.getElementById('expCompany').textContent = D.expcompany;
+  document.getElementById('expDate').textContent = D.expdate;
+  document.getElementById('expBulletsDisplay').innerHTML = D.expbullets.map(b=>`<li>${b}</li>`).join('');
+
+  // Certs
+  document.getElementById('certsGrid').innerHTML = D.certs.map((c,i)=>`
+    <div class="cert-card reveal${i>0?' reveal-delay-'+(i<3?i:'2'):''}">
+      <div class="cert-badge ${c.color}">${c.icon}</div>
+      <div class="cert-info">
+        <div class="cert-name">${c.name}</div>
+        <div class="cert-issuer">${c.issuer}</div>
+        <span class="cert-status status-active">Certified</span>
+      </div>
+    </div>`).join('');
+
+  // Contact
+  document.getElementById('contactBio').textContent = D.contactbio;
+  const safeUrl = u => u && !u.startsWith('http') ? 'https://' + u : u;
+  document.getElementById('contactLinks').innerHTML = `
+    <a href="mailto:${D.email}" class="contact-link"><span class="contact-link-icon">📧</span><span class="contact-link-text">${D.email}</span></a>
+    <a href="tel:${D.phone.replace(/\s/g,'')}" class="contact-link"><span class="contact-link-icon">📱</span><span class="contact-link-text">${D.phone}</span></a>
+    <a href="${safeUrl(D.linkedin)}" target="_blank" class="contact-link"><span class="contact-link-icon">💼</span><span class="contact-link-text">LinkedIn Profile</span></a>
+    <a href="${safeUrl(D.github)}" target="_blank" class="contact-link"><span class="contact-link-icon">🐙</span><span class="contact-link-text">GitHub Profile</span></a>
+    <a class="contact-link"><span class="contact-link-icon">📍</span><span class="contact-link-text">${D.location}</span></a>`;
+  document.getElementById('footerCopy').textContent = `© ${new Date().getFullYear()} ${D.fname} ${D.lname} — ${D.university.toUpperCase()}`;
+
+  // Re-observe reveal elements
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.classList.remove('visible');
+    revealObs.observe(el);
+  });
+
+  // Restart typewriter
+  startTypewriter(D.phrases);
+}
+
+// ═══════════════════════════════════════════════
+// ADMIN PANEL — populate fields from DATA
+// ═══════════════════════════════════════════════
+function populateAdmin() {
+  const D = DATA;
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.value = val||''; };
+  set('f-fname', D.fname); set('f-lname', D.lname);
+  set('f-title', D.title); set('f-location', D.location);
+  set('f-herotag', D.herotag); set('f-navbrand', D.navbrand);
+  set('f-s1n', D.s1n); set('f-s1l', D.s1l);
+  set('f-s2n', D.s2n); set('f-s2l', D.s2l);
+  set('f-s3n', D.s3n); set('f-s3l', D.s3l);
+  set('f-s4n', D.s4n); set('f-s4l', D.s4l);
+  set('f-bio1', D.bio1.replace(/<[^>]+>/g,'')); set('f-bio2', D.bio2.replace(/<[^>]+>/g,'')); set('f-bio3', D.bio3);
+  set('f-phrases', (D.phrases||[]).join('\n'));
+  set('f-exprole', D.exprole); set('f-expcompany', D.expcompany); set('f-expdate', D.expdate);
+  set('f-email', D.email); set('f-phone', D.phone);
+  set('f-linkedin', D.linkedin); set('f-github', D.github);
+  set('f-contactbio', D.contactbio); set('f-university', D.university);
+  set('f-formspree', D.formspree || 'YOUR_FORM_ID');
+  set('f-waphone', D.waphone || '919470729289');
+
+  // Projects
+  renderProjectAdmin();
+  renderSkillAdmin();
+  renderCertAdmin();
+  renderExpBullets();
+}
+
+function renderProjectAdmin() {
+  const list = document.getElementById('projectAdminList');
+  list.innerHTML = DATA.projects.map((p,i)=>`
+    <div class="project-admin-card" data-pi="${i}">
+      <div class="project-admin-header">
+        <div class="project-admin-num">// PROJECT ${String(i+1).padStart(2,'0')}</div>
+        <div class="project-admin-actions"><button class="btn-admin-del" onclick="deleteProject(${i})">✕ Remove</button></div>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Icon (emoji)</label><input class="admin-input" data-pi="${i}" data-f="icon" value="${p.icon}"></div>
+        <div class="admin-field"><label class="admin-label">Badge Style</label>
+          <select class="admin-select" data-pi="${i}" data-f="badge">
+            ${['badge-red','badge-orange','badge-green','badge-cyan'].map(b=>`<option value="${b}" ${p.badge===b?'selected':''}>${b.replace('badge-','').toUpperCase()}</option>`).join('')}
+          </select></div>
+        <div class="admin-field"><label class="admin-label">Badge Text</label><input class="admin-input" data-pi="${i}" data-f="badgeText" value="${p.badgeText}"></div>
+        <div class="admin-field"><label class="admin-label">Threat Dots (1-5)</label><input class="admin-input" type="number" min="1" max="5" data-pi="${i}" data-f="dots" value="${p.dots}"></div>
+        <div class="admin-field"><label class="admin-label">Dot Color</label>
+          <select class="admin-select" data-pi="${i}" data-f="dotColor">
+            ${['red','orange','green'].map(c=>`<option value="${c}" ${p.dotColor===c?'selected':''}>${c.toUpperCase()}</option>`).join('')}
+          </select></div>
+        <div class="admin-field"><label class="admin-label">GitHub / Link URL</label><input class="admin-input" data-pi="${i}" data-f="link" value="${p.link}"></div>
+        <div class="admin-field full"><label class="admin-label">Project Title</label><input class="admin-input" data-pi="${i}" data-f="title" value="${p.title}"></div>
+        <div class="admin-field full"><label class="admin-label">Description</label><textarea class="admin-textarea" data-pi="${i}" data-f="desc">${p.desc}</textarea></div>
+        <div class="admin-field full"><label class="admin-label">Tags (comma-separated)</label><input class="admin-input" data-pi="${i}" data-f="tags" value="${p.tags}"></div>
+        <div class="admin-field full"><label class="admin-label">Bullet Points</label>
+          <div class="bullets-list" id="proj-bullets-${i}">
+            ${p.bullets.map((b,bi)=>`
+              <div class="bullet-row">
+                <input class="bullet-input" data-pi="${i}" data-bi="${bi}" value="${b}">
+                <button class="btn-del-bullet" onclick="deleteProjBullet(${i},${bi})">✕</button>
+              </div>`).join('')}
+          </div>
+          <button class="btn-admin-add" style="margin-top:6px;" onclick="addProjBullet(${i})">+ Bullet</button>
+        </div>
+      </div>
+    </div>`).join('');
+
+  // Live sync inputs in project admin
+  list.querySelectorAll('[data-pi][data-f]').forEach(el => {
+    el.addEventListener('input', e => {
+      const pi = +e.target.dataset.pi, f = e.target.dataset.f;
+      DATA.projects[pi][f] = f==='dots'?+e.target.value:e.target.value;
+    });
+  });
+}
+
+function deleteProject(i) { DATA.projects.splice(i,1); renderProjectAdmin(); }
+function addProjBullet(pi) {
+  DATA.projects[pi].bullets.push('New bullet point');
+  renderProjectAdmin();
+}
+function deleteProjBullet(pi, bi) {
+  DATA.projects[pi].bullets.splice(bi,1);
+  renderProjectAdmin();
+}
+window.deleteProject = deleteProject;
+window.addProjBullet = addProjBullet;
+window.deleteProjBullet = deleteProjBullet;
+
+document.getElementById('btnAddProject').addEventListener('click', () => {
+  DATA.projects.push({icon:'🔧',badge:'badge-cyan',badgeText:'NEW',title:'NEW PROJECT',desc:'Project description.',bullets:['Key achievement 1'],tags:'Python',link:'https://github.com',dots:2,dotColor:'green'});
+  renderProjectAdmin();
+});
+
+function renderSkillAdmin() {
+  document.getElementById('skillAdminList').innerHTML = DATA.skills.map((s,i)=>`
+    <div class="skill-admin-group">
+      <div class="skill-admin-header">
+        <span class="admin-label">GROUP ${i+1}</span>
+        <button class="btn-admin-del" onclick="deleteSkillGroup(${i})">✕ Remove</button>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Group Title</label><input class="admin-input" data-si="${i}" data-f="title" value="${s.title}"></div>
+        <div class="admin-field full"><label class="admin-label">Skills (comma-separated)</label><input class="admin-input" data-si="${i}" data-f="tags" value="${s.tags}"></div>
+      </div>
+    </div>`).join('');
+  document.getElementById('skillAdminList').querySelectorAll('[data-si][data-f]').forEach(el=>{
+    el.addEventListener('input',e=>{ DATA.skills[+e.target.dataset.si][e.target.dataset.f]=e.target.value; });
+  });
+}
+function deleteSkillGroup(i){ DATA.skills.splice(i,1); renderSkillAdmin(); }
+window.deleteSkillGroup = deleteSkillGroup;
+document.getElementById('btnAddSkillGroup').addEventListener('click',()=>{
+  DATA.skills.push({title:'New Group',tags:'Skill 1,Skill 2'});
+  renderSkillAdmin();
+});
+
+function renderCertAdmin() {
+  document.getElementById('certAdminList').innerHTML = DATA.certs.map((c,i)=>`
+    <div class="cert-admin-card">
+      <div class="cert-admin-header">
+        <span class="admin-label">CERT ${String(i+1).padStart(2,'0')}</span>
+        <button class="btn-admin-del" onclick="deleteCert(${i})">✕ Remove</button>
+      </div>
+      <div class="admin-grid-3">
+        <div class="admin-field"><label class="admin-label">Icon (emoji)</label><input class="admin-input" data-ci="${i}" data-f="icon" value="${c.icon}"></div>
+        <div class="admin-field"><label class="admin-label">Badge Color</label>
+          <select class="admin-select" data-ci="${i}" data-f="color">
+            ${['gold','cyan','green','purple'].map(col=>`<option value="${col}" ${c.color===col?'selected':''}>${col.toUpperCase()}</option>`).join('')}
+          </select></div>
+        <div class="admin-field"><label class="admin-label">Cert Name</label><input class="admin-input" data-ci="${i}" data-f="name" value="${c.name}"></div>
+        <div class="admin-field full"><label class="admin-label">Issuer</label><input class="admin-input" data-ci="${i}" data-f="issuer" value="${c.issuer}"></div>
+      </div>
+    </div>`).join('');
+  document.getElementById('certAdminList').querySelectorAll('[data-ci][data-f]').forEach(el=>{
+    el.addEventListener('input',e=>{ DATA.certs[+e.target.dataset.ci][e.target.dataset.f]=e.target.value; });
+  });
+}
+function deleteCert(i){ DATA.certs.splice(i,1); renderCertAdmin(); }
+window.deleteCert = deleteCert;
+document.getElementById('btnAddCert').addEventListener('click',()=>{
+  DATA.certs.push({icon:'🏅',color:'cyan',name:'New Certification',issuer:'Issuing Body'});
+  renderCertAdmin();
+});
+
+function renderExpBullets() {
+  document.getElementById('expBulletsList').innerHTML = (DATA.expbullets||[]).map((b,i)=>`
+    <div class="bullet-row">
+      <input class="bullet-input" data-ebi="${i}" value="${b}">
+      <button class="btn-del-bullet" onclick="deleteExpBullet(${i})">✕</button>
+    </div>`).join('');
+  document.getElementById('expBulletsList').querySelectorAll('[data-ebi]').forEach(el=>{
+    el.addEventListener('input',e=>{ DATA.expbullets[+e.target.dataset.ebi]=e.target.value; });
+  });
+}
+function deleteExpBullet(i){ DATA.expbullets.splice(i,1); renderExpBullets(); }
+window.deleteExpBullet = deleteExpBullet;
+document.getElementById('btnAddExpBullet').addEventListener('click',()=>{
+  DATA.expbullets.push('New bullet point');
+  renderExpBullets();
+});
+
+// ═══════════════════════════════════════════════
+// COLLECT DATA FROM ADMIN FIELDS & SAVE
+// ═══════════════════════════════════════════════
+function collectAndSave() {
+  const get = id => { const el=document.getElementById(id); return el?el.value.trim():''; };
+
+  // Collect proj bullets from DOM (inputs may have been edited without input events firing consistently)
+  DATA.projects.forEach((p,i)=>{
+    const bl = document.querySelectorAll(`[data-pi="${i}"][data-bi]`);
+    if(bl.length) p.bullets = [...bl].map(b=>b.value);
+  });
+  DATA.expbullets = [...document.querySelectorAll('[data-ebi]')].map(b=>b.value);
+
+  DATA.fname = get('f-fname'); DATA.lname = get('f-lname');
+  DATA.title = get('f-title'); DATA.location = get('f-location');
+  DATA.herotag = get('f-herotag'); DATA.navbrand = get('f-navbrand');
+  DATA.s1n = get('f-s1n'); DATA.s1l = get('f-s1l');
+  DATA.s2n = get('f-s2n'); DATA.s2l = get('f-s2l');
+  DATA.s3n = get('f-s3n'); DATA.s3l = get('f-s3l');
+  DATA.s4n = get('f-s4n'); DATA.s4l = get('f-s4l');
+  DATA.bio1 = get('f-bio1'); DATA.bio2 = get('f-bio2'); DATA.bio3 = get('f-bio3');
+  DATA.phrases = get('f-phrases').split('\n').map(s=>s.trim()).filter(Boolean);
+  DATA.exprole = get('f-exprole'); DATA.expcompany = get('f-expcompany'); DATA.expdate = get('f-expdate');
+  DATA.email = get('f-email'); DATA.phone = get('f-phone');
+  DATA.linkedin = get('f-linkedin'); DATA.github = get('f-github');
+  DATA.contactbio = get('f-contactbio'); DATA.university = get('f-university');
+  DATA.formspree = get('f-formspree'); DATA.waphone = get('f-waphone');
+
+  saveData(DATA);
+  renderPortfolio();
+  document.getElementById('saveStatus').textContent = '✓ Saved at ' + new Date().toLocaleTimeString();
+  showToast('✓ Portfolio updated successfully!');
+}
+
+document.getElementById('btnSaveAll').addEventListener('click', collectAndSave);
+
+// ═══════════════════════════════════════════════
+// EXPORT — bakes current DATA into HTML and downloads
+// ═══════════════════════════════════════════════
+document.getElementById('btnExport').addEventListener('click', function() {
+  // First collect latest form values
+  collectAndSave();
+
+  // Get the current HTML
+  let html = document.documentElement.outerHTML;
+
+  // Inject the current DATA as the new DEFAULT so the exported
+  // file works on any device/browser without needing localStorage
+  const dataStr = JSON.stringify(DATA, null, 2);
+  html = html.replace(
+    /const DEFAULT = \{[\s\S]*?\};(?=\s*\/\/ ═)/,
+    `const DEFAULT = ${dataStr};`
+  );
+
+  // Also pre-populate localStorage init so it loads from DEFAULT on first open
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'abhishek-portfolio.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  showToast('✓ File downloaded! Upload this to Vercel to go live.');
+  document.getElementById('saveStatus').textContent = '✓ Exported at ' + new Date().toLocaleTimeString();
+});
+
+// ═══════════════════════════════════════════════
+// PASSWORD SYSTEM
+// ═══════════════════════════════════════════════
+const DEFAULT_PW = 'soc@2026'; // ← default password (hashed below in storage)
+
+// Simple hash — not cryptographic, but prevents plain-text storage
+function hashPw(str) {
+  let h = 0x811c9dc5;
+  for(let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = (h * 0x01000193) >>> 0; }
+  return h.toString(16);
+}
+function getStoredHash() {
+  return localStorage.getItem('admin_pw_hash') || hashPw(DEFAULT_PW);
+}
+function checkPw(input) {
+  return hashPw(input) === getStoredHash();
+}
+
+// Lockout state
+const MAX_ATTEMPTS = 5;
+const LOCK_SECS = 30;
+let failCount = parseInt(localStorage.getItem('admin_fails') || '0');
+let lockedUntil = parseInt(localStorage.getItem('admin_locked_until') || '0');
+
+function isLocked() { return Date.now() < lockedUntil; }
+function getRemainingLock() { return Math.ceil((lockedUntil - Date.now()) / 1000); }
+
+// ─── PASSWORD MODAL ──────────────────────────────
+const pwModal = document.getElementById('pw-modal');
+const pwInput = document.getElementById('pwInput');
+const pwError = document.getElementById('pwError');
+const pwAttempts = document.getElementById('pwAttempts');
+const pwLocked = document.getElementById('pwLocked');
+const pwSubmit = document.getElementById('pwSubmit');
+
+function showPwModal() {
+  pwModal.classList.add('active');
+  pwInput.value = '';
+  pwError.textContent = '';
+  pwAttempts.textContent = '';
+  document.body.style.overflow = 'hidden';
+  updateLockUI();
+  setTimeout(() => pwInput.focus(), 100);
+}
+function hidePwModal() {
+  pwModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function updateLockUI() {
+  if(isLocked()) {
+    pwLocked.style.display = 'block';
+    pwInput.disabled = true;
+    pwSubmit.disabled = true;
+    let remaining = getRemainingLock();
+    document.getElementById('lockTimer').textContent = remaining;
+    const lockInterval = setInterval(() => {
+      remaining = getRemainingLock();
+      if(remaining <= 0) {
+        clearInterval(lockInterval);
+        pwLocked.style.display = 'none';
+        pwInput.disabled = false;
+        pwSubmit.disabled = false;
+        pwAttempts.textContent = '';
+        failCount = 0;
+        localStorage.setItem('admin_fails', '0');
+      } else {
+        document.getElementById('lockTimer').textContent = remaining;
+      }
+    }, 1000);
+  } else {
+    pwLocked.style.display = 'none';
+    pwInput.disabled = false;
+    pwSubmit.disabled = false;
+    if(failCount > 0) pwAttempts.textContent = `${MAX_ATTEMPTS - failCount} attempt${MAX_ATTEMPTS-failCount===1?'':'s'} remaining`;
+  }
+}
+
+function attemptLogin() {
+  if(isLocked()) return;
+  const val = pwInput.value;
+  if(!val) { pwError.textContent = 'Enter your access code.'; return; }
+
+  if(checkPw(val)) {
+    // Success
+    failCount = 0;
+    localStorage.setItem('admin_fails', '0');
+    hidePwModal();
+    openAdminPanel();
+  } else {
+    // Fail
+    failCount++;
+    localStorage.setItem('admin_fails', failCount);
+    pwInput.classList.add('error');
+    setTimeout(() => pwInput.classList.remove('error'), 500);
+    pwInput.value = '';
+
+    if(failCount >= MAX_ATTEMPTS) {
+      lockedUntil = Date.now() + LOCK_SECS * 1000;
+      localStorage.setItem('admin_locked_until', lockedUntil);
+      pwError.textContent = '';
+      updateLockUI();
+    } else {
+      const left = MAX_ATTEMPTS - failCount;
+      pwError.textContent = '⛔ Incorrect code.';
+      pwAttempts.textContent = `${left} attempt${left===1?'':'s'} remaining before lockout`;
+    }
+  }
+}
+
+pwSubmit.addEventListener('click', attemptLogin);
+pwInput.addEventListener('keydown', e => { if(e.key === 'Enter') attemptLogin(); });
+document.getElementById('pwCancel').addEventListener('click', hidePwModal);
+
+// Show/hide password toggle
+document.getElementById('pwToggle').addEventListener('click', () => {
+  pwInput.type = pwInput.type === 'password' ? 'text' : 'password';
+});
+
+// Close on backdrop click
+pwModal.addEventListener('click', e => { if(e.target === pwModal) hidePwModal(); });
+
+// ─── CHANGE PASSWORD (inside admin) ─────────────
+document.getElementById('btnChangePw').addEventListener('click', () => {
+  const cur = document.getElementById('f-pw-current').value;
+  const nw  = document.getElementById('f-pw-new').value;
+  const cnf = document.getElementById('f-pw-confirm').value;
+  const st  = document.getElementById('pwChangeStatus');
+
+  if(!checkPw(cur)) { st.style.color='var(--red)'; st.textContent='⛔ Current password is incorrect.'; return; }
+  if(nw.length < 6)  { st.style.color='var(--red)'; st.textContent='⛔ New password must be at least 6 characters.'; return; }
+  if(nw !== cnf)     { st.style.color='var(--red)'; st.textContent='⛔ Passwords do not match.'; return; }
+
+  localStorage.setItem('admin_pw_hash', hashPw(nw));
+  document.getElementById('f-pw-current').value = '';
+  document.getElementById('f-pw-new').value = '';
+  document.getElementById('f-pw-confirm').value = '';
+  st.style.color = 'var(--green)';
+  st.textContent = '✓ Password updated successfully!';
+  setTimeout(() => st.textContent = '', 3000);
+  showToast('✓ Admin password changed!');
+});
+
+// ─── ADMIN PANEL OPEN / CLOSE ────────────────────
+const adminOverlay = document.getElementById('admin-overlay');
+
+function openAdminPanel() {
+  populateAdmin();
+  adminOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  showToast('✓ Access granted — welcome, Abhishek');
+}
+function closeAdmin() {
+  adminOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Entry point — always goes through password gate
+function triggerAdmin() {
+  if(adminOverlay.classList.contains('active')) { closeAdmin(); return; }
+  showPwModal();
+}
+
+document.getElementById('adminClose').addEventListener('click', closeAdmin);
+document.getElementById('adminHintBtn').addEventListener('click', triggerAdmin);
+
+// Keyboard shortcut: Ctrl + Shift + A
+document.addEventListener('keydown', e => {
+  if(e.ctrlKey && e.shiftKey && e.key === 'A') { e.preventDefault(); triggerAdmin(); }
+});
+
+// Admin tabs
+document.querySelectorAll('.admin-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ═══════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('adminToast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════════════
+// THREE.JS 3D BACKGROUND
+// ═══════════════════════════════════════════════
+const canvas3d = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({canvas:canvas3d,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.setSize(window.innerWidth,window.innerHeight);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000);
+camera.position.set(0,0,5);
+const grd = new THREE.Mesh(new THREE.PlaneGeometry(40,40,40,40),new THREE.MeshBasicMaterial({color:0x001830,wireframe:true,transparent:true,opacity:.12}));
+grd.rotation.x=-Math.PI/2; grd.position.y=-3; scene.add(grd);
+const ppos=new Float32Array(400*3);
+for(let i=0;i<400;i++){ppos[i*3]=(Math.random()-.5)*30;ppos[i*3+1]=(Math.random()-.5)*20;ppos[i*3+2]=(Math.random()-.5)*15;}
+const pg=new THREE.BufferGeometry(); pg.setAttribute('position',new THREE.BufferAttribute(ppos,3));
+const pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0x00f5ff,size:.04,transparent:true,opacity:.5,sizeAttenuation:true}));
+scene.add(pts);
+const nodes3d=[],nc=[0x00f5ff,0x00ff88,0xff003c,0xff6600],ng=new THREE.SphereGeometry(.04,6,6);
+for(let i=0;i<22;i++){const m=new THREE.MeshBasicMaterial({color:nc[Math.floor(Math.random()*nc.length)],transparent:true,opacity:.8});const n=new THREE.Mesh(ng,m);n.position.set((Math.random()-.5)*20,(Math.random()-.5)*12,(Math.random()-.5)*8);n.userData={speed:Math.random()*.003+.001,offset:Math.random()*Math.PI*2};scene.add(n);nodes3d.push(n);}
+const rings3d=[];
+for(let i=0;i<3;i++){const m=new THREE.MeshBasicMaterial({color:i===0?0x00f5ff:i===1?0x00ff88:0xff6600,transparent:true,opacity:.1});const r=new THREE.Mesh(new THREE.TorusGeometry(1.5+i*.8,.004,6,60),m);r.rotation.x=Math.PI/3*i;r.rotation.y=Math.PI/4*i;r.position.z=-2;scene.add(r);rings3d.push(r);}
+let mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=-(e.clientY/window.innerHeight-.5)*2;});
+let t3=0;
+function animate3d(){requestAnimationFrame(animate3d);t3+=.005;
+grd.rotation.z+=.0003;
+nodes3d.forEach(n=>{n.position.y+=Math.sin(t3+n.userData.offset)*n.userData.speed;n.position.x+=Math.cos(t3*.7+n.userData.offset)*n.userData.speed*.5;});
+rings3d.forEach((r,i)=>{r.rotation.z+=.002*(i+1)*(i%2===0?1:-1);r.rotation.y+=.001*(i+1);});
+camera.position.x+=(mx*.5-camera.position.x)*.05;
+camera.position.y+=(my*.3-camera.position.y)*.05;
+camera.lookAt(scene.position);
+pts.rotation.y+=.0007;pts.rotation.x+=.0002;
+renderer.render(scene,camera);}
+animate3d();
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
+
+// ═══════════════════════════════════════════════
+// CURSOR
+// ═══════════════════════════════════════════════
+const cur=document.getElementById('cursor'),curd=document.getElementById('cursorDot');
+let cx=0,cy=0,tx2=0,ty2=0;
+document.addEventListener('mousemove',e=>{tx2=e.clientX;ty2=e.clientY;curd.style.left=tx2+'px';curd.style.top=ty2+'px';});
+function animCur(){cx+=(tx2-cx)*.15;cy+=(ty2-cy)*.15;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(animCur);}
+animCur();
+document.querySelectorAll('a,button,.project-card,.tool-item,.cert-card,.contact-link,.skill-tag,.admin-input,.admin-tab,.highlight-row').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='36px';cur.style.height='36px';cur.style.background='rgba(0,245,255,.1)';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='20px';cur.style.height='20px';cur.style.background='';});
+});
+
+// ═══════════════════════════════════════════════
+// TYPEWRITER
+// ═══════════════════════════════════════════════
+let twTimer=null,twPi=0,twCi=0,twDel=false,twPhrases=[];
+function startTypewriter(phrases) {
+  if(twTimer) clearTimeout(twTimer);
+  twPhrases=phrases||DATA.phrases; twPi=0; twCi=0; twDel=false;
+  const tw=document.getElementById('typewriter');
+  function loop(){
+    const phrase=twPhrases[twPi%twPhrases.length];
+    if(!twDel){tw.textContent=phrase.slice(0,twCi++);if(twCi>phrase.length){twDel=true;twTimer=setTimeout(loop,2200);return;}}
+    else{tw.textContent=phrase.slice(0,twCi--);if(twCi<0){twDel=false;twPi++;twCi=0;}}
+    twTimer=setTimeout(loop,twDel?35:75);
+  }
+  twTimer=setTimeout(loop,1800);
+}
+
+// ═══════════════════════════════════════════════
+// REVEAL ON SCROLL
+// ═══════════════════════════════════════════════
+const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+
+// ═══════════════════════════════════════════════
+// COUNTER ANIMATION
+// ═══════════════════════════════════════════════
+function animCount(el){
+  const t=parseInt(el.dataset.target)||0;
+  let c=0;const s=Math.max(1,Math.floor(t/60));
+  const iv=setInterval(()=>{c=Math.min(c+s,t);el.textContent=c;if(c>=t)clearInterval(iv);},28);
+}
+const countObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animCount(e.target);countObs.unobserve(e.target);}});},{threshold:.5});
+
+// ═══════════════════════════════════════════════
+// LIVE THREAT FEED
+// ═══════════════════════════════════════════════
+const feedEvents=[
+  {msg:'<span class="hi">[CRITICAL]</span> Event 4625 — 120 failed logons in 60s — IP: 192.168.1.47'},
+  {msg:'<span class="med">[HIGH]</span> Brute-force threshold breached — alert escalated'},
+  {msg:'<span class="low">[INFO]</span> Event 4624 — successful logon after 80 failed attempts'},
+  {msg:'<span class="hi">[CRITICAL]</span> Ransomware behavior: 500+ files renamed in 10s'},
+  {msg:'<span class="med">[HIGH]</span> Suspicious extension change detected — .docx → .enc'},
+  {msg:'<span class="low">[LOW]</span> Event 4672 — Admin logon captured and logged'},
+  {msg:'<span class="hi">[CRITICAL]</span> Success-after-failure correlation triggered'},
+  {msg:'<span class="low">[INFO]</span> Event 4688 — Process creation: powershell.exe flagged'},
+  {msg:'<span class="med">[HIGH]</span> Bulk file modification: behavioral threshold exceeded'},
+];
+let feedIdx=0;
+function addFeed(){
+  const item=feedEvents[feedIdx%feedEvents.length];
+  const d=new Date(), ts=d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')+':'+d.getSeconds().toString().padStart(2,'0');
+  const div=document.createElement('div'); div.className='feed-item'; div.style.opacity='0'; div.style.transform='translateY(-10px)';
+  div.innerHTML=`<span class="feed-time">${ts}</span><span class="feed-msg">${item.msg}</span>`;
+  const fc=document.getElementById('feedContainer'); fc.insertBefore(div,fc.firstChild);
+  requestAnimationFrame(()=>{div.style.transition='all .4s';div.style.opacity='1';div.style.transform='translateY(0)';});
+  if(fc.children.length>7) fc.removeChild(fc.lastChild);
+  feedIdx++;
+  setTimeout(addFeed,Math.random()*2800+1200);
+}
+addFeed();
+
+// ═══════════════════════════════════════════════
+// MOBILE NAV
+// ═══════════════════════════════════════════════
+const hbg=document.getElementById('hamburger'),mn=document.getElementById('mobileNav'),mo=document.getElementById('mobileOverlay');
+hbg.addEventListener('click',()=>{mn.classList.toggle('open');mo.classList.toggle('open');});
+mo.addEventListener('click',()=>{mn.classList.remove('open');mo.classList.remove('open');});
+mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mn.classList.remove('open');mo.classList.remove('open');}));
+
+// ═══════════════════════════════════════════════
+// CONTACT FORM — Formspree + WhatsApp
+// ═══════════════════════════════════════════════
+function validateForm() {
+  let valid = true;
+  const fields = [
+    { id:'fc-name',    err:'err-name',    check: v => v.trim().length > 0 },
+    { id:'fc-email',   err:'err-email',   check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+    { id:'fc-subject', err:'err-subject', check: v => v.trim().length > 0 },
+    { id:'fc-message', err:'err-message', check: v => v.trim().length > 0 },
+  ];
+  fields.forEach(f => {
+    const el = document.getElementById(f.id);
+    const errEl = document.getElementById(f.err);
+    if(!f.check(el.value)) {
+      el.classList.add('invalid'); errEl.classList.add('show'); valid = false;
+    } else {
+      el.classList.remove('invalid'); errEl.classList.remove('show');
+    }
+  });
+  return valid;
+}
+
+// Clear invalid state on typing
+['fc-name','fc-email','fc-subject','fc-message'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    document.getElementById(id).classList.remove('invalid');
+  });
+});
+
+// Update WhatsApp link whenever form fields change
+function updateWaLink() {
+  const name    = document.getElementById('fc-name').value.trim();
+  const email   = document.getElementById('fc-email').value.trim();
+  const subject = document.getElementById('fc-subject').value.trim();
+  const message = document.getElementById('fc-message').value.trim();
+  const phone   = DATA.waphone || '919470729289';
+  const text = `Hi Abhishek! 👋\n\nName: ${name||'(not filled)'}\nEmail: ${email||'(not filled)'}\nSubject: ${subject||'(not filled)'}\n\nMessage:\n${message||'(not filled)'}`;
+  document.getElementById('waBtn').href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+}
+['fc-name','fc-email','fc-subject','fc-message'].forEach(id =>
+  document.getElementById(id).addEventListener('input', updateWaLink)
+);
+updateWaLink(); // init
+
+// Email submit via Formspree
+document.getElementById('formSubmit').addEventListener('click', async function() {
+  if(!validateForm()) return;
+
+  const formspreeId = DATA.formspree || '';
+  if(!formspreeId || formspreeId === 'YOUR_FORM_ID') {
+    setFormStatus('error', '⚠ Formspree ID not set. Go to Admin → Contact tab to add your Form ID.');
+    return;
+  }
+
+  const name    = document.getElementById('fc-name').value.trim();
+  const email   = document.getElementById('fc-email').value.trim();
+  const subject = document.getElementById('fc-subject').value.trim();
+  const message = document.getElementById('fc-message').value.trim();
+
+  setFormStatus('sending', '⟳ Transmitting message...');
+  document.getElementById('formSubmitLabel').textContent = 'Sending...';
+  this.disabled = true;
+
+  try {
+    const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, subject, message, _subject: `Portfolio Contact: ${subject}` })
+    });
+    if(res.ok) {
+      setFormStatus('success', '✓ Message transmitted! Abhishek will respond within 24 hrs.');
+      document.getElementById('formSubmitLabel').textContent = '✓ Sent!';
+      ['fc-name','fc-email','fc-subject','fc-message'].forEach(id => document.getElementById(id).value = '');
+      updateWaLink();
+      showToast('✓ Message sent to Abhishek!');
+    } else {
+      const data = await res.json();
+      setFormStatus('error', '⛔ Transmission failed. Try WhatsApp instead.');
+      document.getElementById('formSubmitLabel').textContent = '📧 Send via Email →';
+      this.disabled = false;
+    }
+  } catch(err) {
+    setFormStatus('error', '⛔ Network error. Try WhatsApp instead →');
+    document.getElementById('formSubmitLabel').textContent = '📧 Send via Email →';
+    this.disabled = false;
+  }
+});
+
+function setFormStatus(type, msg) {
+  const el = document.getElementById('formStatus');
+  el.className = `form-status ${type}`;
+  el.textContent = msg;
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+renderPortfolio();
+// Observe counters after first render
+setTimeout(()=>{
+  document.querySelectorAll('[data-target]').forEach(el=>countObs.observe(el));
+  document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+},100);
+
+// Blink CSS
+const bstyle=document.createElement('style');
+bstyle.textContent='@keyframes blink{50%{opacity:0;}}';
+document.head.appendChild(bstyle);
+
+// Show keyboard shortcut hint on first visit
+// No hint shown to visitors — admin access is private
+</script>
+</body>
+</html>
