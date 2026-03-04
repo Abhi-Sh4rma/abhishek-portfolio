@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="hydrated prfmybfs idc0_350"><plasmo-csui></plasmo-csui><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ABHISHEK SHARMA // SOC Analyst Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<title>ABHISHEK SHARMA // SOC Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&amp;family=Orbitron:wght@400;700;900&amp;family=Rajdhani:wght@300;400;600&amp;display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root {
@@ -15,6 +13,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--dark);color:#c8e6f0;font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;}
+@media(pointer:coarse){body{cursor:auto;}}
 .cursor{position:fixed;width:20px;height:20px;border:1px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen;}
 .cursor-dot{position:fixed;width:4px;height:4px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
 #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;}
@@ -26,7 +25,7 @@ body{background:var(--dark);color:#c8e6f0;font-family:'Rajdhani',sans-serif;over
 @keyframes fade-up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(2,8,16,.88);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(2,8,16,.88);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
 .nav-logo{font-family:'Orbitron',monospace;font-weight:900;font-size:1rem;color:var(--cyan);text-shadow:var(--glow);letter-spacing:3px;display:flex;align-items:center;gap:10px;}
 .nav-logo::before{content:'';width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 10px var(--green);animation:pulse-dot 2s infinite;}
 .nav-links{display:flex;gap:26px;list-style:none;}
@@ -41,11 +40,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 @keyframes status-scan{0%{width:0%;}50%{width:100%;}100%{width:0%;}}
 .admin-hint{font-family:'Share Tech Mono',monospace;font-size:.55rem;color:rgba(0,245,255,.25);letter-spacing:1px;border:1px solid rgba(0,245,255,.1);padding:4px 8px;cursor:none;transition:all .3s;}
 .admin-hint:hover{color:rgba(0,245,255,.5);border-color:rgba(0,245,255,.3);}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:5px;}
+.hamburger{display:none !important;}
 .hamburger span{display:block;width:24px;height:2px;background:var(--cyan);transition:all .3s;}
 
 /* MAIN */
-main{position:relative;z-index:10;}
+main{position:relative;z-index:2;}
 section{min-height:100vh;padding:100px 40px 60px;position:relative;}
 
 /* HERO */
@@ -215,36 +214,123 @@ section{min-height:100vh;padding:100px 40px 60px;position:relative;}
 @keyframes glitch2{0%,88%,100%{transform:translate(0);}89%{transform:translate(2px,-1px);}91%{transform:translate(-2px,1px);}93%{transform:translate(1px,2px);}}
 
 /* FOOTER */
-footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(--border);background:rgba(2,8,16,.93);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--border);background:rgba(2,8,16,.93);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
 .footer-copy{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:rgba(200,230,240,.28);}
 .footer-status{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--green);}
 
 /* MOBILE NAV */
-.mobile-nav{display:none;position:fixed;top:0;right:-100%;width:280px;height:100vh;background:rgba(2,8,16,.97);border-left:1px solid var(--border);z-index:200;padding:80px 28px 28px;flex-direction:column;gap:16px;transition:right .3s ease;backdrop-filter:blur(16px);}
+.mobile-nav{display:none;position:fixed;top:0;right:-100%;width:100%;height:100vh;height:100dvh;background:rgba(2,8,16,1);z-index:1001;padding:0;flex-direction:column;transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;}
 .mobile-nav.open{right:0;}
-.mobile-nav a{font-family:'Share Tech Mono',monospace;font-size:.8rem;letter-spacing:3px;color:rgba(200,230,240,.68);text-decoration:none;text-transform:uppercase;padding:10px 0;border-bottom:1px solid var(--border);transition:color .3s;}
-.mobile-nav a:hover{color:var(--cyan);}
-.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;}
-.mobile-overlay.open{display:block;}
+.mobile-nav-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);}
+.mobile-nav-logo{font-family:'Orbitron',monospace;font-size:.85rem;font-weight:900;color:var(--cyan);letter-spacing:2px;}
+.mobile-nav-close{background:none;border:1px solid rgba(255,0,60,.3);color:var(--red);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;}
+.mobile-nav-close:hover{background:rgba(255,0,60,.15);}
+.mobile-nav a{font-family:'Share Tech Mono',monospace;font-size:.9rem;letter-spacing:4px;color:rgba(200,230,240,.7);text-decoration:none;text-transform:uppercase;padding:18px 24px;border-bottom:1px solid rgba(0,245,255,.07);transition:all .25s;display:flex;align-items:center;gap:14px;}
+.mobile-nav a:active{color:var(--cyan);background:rgba(0,245,255,.06);}
+.mobile-nav{display:none !important;}
+.mobile-overlay{display:none !important;}
 
 /* RESPONSIVE */
+/* ── TABLET ── */
 @media(max-width:900px){
-  nav{padding:14px 18px;}
-  .nav-links,.nav-status,.admin-hint{display:none;}
-  .hamburger{display:flex;}
-  .mobile-nav{display:flex;}
-  section{padding:80px 18px 48px;}
+  nav{display:none;}
+  section{padding:40px 16px 44px;}
   .contact-grid{grid-template-columns:1fr;}
   .about-grid{grid-template-columns:1fr;}
-  footer{padding:16px 18px;}
+  .threat-grid{grid-template-columns:1fr;}
+  footer{padding:16px;}
+  .projects-grid{grid-template-columns:1fr 1fr;}
+  .skills-wrapper{grid-template-columns:1fr 1fr;}
+  .cert-grid{grid-template-columns:1fr 1fr;}
 }
+
+/* ── MOBILE ── */
 @media(max-width:600px){
-  .hero-btns{flex-direction:column;align-items:center;}
-  .btn-primary,.btn-secondary{width:220px;text-align:center;}
-  .projects-grid{grid-template-columns:1fr;}
-  .cert-grid{grid-template-columns:1fr;}
-  .hero-stats{gap:18px;}
+  /* NAV */
+  nav{padding:12px 14px;}
+  .nav-logo{font-size:.8rem;letter-spacing:2px;}
+
+  /* HERO — prevent overflow */
+  #hero{padding:40px 16px 40px;min-height:100svh;}
+  .hero-tag{font-size:.6rem;letter-spacing:2px;margin-bottom:14px;}
+  .hero-name{font-size:clamp(2.2rem,13vw,3.5rem);letter-spacing:0;}
+  .hero-title{font-size:.75rem;letter-spacing:3px;margin-bottom:6px;}
+  .hero-location{font-size:.6rem;margin-bottom:20px;}
+  .terminal-line{font-size:.62rem;margin-bottom:28px;letter-spacing:0;padding:0 8px;}
+  .hero-btns{flex-direction:column;align-items:center;gap:12px;width:100%;}
+  .btn-primary,.btn-secondary{width:100%;max-width:260px;text-align:center;padding:12px 20px;font-size:.65rem;}
+
+  /* STATS — 2x2 grid on mobile */
+  .hero-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:32px;
+    width:100%;
+    max-width:280px;
+  }
+  .stat{text-align:center;}
   .stat::after{display:none;}
+  .stat-num{font-size:1.5rem;}
+  .stat-label{font-size:.52rem;}
+
+  /* SECTIONS */
+  section{padding:72px 14px 40px;}
+  .section-header{gap:10px;margin-bottom:30px;}
+  .section-tag{font-size:.55rem;}
+  .section-title{font-size:1.1rem;letter-spacing:1px;}
+
+  /* ABOUT */
+  .about-grid{grid-template-columns:1fr;gap:20px;}
+  .highlight-row{padding:10px 12px;}
+  .highlight-text{font-size:.6rem;}
+
+  /* PROJECTS */
+  .projects-grid{grid-template-columns:1fr;}
+  .card-title{font-size:.75rem;}
+  .card-desc{font-size:.78rem;}
+  .card-bullets li{font-size:.6rem;}
+
+  /* SKILLS */
+  .skills-wrapper{grid-template-columns:1fr;}
+  .skill-group{padding:16px;}
+  .skill-group-title{font-size:.62rem;}
+  .skill-tag{font-size:.56rem;padding:3px 7px;}
+
+  /* THREAT INTEL */
+  .threat-grid{grid-template-columns:1fr;}
+  .threat-feed{height:240px;}
+  .feed-item{font-size:.6rem;}
+
+  /* TOOLS */
+  .tools-grid{grid-template-columns:repeat(3,1fr);gap:10px;}
+  .tool-item{padding:12px 8px;}
+  .tool-icon{font-size:1.3rem;margin-bottom:5px;}
+  .tool-name{font-size:.54rem;}
+  .tool-cat{font-size:.44rem;}
+
+  /* CERTS */
+  .cert-grid{grid-template-columns:1fr;}
+  .cert-card{padding:16px;}
+  .cert-name{font-size:.7rem;}
+
+  /* EXP */
+  .exp-card{padding:18px 16px;}
+  .exp-role{font-size:.82rem;}
+  .exp-header{flex-direction:column;gap:6px;}
+  .exp-bullets li{font-size:.78rem;}
+
+  /* CONTACT */
+  .contact-grid{grid-template-columns:1fr;gap:24px;}
+  .contact-info h3{font-size:.85rem;}
+  .contact-info p{font-size:.78rem;}
+  .contact-link-text{font-size:.58rem;}
+  .form-btn-row{flex-direction:column;width:100%;}
+  .form-submit,.btn-whatsapp{width:100%;text-align:center;justify-content:center;}
+
+  /* FOOTER */
+  footer{padding:14px;flex-direction:column;text-align:center;gap:8px;}
+  .footer-copy{font-size:.52rem;}
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -402,25 +488,25 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
 @media(max-width:900px){.threat-grid{grid-template-columns:1fr;}}
 @media(max-width:600px){.admin-grid{grid-template-columns:1fr;}.admin-grid-3{grid-template-columns:1fr 1fr;}}
 </style>
-</head>
-<body>
+<style>@keyframes blink{50%{opacity:0;}}</style><style id="_goober"> @keyframes go2264125279{from{transform:scale(0) rotate(45deg);opacity:0;}to{transform:scale(1) rotate(45deg);opacity:1;}}@keyframes go3020080000{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}@keyframes go463499852{from{transform:scale(0) rotate(90deg);opacity:0;}to{transform:scale(1) rotate(90deg);opacity:1;}}@keyframes go1268368563{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}@keyframes go1310225428{from{transform:scale(0) rotate(45deg);opacity:0;}to{transform:scale(1) rotate(45deg);opacity:1;}}@keyframes go651618207{0%{height:0;width:0;opacity:0;}40%{height:0;width:6px;opacity:1;}100%{opacity:1;height:10px;}}@keyframes go901347462{from{transform:scale(0.6);opacity:0.4;}to{transform:scale(1);opacity:1;}}.go4109123758{z-index:9999;}.go4109123758 > *{pointer-events:auto;}</style><script src="chrome-extension://kapjaoifikajdcdehfdlmojlepfpkpoe/sqrx-email-notifier/sqrx-email-notifier.esm.js" type="module" data-resources-url="chrome-extension://kapjaoifikajdcdehfdlmojlepfpkpoe/sqrx-email-notifier/" data-stencil-namespace="sqrx-email-notifier" id="sqrx-email-notifier"></script><script src="chrome-extension://kapjaoifikajdcdehfdlmojlepfpkpoe/sqrx-notification-bar/sqrx-notification-bar.esm.js" type="module" data-resources-url="chrome-extension://kapjaoifikajdcdehfdlmojlepfpkpoe/sqrx-notification-bar/" data-stencil-namespace="sqrx-notification-bar" id="sqrx-notification-bar"></script><script src="chrome-extension://kapjaoifikajdcdehfdlmojlepfpkpoe/sqrx-dialog/sqrx-dialog.esm.js" type="module" data-resources-url="chrome-extension://kapjaoifikajdcdehfdlmojlepfpkpoe/sqrx-dialog/" data-stencil-namespace="sqrx-dialog" id="sqrx-dialog"></script><style type="text/css" id="mytempCss">._8mqQwQ { display: none; } ._1TWLMK.icF5zO { opacity: 0.01; }</style></head>
+<body style="overflow: hidden;">
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-dot" id="cursorDot"></div>
-<canvas id="bg-canvas"></canvas>
+<div class="cursor" id="cursor" style="left: 914.431px; top: 504.213px; width: 36px; height: 36px; background: rgba(0, 245, 255, 0.1);"></div>
+<div class="cursor-dot" id="cursorDot" style="left: 915px; top: 505px;"></div>
+<canvas id="bg-canvas" width="1920" height="868" style="width: 1229px; height: 556px;"></canvas>
 <div class="scanlines"></div>
 <div class="noise"></div>
-<div class="admin-toast" id="adminToast"></div>
+<div class="admin-toast show" id="adminToast">✓ Portfolio updated successfully!</div>
 
 <!-- ═══════ PASSWORD MODAL ═══════ -->
-<div id="pw-modal">
+<div id="pw-modal" class="">
   <div class="pw-box">
     <div class="pw-corner tl"></div><div class="pw-corner tr"></div>
     <div class="pw-corner bl"></div><div class="pw-corner br"></div>
     <span class="pw-icon">🔐</span>
     <div class="pw-title">ADMIN ACCESS</div>
     <div class="pw-sub">// Restricted — Authorised Personnel Only</div>
-    <div class="pw-locked" id="pwLocked">⛔ TOO MANY ATTEMPTS — LOCKED FOR <span id="lockTimer">30</span>s</div>
+    <div class="pw-locked" id="pwLocked" style="display: none;">⛔ TOO MANY ATTEMPTS — LOCKED FOR <span id="lockTimer">30</span>s</div>
     <label class="pw-label">Enter Access Code</label>
     <div class="pw-input-wrap">
       <input class="pw-input" type="password" id="pwInput" placeholder="••••••••" maxlength="32" autocomplete="off">
@@ -434,7 +520,7 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
 </div>
 
 <!-- ═══════ ADMIN PANEL OVERLAY ═══════ -->
-<div id="admin-overlay">
+<div id="admin-overlay" class="active">
   <div class="admin-shell">
     <div class="admin-topbar">
       <div>
@@ -501,19 +587,229 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
     </div>
     <div class="admin-panel" id="tab-projects">
       <div class="admin-section-title">Projects <button class="btn-admin-add" id="btnAddProject" style="margin-left:12px;">+ Add Project</button></div>
-      <div class="project-admin-list" id="projectAdminList"></div>
+      <div class="project-admin-list" id="projectAdminList">
+    <div class="project-admin-card" data-pi="0">
+      <div class="project-admin-header">
+        <div class="project-admin-num">// PROJECT 01</div>
+        <div class="project-admin-actions"><button class="btn-admin-del" onclick="deleteProject(0)">✕ Remove</button></div>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Icon (emoji)</label><input class="admin-input" data-pi="0" data-f="icon" value="🛡"></div>
+        <div class="admin-field"><label class="admin-label">Badge Style</label>
+          <select class="admin-select" data-pi="0" data-f="badge">
+            <option value="badge-red" selected="">RED</option><option value="badge-orange">ORANGE</option><option value="badge-green">GREEN</option><option value="badge-cyan">CYAN</option>
+          </select></div>
+        <div class="admin-field"><label class="admin-label">Badge Text</label><input class="admin-input" data-pi="0" data-f="badgeText" value="CRITICAL"></div>
+        <div class="admin-field"><label class="admin-label">Threat Dots (1-5)</label><input class="admin-input" type="number" min="1" max="5" data-pi="0" data-f="dots" value="4"></div>
+        <div class="admin-field"><label class="admin-label">Dot Color</label>
+          <select class="admin-select" data-pi="0" data-f="dotColor">
+            <option value="red" selected="">RED</option><option value="orange">ORANGE</option><option value="green">GREEN</option>
+          </select></div>
+        <div class="admin-field"><label class="admin-label">GitHub / Link URL</label><input class="admin-input" data-pi="0" data-f="link" value="https://github.com/Abhi-Sh4rma/Intelligent-IDS-IR"></div>
+        <div class="admin-field full"><label class="admin-label">Project Title</label><input class="admin-input" data-pi="0" data-f="title" value="INTELLIGENT IDS-IR"></div>
+        <div class="admin-field full"><label class="admin-label">Description</label><textarea class="admin-textarea" data-pi="0" data-f="desc">SOC-style intrusion detection &amp; incident response pipeline for real-time authentication monitoring using live Windows Security Event Logs.</textarea></div>
+        <div class="admin-field full"><label class="admin-label">Tags (comma-separated)</label><input class="admin-input" data-pi="0" data-f="tags" value="Python,PowerShell,Flask,Windows Logs,Event Correlation"></div>
+        <div class="admin-field full"><label class="admin-label">Bullet Points</label>
+          <div class="bullets-list" id="proj-bullets-0">
+            
+              <div class="bullet-row">
+                <input class="bullet-input" data-pi="0" data-bi="0" value="Collected &amp; normalized Event ID 4625 (failed logon) and 4624 (successful logon) into structured detection logs">
+                <button class="btn-del-bullet" onclick="deleteProjBullet(0,0)">✕</button>
+              </div>
+              <div class="bullet-row">
+                <input class="bullet-input" data-pi="0" data-bi="1" value="Implemented time-window brute-force detection, stateful alert persistence &amp; success-after-failure correlation">
+                <button class="btn-del-bullet" onclick="deleteProjBullet(0,1)">✕</button>
+              </div>
+              <div class="bullet-row">
+                <input class="bullet-input" data-pi="0" data-bi="2" value="Dynamic risk scoring &amp; severity escalation with auto-refreshing Flask web dashboard">
+                <button class="btn-del-bullet" onclick="deleteProjBullet(0,2)">✕</button>
+              </div>
+              <div class="bullet-row">
+                <input class="bullet-input" data-pi="0" data-bi="3" value="Captured from live VM environment — not simulated test data">
+                <button class="btn-del-bullet" onclick="deleteProjBullet(0,3)">✕</button>
+              </div>
+          </div>
+          <button class="btn-admin-add" style="margin-top:6px;" onclick="addProjBullet(0)">+ Bullet</button>
+        </div>
+      </div>
+    </div>
+    <div class="project-admin-card" data-pi="1">
+      <div class="project-admin-header">
+        <div class="project-admin-num">// PROJECT 02</div>
+        <div class="project-admin-actions"><button class="btn-admin-del" onclick="deleteProject(1)">✕ Remove</button></div>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Icon (emoji)</label><input class="admin-input" data-pi="1" data-f="icon" value="🔐"></div>
+        <div class="admin-field"><label class="admin-label">Badge Style</label>
+          <select class="admin-select" data-pi="1" data-f="badge">
+            <option value="badge-red">RED</option><option value="badge-orange" selected="">ORANGE</option><option value="badge-green">GREEN</option><option value="badge-cyan">CYAN</option>
+          </select></div>
+        <div class="admin-field"><label class="admin-label">Badge Text</label><input class="admin-input" data-pi="1" data-f="badgeText" value="HIGH"></div>
+        <div class="admin-field"><label class="admin-label">Threat Dots (1-5)</label><input class="admin-input" type="number" min="1" max="5" data-pi="1" data-f="dots" value="3"></div>
+        <div class="admin-field"><label class="admin-label">Dot Color</label>
+          <select class="admin-select" data-pi="1" data-f="dotColor">
+            <option value="red">RED</option><option value="orange" selected="">ORANGE</option><option value="green">GREEN</option>
+          </select></div>
+        <div class="admin-field"><label class="admin-label">GitHub / Link URL</label><input class="admin-input" data-pi="1" data-f="link" value="https://github.com/Abhi-Sh4rma/Ransomwatch"></div>
+        <div class="admin-field full"><label class="admin-label">Project Title</label><input class="admin-input" data-pi="1" data-f="title" value="RANSOMWATCH"></div>
+        <div class="admin-field full"><label class="admin-label">Description</label><textarea class="admin-textarea" data-pi="1" data-f="desc">Real-time ransomware behavioral detection engine running in a controlled Windows environment — simulating endpoint detection workflows.</textarea></div>
+        <div class="admin-field full"><label class="admin-label">Tags (comma-separated)</label><input class="admin-input" data-pi="1" data-f="tags" value="Python,PowerShell,Behavioral Analysis,EDR Simulation"></div>
+        <div class="admin-field full"><label class="admin-label">Bullet Points</label>
+          <div class="bullets-list" id="proj-bullets-1">
+            
+              <div class="bullet-row">
+                <input class="bullet-input" data-pi="1" data-bi="0" value="Behavioral detection for rapid file modifications, bulk renaming &amp; suspicious extension changes">
+                <button class="btn-del-bullet" onclick="deleteProjBullet(1,0)">✕</button>
+              </div>
+              <div class="bullet-row">
+                <input class="bullet-input" data-pi="1" data-bi="1" value="Configurable threshold-based alerting via config.json for dynamic tuning">
+                <button class="btn-del-bullet" onclick="deleteProjBullet(1,1)">✕</button>
+              </div>
+              <div class="bullet-row">
+                <input class="bullet-input" data-pi="1" data-bi="2" value="Built a ransomware simulation module to emulate encryption-like activity for validation">
+                <button class="btn-del-bullet" onclick="deleteProjBullet(1,2)">✕</button>
+              </div>
+              <div class="bullet-row">
+                <input class="bullet-input" data-pi="1" data-bi="3" value="Structured alerts with risk scoring &amp; severity classification">
+                <button class="btn-del-bullet" onclick="deleteProjBullet(1,3)">✕</button>
+              </div>
+          </div>
+          <button class="btn-admin-add" style="margin-top:6px;" onclick="addProjBullet(1)">+ Bullet</button>
+        </div>
+      </div>
+    </div></div>
     </div>
 
     <!-- TAB: SKILLS -->
     <div class="admin-panel" id="tab-skills">
       <div class="admin-section-title">Skill Groups <button class="btn-admin-add" id="btnAddSkillGroup" style="margin-left:12px;">+ Add Group</button></div>
-      <div id="skillAdminList"></div>
+      <div id="skillAdminList">
+    <div class="skill-admin-group">
+      <div class="skill-admin-header">
+        <span class="admin-label">GROUP 1</span>
+        <button class="btn-admin-del" onclick="deleteSkillGroup(0)">✕ Remove</button>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Group Title</label><input class="admin-input" data-si="0" data-f="title" value="Core Security"></div>
+        <div class="admin-field full"><label class="admin-label">Skills (comma-separated)</label><input class="admin-input" data-si="0" data-f="tags" value="SOC Monitoring,SIEM Fundamentals,Log Analysis,Alert Triage,Incident Response,Risk Assessment,Event Correlation,Vulnerability Assessment,Threat Intelligence"></div>
+      </div>
+    </div>
+    <div class="skill-admin-group">
+      <div class="skill-admin-header">
+        <span class="admin-label">GROUP 2</span>
+        <button class="btn-admin-del" onclick="deleteSkillGroup(1)">✕ Remove</button>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Group Title</label><input class="admin-input" data-si="1" data-f="title" value="Windows Event Logs"></div>
+        <div class="admin-field full"><label class="admin-label">Skills (comma-separated)</label><input class="admin-input" data-si="1" data-f="tags" value="Event ID 4624,Event ID 4625,Event ID 4672,Event ID 4688,Log Normalization,Brute-Force Detection"></div>
+      </div>
+    </div>
+    <div class="skill-admin-group">
+      <div class="skill-admin-header">
+        <span class="admin-label">GROUP 3</span>
+        <button class="btn-admin-del" onclick="deleteSkillGroup(2)">✕ Remove</button>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Group Title</label><input class="admin-input" data-si="2" data-f="title" value="Networking &amp; Security"></div>
+        <div class="admin-field full"><label class="admin-label">Skills (comma-separated)</label><input class="admin-input" data-si="2" data-f="tags" value="TCP/IP,DNS,HTTP/HTTPS,Firewall Concepts,IDS/IPS,Network Traffic Analysis"></div>
+      </div>
+    </div>
+    <div class="skill-admin-group">
+      <div class="skill-admin-header">
+        <span class="admin-label">GROUP 4</span>
+        <button class="btn-admin-del" onclick="deleteSkillGroup(3)">✕ Remove</button>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Group Title</label><input class="admin-input" data-si="3" data-f="title" value="Frameworks"></div>
+        <div class="admin-field full"><label class="admin-label">Skills (comma-separated)</label><input class="admin-input" data-si="3" data-f="tags" value="MITRE ATT&amp;CK,Cyber Kill Chain"></div>
+      </div>
+    </div>
+    <div class="skill-admin-group">
+      <div class="skill-admin-header">
+        <span class="admin-label">GROUP 5</span>
+        <button class="btn-admin-del" onclick="deleteSkillGroup(4)">✕ Remove</button>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Group Title</label><input class="admin-input" data-si="4" data-f="title" value="Languages &amp; Scripting"></div>
+        <div class="admin-field full"><label class="admin-label">Skills (comma-separated)</label><input class="admin-input" data-si="4" data-f="tags" value="Python,PowerShell,Bash"></div>
+      </div>
+    </div>
+    <div class="skill-admin-group">
+      <div class="skill-admin-header">
+        <span class="admin-label">GROUP 6</span>
+        <button class="btn-admin-del" onclick="deleteSkillGroup(5)">✕ Remove</button>
+      </div>
+      <div class="admin-grid">
+        <div class="admin-field"><label class="admin-label">Group Title</label><input class="admin-input" data-si="5" data-f="title" value="Tools &amp; Platforms"></div>
+        <div class="admin-field full"><label class="admin-label">Skills (comma-separated)</label><input class="admin-input" data-si="5" data-f="tags" value="Linux,Windows,Git / GitHub,Docker,VMware,Wireshark,Flask,Pandas,JSON/CSV"></div>
+      </div>
+    </div></div>
     </div>
 
     <!-- TAB: CERTIFICATIONS -->
     <div class="admin-panel" id="tab-certs">
       <div class="admin-section-title">Certifications <button class="btn-admin-add" id="btnAddCert" style="margin-left:12px;">+ Add Cert</button></div>
-      <div class="cert-admin-list" id="certAdminList"></div>
+      <div class="cert-admin-list" id="certAdminList">
+    <div class="cert-admin-card">
+      <div class="cert-admin-header">
+        <span class="admin-label">CERT 01</span>
+        <button class="btn-admin-del" onclick="deleteCert(0)">✕ Remove</button>
+      </div>
+      <div class="admin-grid-3">
+        <div class="admin-field"><label class="admin-label">Icon (emoji)</label><input class="admin-input" data-ci="0" data-f="icon" value="🏆"></div>
+        <div class="admin-field"><label class="admin-label">Badge Color</label>
+          <select class="admin-select" data-ci="0" data-f="color">
+            <option value="gold" selected="">GOLD</option><option value="cyan">CYAN</option><option value="green">GREEN</option><option value="purple">PURPLE</option>
+          </select></div>
+        <div class="admin-field"><label class="admin-label">Cert Name</label><input class="admin-input" data-ci="0" data-f="name" value="IBM Cybersecurity Analyst"></div>
+        <div class="admin-field full"><label class="admin-label">Issuer</label><input class="admin-input" data-ci="0" data-f="issuer" value="IBM — Professional Certificate"></div>
+      </div>
+    </div>
+    <div class="cert-admin-card">
+      <div class="cert-admin-header">
+        <span class="admin-label">CERT 02</span>
+        <button class="btn-admin-del" onclick="deleteCert(1)">✕ Remove</button>
+      </div>
+      <div class="admin-grid-3">
+        <div class="admin-field"><label class="admin-label">Icon (emoji)</label><input class="admin-input" data-ci="1" data-f="icon" value="🟢"></div>
+        <div class="admin-field"><label class="admin-label">Badge Color</label>
+          <select class="admin-select" data-ci="1" data-f="color">
+            <option value="gold">GOLD</option><option value="cyan">CYAN</option><option value="green" selected="">GREEN</option><option value="purple">PURPLE</option>
+          </select></div>
+        <div class="admin-field"><label class="admin-label">Cert Name</label><input class="admin-input" data-ci="1" data-f="name" value="Cyber Security 101"></div>
+        <div class="admin-field full"><label class="admin-label">Issuer</label><input class="admin-input" data-ci="1" data-f="issuer" value="TryHackMe"></div>
+      </div>
+    </div>
+    <div class="cert-admin-card">
+      <div class="cert-admin-header">
+        <span class="admin-label">CERT 03</span>
+        <button class="btn-admin-del" onclick="deleteCert(2)">✕ Remove</button>
+      </div>
+      <div class="admin-grid-3">
+        <div class="admin-field"><label class="admin-label">Icon (emoji)</label><input class="admin-input" data-ci="2" data-f="icon" value="🔐"></div>
+        <div class="admin-field"><label class="admin-label">Badge Color</label>
+          <select class="admin-select" data-ci="2" data-f="color">
+            <option value="gold">GOLD</option><option value="cyan" selected="">CYAN</option><option value="green">GREEN</option><option value="purple">PURPLE</option>
+          </select></div>
+        <div class="admin-field"><label class="admin-label">Cert Name</label><input class="admin-input" data-ci="2" data-f="name" value="Pre Security"></div>
+        <div class="admin-field full"><label class="admin-label">Issuer</label><input class="admin-input" data-ci="2" data-f="issuer" value="TryHackMe"></div>
+      </div>
+    </div>
+    <div class="cert-admin-card">
+      <div class="cert-admin-header">
+        <span class="admin-label">CERT 04</span>
+        <button class="btn-admin-del" onclick="deleteCert(3)">✕ Remove</button>
+      </div>
+      <div class="admin-grid-3">
+        <div class="admin-field"><label class="admin-label">Icon (emoji)</label><input class="admin-input" data-ci="3" data-f="icon" value="🐍"></div>
+        <div class="admin-field"><label class="admin-label">Badge Color</label>
+          <select class="admin-select" data-ci="3" data-f="color">
+            <option value="gold">GOLD</option><option value="cyan">CYAN</option><option value="green">GREEN</option><option value="purple" selected="">PURPLE</option>
+          </select></div>
+        <div class="admin-field"><label class="admin-label">Cert Name</label><input class="admin-input" data-ci="3" data-f="name" value="Python Certificate"></div>
+        <div class="admin-field full"><label class="admin-label">Issuer</label><input class="admin-input" data-ci="3" data-f="issuer" value="Programming — Verified"></div>
+      </div>
+    </div></div>
     </div>
 
     <!-- TAB: EXPERIENCE -->
@@ -525,7 +821,19 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
         <div class="admin-field"><label class="admin-label">Date Range</label><input class="admin-input" id="f-expdate" placeholder="Jun 2025 — Jul 2025"></div>
       </div>
       <div class="admin-section-title" style="margin-top:8px;">Bullet Points</div>
-      <div class="bullets-list" id="expBulletsList"></div>
+      <div class="bullets-list" id="expBulletsList">
+    <div class="bullet-row">
+      <input class="bullet-input" data-ebi="0" value="Developed backend REST APIs and practiced structured development workflows with Git-based version control.">
+      <button class="btn-del-bullet" onclick="deleteExpBullet(0)">✕</button>
+    </div>
+    <div class="bullet-row">
+      <input class="bullet-input" data-ebi="1" value="Worked on mini-projects simulating real-world use cases across multiple domains.">
+      <button class="btn-del-bullet" onclick="deleteExpBullet(1)">✕</button>
+    </div>
+    <div class="bullet-row">
+      <input class="bullet-input" data-ebi="2" value="Improved debugging, deployment awareness, and collaborative engineering practices.">
+      <button class="btn-del-bullet" onclick="deleteExpBullet(2)">✕</button>
+    </div></div>
       <button class="btn-admin-add" id="btnAddExpBullet">+ Add Bullet</button>
     </div>
 
@@ -546,7 +854,7 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
 
     <div class="admin-save-bar">
       <div>
-        <div class="save-status" id="saveStatus">Press SAVE to apply changes to this session</div>
+        <div class="save-status" id="saveStatus">✓ Saved at 13:08:56</div>
         <div class="export-hint">⬆ After saving, click EXPORT to get the updated file → re-upload to Vercel</div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -578,13 +886,18 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
 
 <div class="mobile-overlay" id="mobileOverlay"></div>
 <nav class="mobile-nav" id="mobileNav">
-  <a href="#hero">Init</a>
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#skills">Skills</a>
-  <a href="#threats">Intel</a>
-  <a href="#certifications">Creds</a>
-  <a href="#contact">Comms</a>
+  <div class="mobile-nav-header">
+    <div class="mobile-nav-logo">ABHISHEK//SOC</div>
+    <button class="mobile-nav-close" id="mobileNavClose">✕</button>
+  </div>
+  <a href="#hero">⚡ Init</a>
+  <a href="#about">👤 About</a>
+  <a href="#projects">🛡 Projects</a>
+  <a href="#skills">⚙ Skills</a>
+  <a href="#threats">📡 Intel</a>
+  <a href="#certifications">🏆 Credentials</a>
+  <a href="#experience">💼 Experience</a>
+  <a href="#contact">📨 Comms</a>
 </nav>
 
 <main>
@@ -595,19 +908,19 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
     <span class="line2 glitch" id="heroLname" data-text="SHARMA">SHARMA</span>
   </h1>
   <div class="hero-title" id="heroTitle">SOC Analyst · Threat Detection · Incident Response</div>
-  <div class="hero-location" id="heroLocation">📍 Ambala, Haryana</div>
+  <div class="hero-location" id="heroLocation">📍 📍 Ambala, Haryana</div>
   <div class="terminal-line">
-    <span id="typewriter"></span><span style="color:var(--cyan);animation:blink 1s step-end infinite;">_</span>
+    <span id="typewriter">Windows </span><span style="color:var(--cyan);animation:blink 1s step-end infinite;">_</span>
   </div>
   <div class="hero-btns">
     <a href="#projects" class="btn-primary">View Projects</a>
     <a href="#contact" class="btn-secondary">Open Channel</a>
   </div>
   <div class="hero-stats">
-    <div class="stat"><span class="stat-num" id="s1n" data-target="2">0</span><span class="stat-label" id="s1l">SOC Projects</span></div>
-    <div class="stat"><span class="stat-num" id="s2n" data-target="4">0</span><span class="stat-label" id="s2l">Certifications</span></div>
-    <div class="stat"><span class="stat-num" id="s3n" data-target="7">0</span><span class="stat-label" id="s3l">CGPA / 10</span></div>
-    <div class="stat"><span class="stat-num" id="s4n" data-target="2026">0</span><span class="stat-label" id="s4l">Grad Year</span></div>
+    <div class="stat"><span class="stat-num" id="s1n" data-target="2">2</span><span class="stat-label" id="s1l">SOC Projects</span></div>
+    <div class="stat"><span class="stat-num" id="s2n" data-target="4">4</span><span class="stat-label" id="s2l">Certifications</span></div>
+    <div class="stat"><span class="stat-num" id="s3n" data-target="7">7</span><span class="stat-label" id="s3l">CGPA / 10</span></div>
+    <div class="stat"><span class="stat-num" id="s4n" data-target="2026">2026</span><span class="stat-label" id="s4l">Grad Year</span></div>
   </div>
 </section>
 
@@ -615,26 +928,102 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
   <div class="section-header reveal"><span class="section-tag">// IDENTITY</span><h2 class="section-title">Operator Profile</h2><div class="section-line"></div></div>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p id="bio1"></p><p id="bio2"></p><p id="bio3"></p>
+      <p id="bio1">Final-year B.Tech Computer Science Engineering student at Maharishi Markandeshwar (Deemed to be University), Ambala. Actively transitioning into SOC / Blue Team roles with hands-on experience building real security pipelines.</p><p id="bio2">Specializes in threat detection, log analysis, and security automation. Built a full SOC-style intrusion detection and incident response system from scratch using live Windows Security Event Logs, Python, and Flask.</p><p id="bio3">Passionate about converting raw security events into actionable intelligence — driven by a curiosity to understand attacker behavior and close the detection gap.</p>
     </div>
-    <div class="about-highlights reveal reveal-delay-1" id="aboutHighlights"></div>
+    <div class="about-highlights reveal reveal-delay-1" id="aboutHighlights">
+    <div class="highlight-row">
+      <span class="highlight-icon">🎓</span>
+      <div class="highlight-text"><strong>Education</strong>MM University, Ambala · 2022–2026</div>
+    </div>
+    <div class="highlight-row">
+      <span class="highlight-icon">🔍</span>
+      <div class="highlight-text"><strong>Focus Area</strong>SOC Monitoring, SIEM, Log Analysis, Alert Triage, Incident Response</div>
+    </div>
+    <div class="highlight-row">
+      <span class="highlight-icon">⚙</span>
+      <div class="highlight-text"><strong>Primary Stack</strong>Python · PowerShell · Flask · Windows Event Logs · Bash</div>
+    </div>
+    <div class="highlight-row">
+      <span class="highlight-icon">🌐</span>
+      <div class="highlight-text"><strong>Frameworks</strong>MITRE ATT&amp;CK (basic) · Cyber Kill Chain · TCP/IP · IDS/IPS</div>
+    </div>
+    <div class="highlight-row">
+      <span class="highlight-icon">💼</span>
+      <div class="highlight-text"><strong>Experience</strong>Software Engineering Intern — MMEC, Ambala · Jun 2025 — Jul 2025</div>
+    </div></div>
   </div>
 </section>
 
 <section id="projects">
   <div class="section-header reveal"><span class="section-tag">// OPS_LOG</span><h2 class="section-title">Active Operations</h2><div class="section-line"></div></div>
-  <div class="projects-grid" id="projectsGrid"></div>
+  <div class="projects-grid" id="projectsGrid">
+    <div class="project-card reveal">
+      <div class="card-header">
+        <div class="card-icon">🛡</div>
+        <span class="card-badge badge-red">CRITICAL</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">INTELLIGENT IDS-IR</div>
+        <div class="card-desc">SOC-style intrusion detection &amp; incident response pipeline for real-time authentication monitoring using live Windows Security Event Logs.</div>
+        <ul class="card-bullets"><li>Collected &amp; normalized Event ID 4625 (failed logon) and 4624 (successful logon) into structured detection logs</li><li>Implemented time-window brute-force detection, stateful alert persistence &amp; success-after-failure correlation</li><li>Dynamic risk scoring &amp; severity escalation with auto-refreshing Flask web dashboard</li><li>Captured from live VM environment — not simulated test data</li></ul>
+        <div class="card-tags"><span class="tag">Python</span><span class="tag">PowerShell</span><span class="tag">Flask</span><span class="tag">Windows Logs</span><span class="tag">Event Correlation</span></div>
+      </div>
+      <div class="card-footer">
+        <a href="https://github.com/Abhi-Sh4rma/Intelligent-IDS-IR" target="_blank" class="card-link">GitHub Repo</a>
+        <div class="threat-level"><div class="threat-dot active-red"></div><div class="threat-dot active-red"></div><div class="threat-dot active-red"></div><div class="threat-dot active-red"></div><div class="threat-dot"></div></div>
+      </div>
+    </div>
+    <div class="project-card reveal reveal-delay-1">
+      <div class="card-header">
+        <div class="card-icon">🔐</div>
+        <span class="card-badge badge-orange">HIGH</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">RANSOMWATCH</div>
+        <div class="card-desc">Real-time ransomware behavioral detection engine running in a controlled Windows environment — simulating endpoint detection workflows.</div>
+        <ul class="card-bullets"><li>Behavioral detection for rapid file modifications, bulk renaming &amp; suspicious extension changes</li><li>Configurable threshold-based alerting via config.json for dynamic tuning</li><li>Built a ransomware simulation module to emulate encryption-like activity for validation</li><li>Structured alerts with risk scoring &amp; severity classification</li></ul>
+        <div class="card-tags"><span class="tag">Python</span><span class="tag">PowerShell</span><span class="tag">Behavioral Analysis</span><span class="tag">EDR Simulation</span></div>
+      </div>
+      <div class="card-footer">
+        <a href="https://github.com/Abhi-Sh4rma/Ransomwatch" target="_blank" class="card-link">GitHub Repo</a>
+        <div class="threat-level"><div class="threat-dot active-orange"></div><div class="threat-dot active-orange"></div><div class="threat-dot active-orange"></div><div class="threat-dot"></div><div class="threat-dot"></div></div>
+      </div>
+    </div></div>
 </section>
 
 <section id="skills">
   <div class="section-header reveal"><span class="section-tag">// CAPABILITIES</span><h2 class="section-title">Technical Skills</h2><div class="section-line"></div></div>
-  <div class="skills-wrapper" id="skillsWrapper"></div>
+  <div class="skills-wrapper" id="skillsWrapper">
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Core Security</div>
+      <div class="skill-tags"><span class="skill-tag">SOC Monitoring</span><span class="skill-tag">SIEM Fundamentals</span><span class="skill-tag">Log Analysis</span><span class="skill-tag">Alert Triage</span><span class="skill-tag">Incident Response</span><span class="skill-tag">Risk Assessment</span><span class="skill-tag">Event Correlation</span><span class="skill-tag">Vulnerability Assessment</span><span class="skill-tag">Threat Intelligence</span></div>
+    </div>
+    <div class="skill-group reveal reveal-delay-1">
+      <div class="skill-group-title">Windows Event Logs</div>
+      <div class="skill-tags"><span class="skill-tag">Event ID 4624</span><span class="skill-tag">Event ID 4625</span><span class="skill-tag">Event ID 4672</span><span class="skill-tag">Event ID 4688</span><span class="skill-tag">Log Normalization</span><span class="skill-tag">Brute-Force Detection</span></div>
+    </div>
+    <div class="skill-group reveal reveal-delay-2">
+      <div class="skill-group-title">Networking &amp; Security</div>
+      <div class="skill-tags"><span class="skill-tag">TCP/IP</span><span class="skill-tag">DNS</span><span class="skill-tag">HTTP/HTTPS</span><span class="skill-tag">Firewall Concepts</span><span class="skill-tag">IDS/IPS</span><span class="skill-tag">Network Traffic Analysis</span></div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Frameworks</div>
+      <div class="skill-tags"><span class="skill-tag">MITRE ATT&amp;CK</span><span class="skill-tag">Cyber Kill Chain</span></div>
+    </div>
+    <div class="skill-group reveal reveal-delay-1">
+      <div class="skill-group-title">Languages &amp; Scripting</div>
+      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">PowerShell</span><span class="skill-tag">Bash</span></div>
+    </div>
+    <div class="skill-group reveal reveal-delay-2">
+      <div class="skill-group-title">Tools &amp; Platforms</div>
+      <div class="skill-tags"><span class="skill-tag">Linux</span><span class="skill-tag">Windows</span><span class="skill-tag">Git / GitHub</span><span class="skill-tag">Docker</span><span class="skill-tag">VMware</span><span class="skill-tag">Wireshark</span><span class="skill-tag">Flask</span><span class="skill-tag">Pandas</span><span class="skill-tag">JSON/CSV</span></div>
+    </div></div>
 </section>
 
 <section id="threats">
   <div class="section-header reveal"><span class="section-tag">// INTEL_FEED</span><h2 class="section-title">SOC Intelligence</h2><div class="section-line"></div></div>
   <div class="threat-grid reveal">
-    <div class="threat-feed"><div class="feed-header">Live Detection Feed</div><div id="feedContainer"></div></div>
+    <div class="threat-feed"><div class="feed-header">Live Detection Feed</div><div id="feedContainer"><div class="feed-item" style="opacity: 1; transform: translateY(0px); transition: 0.4s;"><span class="feed-time">13:08:54</span><span class="feed-msg"><span class="low">[INFO]</span> Event 4688 — Process creation: powershell.exe flagged</span></div><div class="feed-item" style="opacity: 1; transform: translateY(0px); transition: 0.4s;"><span class="feed-time">13:08:52</span><span class="feed-msg"><span class="hi">[CRITICAL]</span> Success-after-failure correlation triggered</span></div><div class="feed-item" style="opacity: 1; transform: translateY(0px); transition: 0.4s;"><span class="feed-time">13:08:49</span><span class="feed-msg"><span class="low">[LOW]</span> Event 4672 — Admin logon captured and logged</span></div><div class="feed-item" style="opacity: 1; transform: translateY(0px); transition: 0.4s;"><span class="feed-time">13:08:47</span><span class="feed-msg"><span class="med">[HIGH]</span> Suspicious extension change detected — .docx → .enc</span></div><div class="feed-item" style="opacity: 1; transform: translateY(0px); transition: 0.4s;"><span class="feed-time">13:08:44</span><span class="feed-msg"><span class="hi">[CRITICAL]</span> Ransomware behavior: 500+ files renamed in 10s</span></div><div class="feed-item" style="opacity: 1; transform: translateY(0px); transition: 0.4s;"><span class="feed-time">13:08:42</span><span class="feed-msg"><span class="low">[INFO]</span> Event 4624 — successful logon after 80 failed attempts</span></div><div class="feed-item" style="opacity: 1; transform: translateY(0px); transition: 0.4s;"><span class="feed-time">13:08:39</span><span class="feed-msg"><span class="med">[HIGH]</span> Brute-force threshold breached — alert escalated</span></div></div></div>
     <div class="metrics-panel">
       <div class="metric-row"><div class="metric-label">Auth Events Analyzed</div><div class="metric-value v-cyan">12,400+</div><div class="metric-bar-wrap"><div class="metric-bar bar-cyan" style="width:90%"></div></div></div>
       <div class="metric-row"><div class="metric-label">Brute-Force Detection</div><div class="metric-value v-green">Active</div><div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:100%"></div></div></div>
@@ -659,7 +1048,7 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
     <div class="tool-item"><span class="tool-icon">💻</span><div class="tool-name">VMware</div><div class="tool-cat">Virtualization</div></div>
     <div class="tool-item"><span class="tool-icon">📊</span><div class="tool-name">Pandas</div><div class="tool-cat">Data Analysis</div></div>
     <div class="tool-item"><span class="tool-icon">📋</span><div class="tool-name">JSON / CSV</div><div class="tool-cat">Data Handling</div></div>
-    <div class="tool-item"><span class="tool-icon">🔍</span><div class="tool-name">MITRE ATT&CK</div><div class="tool-cat">Framework</div></div>
+    <div class="tool-item"><span class="tool-icon">🔍</span><div class="tool-name">MITRE ATT&amp;CK</div><div class="tool-cat">Framework</div></div>
   </div>
 </section>
 
@@ -670,13 +1059,45 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
       <div><div class="exp-role" id="expRole">Software Engineering Intern</div><div class="exp-company" id="expCompany">MMEC, Ambala</div></div>
       <div class="exp-date" id="expDate">Jun 2025 — Jul 2025</div>
     </div>
-    <ul class="exp-bullets" id="expBulletsDisplay"></ul>
+    <ul class="exp-bullets" id="expBulletsDisplay"><li>Developed backend REST APIs and practiced structured development workflows with Git-based version control.</li><li>Worked on mini-projects simulating real-world use cases across multiple domains.</li><li>Improved debugging, deployment awareness, and collaborative engineering practices.</li></ul>
   </div>
 </section>
 
 <section id="certifications">
   <div class="section-header reveal"><span class="section-tag">// CREDENTIALS</span><h2 class="section-title">Certifications</h2><div class="section-line"></div></div>
-  <div class="cert-grid" id="certsGrid"></div>
+  <div class="cert-grid" id="certsGrid">
+    <div class="cert-card reveal">
+      <div class="cert-badge gold">🏆</div>
+      <div class="cert-info">
+        <div class="cert-name">IBM Cybersecurity Analyst</div>
+        <div class="cert-issuer">IBM — Professional Certificate</div>
+        <span class="cert-status status-active">Certified</span>
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-1">
+      <div class="cert-badge green">🟢</div>
+      <div class="cert-info">
+        <div class="cert-name">Cyber Security 101</div>
+        <div class="cert-issuer">TryHackMe</div>
+        <span class="cert-status status-active">Certified</span>
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-badge cyan">🔐</div>
+      <div class="cert-info">
+        <div class="cert-name">Pre Security</div>
+        <div class="cert-issuer">TryHackMe</div>
+        <span class="cert-status status-active">Certified</span>
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-badge purple">🐍</div>
+      <div class="cert-info">
+        <div class="cert-name">Python Certificate</div>
+        <div class="cert-issuer">Programming — Verified</div>
+        <span class="cert-status status-active">Certified</span>
+      </div>
+    </div></div>
 </section>
 
 <section id="contact">
@@ -684,8 +1105,13 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
   <div class="contact-grid reveal">
     <div class="contact-info">
       <h3>Establish Connection</h3>
-      <p id="contactBio"></p>
-      <div class="contact-links" id="contactLinks"></div>
+      <p id="contactBio">Looking to hire a motivated SOC / Blue Team candidate? My systems are online. Available for internships, entry-level SOC roles, and collaborative security projects.</p>
+      <div class="contact-links" id="contactLinks">
+    <a href="mailto:sanhishek72@gmail.com" class="contact-link"><span class="contact-link-icon">📧</span><span class="contact-link-text">sanhishek72@gmail.com</span></a>
+    <a href="tel:+919470729289" class="contact-link"><span class="contact-link-icon">📱</span><span class="contact-link-text">+91 94707 29289</span></a>
+    <a href="https://www.linkedin.com/in/abhishek-sharma-291a42250" target="_blank" class="contact-link"><span class="contact-link-icon">💼</span><span class="contact-link-text">LinkedIn Profile</span></a>
+    <a href="https://github.com/Abhi-Sh4rma" target="_blank" class="contact-link"><span class="contact-link-icon">🐙</span><span class="contact-link-text">GitHub Profile</span></a>
+    <a class="contact-link"><span class="contact-link-icon">📍</span><span class="contact-link-text">📍 Ambala, Haryana</span></a></div>
     </div>
     <div class="contact-form">
       <div class="form-group">
@@ -711,7 +1137,7 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
       <div class="form-status" id="formStatus"></div>
       <div class="form-btn-row">
         <button class="form-submit" id="formSubmit"><span id="formSubmitLabel">📧 Send via Email →</span></button>
-        <a class="btn-whatsapp" id="waBtn" href="#" target="_blank"><span>💬 WhatsApp</span></a>
+        <a class="btn-whatsapp" id="waBtn" href="https://wa.me/919470729289?text=Hi%20Abhishek!%20%F0%9F%91%8B%0A%0AName%3A%20(not%20filled)%0AEmail%3A%20(not%20filled)%0ASubject%3A%20(not%20filled)%0A%0AMessage%3A%0A(not%20filled)" target="_blank"><span>💬 WhatsApp</span></a>
       </div>
       <div class="formspree-note">
         📧 Email delivery active via Formspree · 💬 WhatsApp opens directly in app
@@ -722,7 +1148,7 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
 </main>
 
 <footer>
-  <div class="footer-copy" id="footerCopy">© 2025 ABHISHEK SHARMA — B.TECH CSE '26 — MM UNIVERSITY</div>
+  <div class="footer-copy" id="footerCopy">© 2026 ABHISHEK SHARMA — MM UNIVERSITY, AMBALA · 2022–2026</div>
   <div class="footer-status"><div style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse-dot 2s infinite;"></div>SOC PIPELINE ACTIVE</div>
 </footer>
 
@@ -731,79 +1157,133 @@ footer{position:relative;z-index:10;padding:24px 40px;border-top:1px solid var(-
 // DEFAULT DATA
 // ═══════════════════════════════════════════════
 const DEFAULT = {
-  fname:'ABHISHEK', lname:'SHARMA',
-  herotag:'// Final-Year B.Tech CSE — SOC / Blue Team',
-  title:'SOC Analyst · Threat Detection · Incident Response',
-  location:'📍 Ambala, Haryana',
-  navbrand:'ABHISHEK//SOC',
-  s1n:'2', s1l:'SOC Projects', s2n:'4', s2l:'Certifications',
-  s3n:'7', s3l:'CGPA / 10', s4n:'2026', s4l:'Grad Year',
-  bio1:'Final-year B.Tech Computer Science Engineering student at Maharishi Markandeshwar (Deemed to be University), Ambala. Actively transitioning into <span style="color:var(--cyan)">SOC / Blue Team</span> roles with hands-on experience building real security pipelines.',
-  bio2:'Specializes in <span style="color:var(--green)">threat detection, log analysis, and security automation</span>. Built a full SOC-style intrusion detection and incident response system from scratch using live Windows Security Event Logs, Python, and Flask.',
-  bio3:'Passionate about converting raw security events into actionable intelligence — driven by a curiosity to understand attacker behavior and close the detection gap.',
-  phrases:[
-    'Building SOC pipelines. Detecting threats in real-time.',
-    'Windows Event Logs 4624/4625 — analyzed & correlated.',
-    'Ransomware behavioral detection. Endpoint protection.',
-    'Blue Team mindset. Automation-first approach.',
-    'Graduating 2026. Ready to defend the perimeter.'
+  "fname": "ABHISHEK",
+  "lname": "SHARMA",
+  "herotag": "// Final-Year B.Tech CSE — SOC / Blue Team",
+  "title": "SOC Analyst · Threat Detection · Incident Response",
+  "location": "📍 Ambala, Haryana",
+  "navbrand": "ABHISHEK//SOC",
+  "s1n": "2",
+  "s1l": "SOC Projects",
+  "s2n": "4",
+  "s2l": "Certifications",
+  "s3n": "7",
+  "s3l": "CGPA / 10",
+  "s4n": "2026",
+  "s4l": "Grad Year",
+  "bio1": "Final-year B.Tech Computer Science Engineering student at Maharishi Markandeshwar (Deemed to be University), Ambala. Actively transitioning into SOC / Blue Team roles with hands-on experience building real security pipelines.",
+  "bio2": "Specializes in threat detection, log analysis, and security automation. Built a full SOC-style intrusion detection and incident response system from scratch using live Windows Security Event Logs, Python, and Flask.",
+  "bio3": "Passionate about converting raw security events into actionable intelligence — driven by a curiosity to understand attacker behavior and close the detection gap.",
+  "phrases": [
+    "Building SOC pipelines. Detecting threats in real-time.",
+    "Windows Event Logs 4624/4625 — analyzed & correlated.",
+    "Ransomware behavioral detection. Endpoint protection.",
+    "Blue Team mindset. Automation-first approach.",
+    "Graduating 2026. Ready to defend the perimeter."
   ],
-  exprole:'Software Engineering Intern', expcompany:'MMEC, Ambala', expdate:'Jun 2025 — Jul 2025',
-  expbullets:[
-    'Developed backend REST APIs and practiced structured development workflows with Git-based version control.',
-    'Worked on mini-projects simulating real-world use cases across multiple domains.',
-    'Improved debugging, deployment awareness, and collaborative engineering practices.'
+  "exprole": "Software Engineering Intern",
+  "expcompany": "MMEC, Ambala",
+  "expdate": "Jun 2025 — Jul 2025",
+  "expbullets": [
+    "Developed backend REST APIs and practiced structured development workflows with Git-based version control.",
+    "Worked on mini-projects simulating real-world use cases across multiple domains.",
+    "Improved debugging, deployment awareness, and collaborative engineering practices."
   ],
-  email:'sanhishek72@gmail.com', phone:'+91 94707 29289',
-  linkedin:'https://www.linkedin.com/in/abhishek-sharma-291a42250/',
-  github:'https://github.com/Abhi-Sh4rma',
-  contactbio:'Looking to hire a motivated SOC / Blue Team candidate? My systems are online. Available for internships, entry-level SOC roles, and collaborative security projects.',
-  university:'MM University, Ambala · 2022–2026',
-  formspree:'mjgenovg',
-  waphone:'919470729289',
-  projects:[
+  "email": "sanhishek72@gmail.com",
+  "phone": "+91 94707 29289",
+  "linkedin": "www.linkedin.com/in/abhishek-sharma-291a42250",
+  "github": "https://github.com/Abhi-Sh4rma",
+  "contactbio": "Looking to hire a motivated SOC / Blue Team candidate? My systems are online. Available for internships, entry-level SOC roles, and collaborative security projects.",
+  "university": "MM University, Ambala · 2022–2026",
+  "formspree": "mjgenovg",
+  "waphone": "919470729289",
+  "projects": [
     {
-      icon:'🛡', badge:'badge-red', badgeText:'CRITICAL',
-      title:'INTELLIGENT IDS-IR',
-      desc:'SOC-style intrusion detection & incident response pipeline for real-time authentication monitoring using live Windows Security Event Logs.',
-      bullets:[
-        'Collected & normalized Event ID 4625 (failed logon) and 4624 (successful logon) into structured detection logs',
-        'Implemented time-window brute-force detection, stateful alert persistence & success-after-failure correlation',
-        'Dynamic risk scoring & severity escalation with auto-refreshing Flask web dashboard',
-        'Captured from live VM environment — not simulated test data'
+      "icon": "🛡",
+      "badge": "badge-red",
+      "badgeText": "CRITICAL",
+      "title": "INTELLIGENT IDS-IR",
+      "desc": "SOC-style intrusion detection & incident response pipeline for real-time authentication monitoring using live Windows Security Event Logs.",
+      "bullets": [
+        "Collected & normalized Event ID 4625 (failed logon) and 4624 (successful logon) into structured detection logs",
+        "Implemented time-window brute-force detection, stateful alert persistence & success-after-failure correlation",
+        "Dynamic risk scoring & severity escalation with auto-refreshing Flask web dashboard",
+        "Captured from live VM environment — not simulated test data"
       ],
-      tags:'Python,PowerShell,Flask,Windows Logs,Event Correlation',
-      link:'https://github.com/Abhi-Sh4rma',
-      dots:4, dotColor:'red'
+      "tags": "Python,PowerShell,Flask,Windows Logs,Event Correlation",
+      "link": "https://github.com/Abhi-Sh4rma/Intelligent-IDS-IR",
+      "dots": 4,
+      "dotColor": "red"
     },
     {
-      icon:'🔐', badge:'badge-orange', badgeText:'HIGH',
-      title:'RANSOMWATCH',
-      desc:'Real-time ransomware behavioral detection engine running in a controlled Windows environment — simulating endpoint detection workflows.',
-      bullets:[
-        'Behavioral detection for rapid file modifications, bulk renaming & suspicious extension changes',
-        'Configurable threshold-based alerting via config.json for dynamic tuning',
-        'Built a ransomware simulation module to emulate encryption-like activity for validation',
-        'Structured alerts with risk scoring & severity classification'
+      "icon": "🔐",
+      "badge": "badge-orange",
+      "badgeText": "HIGH",
+      "title": "RANSOMWATCH",
+      "desc": "Real-time ransomware behavioral detection engine running in a controlled Windows environment — simulating endpoint detection workflows.",
+      "bullets": [
+        "Behavioral detection for rapid file modifications, bulk renaming & suspicious extension changes",
+        "Configurable threshold-based alerting via config.json for dynamic tuning",
+        "Built a ransomware simulation module to emulate encryption-like activity for validation",
+        "Structured alerts with risk scoring & severity classification"
       ],
-      tags:'Python,PowerShell,Behavioral Analysis,EDR Simulation',
-      link:'https://github.com/Abhi-Sh4rma',
-      dots:3, dotColor:'orange'
+      "tags": "Python,PowerShell,Behavioral Analysis,EDR Simulation",
+      "link": "https://github.com/Abhi-Sh4rma/Ransomwatch",
+      "dots": 3,
+      "dotColor": "orange"
     }
   ],
-  skills:[
-    { title:'Core Security', tags:'SOC Monitoring,SIEM Fundamentals,Log Analysis,Alert Triage,Incident Response,Risk Assessment,Event Correlation,Vulnerability Assessment,Threat Intelligence' },
-    { title:'Windows Event Logs', tags:'Event ID 4624,Event ID 4625,Event ID 4672,Event ID 4688,Log Normalization,Brute-Force Detection' },
-    { title:'Networking & Security', tags:'TCP/IP,DNS,HTTP/HTTPS,Firewall Concepts,IDS/IPS,Network Traffic Analysis' },
-    { title:'Frameworks', tags:'MITRE ATT&CK,Cyber Kill Chain' },
-    { title:'Languages & Scripting', tags:'Python,PowerShell,Bash' },
-    { title:'Tools & Platforms', tags:'Linux,Windows,Git / GitHub,Docker,VMware,Wireshark,Flask,Pandas,JSON/CSV' }
+  "skills": [
+    {
+      "title": "Core Security",
+      "tags": "SOC Monitoring,SIEM Fundamentals,Log Analysis,Alert Triage,Incident Response,Risk Assessment,Event Correlation,Vulnerability Assessment,Threat Intelligence"
+    },
+    {
+      "title": "Windows Event Logs",
+      "tags": "Event ID 4624,Event ID 4625,Event ID 4672,Event ID 4688,Log Normalization,Brute-Force Detection"
+    },
+    {
+      "title": "Networking & Security",
+      "tags": "TCP/IP,DNS,HTTP/HTTPS,Firewall Concepts,IDS/IPS,Network Traffic Analysis"
+    },
+    {
+      "title": "Frameworks",
+      "tags": "MITRE ATT&CK,Cyber Kill Chain"
+    },
+    {
+      "title": "Languages & Scripting",
+      "tags": "Python,PowerShell,Bash"
+    },
+    {
+      "title": "Tools & Platforms",
+      "tags": "Linux,Windows,Git / GitHub,Docker,VMware,Wireshark,Flask,Pandas,JSON/CSV"
+    }
   ],
-  certs:[
-    { icon:'🏆', color:'gold', name:'IBM Cybersecurity Analyst', issuer:'IBM — Professional Certificate' },
-    { icon:'🟢', color:'green', name:'Cyber Security 101', issuer:'TryHackMe' },
-    { icon:'🔐', color:'cyan', name:'Pre Security', issuer:'TryHackMe' },
-    { icon:'🐍', color:'purple', name:'Python Certificate', issuer:'Programming — Verified' }
+  "certs": [
+    {
+      "icon": "🏆",
+      "color": "gold",
+      "name": "IBM Cybersecurity Analyst",
+      "issuer": "IBM — Professional Certificate"
+    },
+    {
+      "icon": "🟢",
+      "color": "green",
+      "name": "Cyber Security 101",
+      "issuer": "TryHackMe"
+    },
+    {
+      "icon": "🔐",
+      "color": "cyan",
+      "name": "Pre Security",
+      "issuer": "TryHackMe"
+    },
+    {
+      "icon": "🐍",
+      "color": "purple",
+      "name": "Python Certificate",
+      "issuer": "Programming — Verified"
+    }
   ]
 };
 
@@ -1352,6 +1832,8 @@ function showToast(msg) {
 // THREE.JS 3D BACKGROUND
 // ═══════════════════════════════════════════════
 const canvas3d = document.getElementById('bg-canvas');
+// Skip heavy 3D on mobile — improves performance & layout
+if(window.innerWidth > 600) {
 const renderer = new THREE.WebGLRenderer({canvas:canvas3d,antialias:true,alpha:true});
 renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
 renderer.setSize(window.innerWidth,window.innerHeight);
@@ -1383,11 +1865,18 @@ pts.rotation.y+=.0007;pts.rotation.x+=.0002;
 renderer.render(scene,camera);}
 animate3d();
 window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
+} else {
+  // Mobile: simple CSS gradient background instead
+  canvas3d.style.display='none';
+  document.body.style.background='radial-gradient(ellipse at 20% 50%, rgba(0,30,60,.6) 0%, #020810 60%)';
+}
 
 // ═══════════════════════════════════════════════
 // CURSOR
 // ═══════════════════════════════════════════════
 const cur=document.getElementById('cursor'),curd=document.getElementById('cursorDot');
+// Only enable custom cursor on non-touch devices
+if(window.matchMedia('(pointer:fine)').matches){
 let cx=0,cy=0,tx2=0,ty2=0;
 document.addEventListener('mousemove',e=>{tx2=e.clientX;ty2=e.clientY;curd.style.left=tx2+'px';curd.style.top=ty2+'px';});
 function animCur(){cx+=(tx2-cx)*.15;cy+=(ty2-cy)*.15;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(animCur);}
@@ -1396,6 +1885,11 @@ document.querySelectorAll('a,button,.project-card,.tool-item,.cert-card,.contact
   el.addEventListener('mouseenter',()=>{cur.style.width='36px';cur.style.height='36px';cur.style.background='rgba(0,245,255,.1)';});
   el.addEventListener('mouseleave',()=>{cur.style.width='20px';cur.style.height='20px';cur.style.background='';});
 });
+} else {
+  // Touch device — hide custom cursor, restore default
+  cur.style.display='none'; curd.style.display='none';
+  document.body.style.cursor='auto';
+}
 
 // ═══════════════════════════════════════════════
 // TYPEWRITER
@@ -1461,9 +1955,21 @@ addFeed();
 // MOBILE NAV
 // ═══════════════════════════════════════════════
 const hbg=document.getElementById('hamburger'),mn=document.getElementById('mobileNav'),mo=document.getElementById('mobileOverlay');
-hbg.addEventListener('click',()=>{mn.classList.toggle('open');mo.classList.toggle('open');});
-mo.addEventListener('click',()=>{mn.classList.remove('open');mo.classList.remove('open');});
-mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mn.classList.remove('open');mo.classList.remove('open');}));
+function openMobileNav(){mn.classList.add('open');document.body.style.overflow='hidden';document.documentElement.style.overflow='hidden';}
+function closeMobileNav(){mn.classList.remove('open');document.body.style.overflow='';document.documentElement.style.overflow='';}
+hbg.addEventListener('click',openMobileNav);
+document.getElementById('mobileNavClose').addEventListener('click',closeMobileNav);
+mn.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    const target = this.getAttribute('href');
+    closeMobileNav();
+    setTimeout(()=>{
+      const el = document.querySelector(target);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }, 350); // wait for nav close animation
+  });
+});
 
 // ═══════════════════════════════════════════════
 // CONTACT FORM — Formspree + WhatsApp
@@ -1578,5 +2084,44 @@ document.head.appendChild(bstyle);
 // Show keyboard shortcut hint on first visit
 // No hint shown to visitors — admin access is private
 </script>
-</body>
-</html>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+<div id="sqrx-content-container"><div class="squarex_ext_modal"><div class="squarex_ext_dialog-container"><div id="module_dialog_root__disposableFileViewer"><div class="squarex_ext_dialog squarex_ext_light squarex_ext__hidden"></div></div></div></div></div></body></html>
