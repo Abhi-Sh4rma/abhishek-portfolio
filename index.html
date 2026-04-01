@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ABHISHEK SHARMA // SOC Analyst Portfolio</title>
+<title>ABHISHEK SHARMA // Web Pentester & Bug Bounty Hunter</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root {
-  --cyan:#00f5ff; --green:#00ff88; --red:#ff003c; --orange:#ff6600;
-  --dark:#020810; --panel:rgba(0,20,40,0.85); --border:rgba(0,245,255,0.25);
-  --glow:0 0 20px rgba(0,245,255,0.4); --glow-strong:0 0 40px rgba(0,245,255,0.7);
+  --cyan:#ff4500; --green:#ff9900; --red:#ff003c; --orange:#ff6600;
+  --dark:#0a0502; --panel:rgba(30,10,0,0.85); --border:rgba(255,69,0,0.25);
+  --glow:0 0 20px rgba(255,69,0,0.4); --glow-strong:0 0 40px rgba(255,69,0,0.7);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--dark);color:#c8e6f0;font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;}
+body{background:var(--dark);color:#f0ddd0;font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;}
 @media(pointer:coarse){body{cursor:auto;}}
 .cursor{position:fixed;width:20px;height:20px;border:1px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen;}
 .cursor-dot{position:fixed;width:4px;height:4px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
@@ -27,7 +27,7 @@ body{background:var(--dark);color:#c8e6f0;font-family:'Rajdhani',sans-serif;over
 @keyframes fade-up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(2,8,16,.88);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(10,5,2,.88);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
 .nav-logo{font-family:'Orbitron',monospace;font-weight:900;font-size:1rem;color:var(--cyan);text-shadow:var(--glow);letter-spacing:3px;display:flex;align-items:center;gap:10px;}
 .nav-logo::before{content:'';width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 10px var(--green);animation:pulse-dot 2s infinite;}
 .nav-links{display:flex;gap:26px;list-style:none;}
@@ -115,19 +115,19 @@ section{min-height:100vh;padding:100px 40px 60px;position:relative;}
 /* SKILLS */
 #skills{background:rgba(0,2,10,.5);}
 .skills-wrapper{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;}
-.skill-group{border:1px solid var(--border);background:rgba(0,15,30,.6);padding:20px;backdrop-filter:blur(8px);transition:border-color .3s;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);}
+.skill-group{border:1px solid var(--border);background:rgba(30,8,0,.6);padding:20px;backdrop-filter:blur(8px);transition:border-color .3s;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);}
 .skill-group:hover{border-color:rgba(0,245,255,.4);}
 .skill-group-title{font-family:'Orbitron',monospace;font-size:.68rem;font-weight:700;color:var(--cyan);letter-spacing:2px;margin-bottom:12px;text-transform:uppercase;display:flex;align-items:center;gap:8px;}
 .skill-group-title::before{content:'';width:3px;height:13px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
 .skill-tags{display:flex;flex-wrap:wrap;gap:6px;}
-.skill-tag{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:1px;padding:4px 9px;border:1px solid rgba(0,245,255,.18);background:rgba(0,245,255,.04);color:rgba(200,230,240,.72);text-transform:uppercase;transition:all .2s;}
-.skill-tag:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,245,255,.08);}
+.skill-tag{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:1px;padding:4px 9px;border:1px solid rgba(255,69,0,.18);background:rgba(255,69,0,.04);color:rgba(240,221,208,.72);text-transform:uppercase;transition:all .2s;}
+.skill-tag:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(255,69,0,.08);}
 
 /* CERTS */
 #certifications{background:rgba(0,2,10,.5);}
 .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;}
-.cert-card{border:1px solid var(--border);padding:20px;background:rgba(0,15,30,.6);backdrop-filter:blur(8px);display:flex;gap:15px;align-items:flex-start;transition:all .3s;cursor:none;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);}
-.cert-card:hover{border-color:rgba(0,245,255,.4);box-shadow:0 0 28px rgba(0,245,255,.1);}
+.cert-card{border:1px solid var(--border);padding:20px;background:rgba(30,8,0,.6);backdrop-filter:blur(8px);display:flex;gap:15px;align-items:flex-start;transition:all .3s;cursor:none;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);}
+.cert-card:hover{border-color:rgba(255,69,0,.4);box-shadow:0 0 28px rgba(255,69,0,.1);}
 .cert-badge{width:46px;height:46px;flex-shrink:0;border:2px solid;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.15rem;}
 .cert-badge.gold{border-color:#ffd700;box-shadow:0 0 14px rgba(255,215,0,.3);}
 .cert-badge.cyan{border-color:var(--cyan);box-shadow:0 0 14px rgba(0,245,255,.3);}
@@ -141,8 +141,8 @@ section{min-height:100vh;padding:100px 40px 60px;position:relative;}
 
 /* EXPERIENCE */
 #experience{background:rgba(0,4,12,.4);}
-.exp-card{border:1px solid var(--border);background:rgba(0,15,30,.6);padding:26px;backdrop-filter:blur(8px);max-width:860px;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));transition:border-color .3s;}
-.exp-card:hover{border-color:rgba(0,245,255,.4);}
+.exp-card{border:1px solid var(--border);background:rgba(30,8,0,.6);padding:26px;backdrop-filter:blur(8px);max-width:860px;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));transition:border-color .3s;}
+.exp-card:hover{border-color:rgba(255,69,0,.4);}
 .exp-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
 .exp-role{font-family:'Orbitron',monospace;font-size:.95rem;font-weight:700;color:#fff;letter-spacing:1px;margin-bottom:3px;}
 .exp-company{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;}
@@ -154,12 +154,12 @@ section{min-height:100vh;padding:100px 40px 60px;position:relative;}
 /* ABOUT */
 #about{background:rgba(0,4,12,.4);}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:start;}
-.about-text p{font-size:.9rem;line-height:1.8;color:rgba(200,230,240,.63);margin-bottom:14px;}
+.about-text p{font-size:.9rem;line-height:1.8;color:rgba(240,221,208,.63);margin-bottom:14px;}
 .about-highlights{display:flex;flex-direction:column;gap:10px;}
-.highlight-row{display:flex;align-items:center;gap:12px;padding:11px 15px;border:1px solid var(--border);background:rgba(0,245,255,.02);transition:all .3s;}
-.highlight-row:hover{border-color:rgba(0,245,255,.3);background:rgba(0,245,255,.04);}
+.highlight-row{display:flex;align-items:center;gap:12px;padding:11px 15px;border:1px solid var(--border);background:rgba(255,69,0,.02);transition:all .3s;}
+.highlight-row:hover{border-color:rgba(255,69,0,.3);background:rgba(255,69,0,.04);}
 .highlight-icon{font-size:1rem;}
-.highlight-text{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:1px;color:rgba(200,230,240,.68);line-height:1.5;}
+.highlight-text{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:1px;color:rgba(240,221,208,.68);line-height:1.5;}
 .highlight-text strong{color:var(--cyan);display:block;margin-bottom:2px;}
 
 /* CONTACT */
@@ -168,17 +168,17 @@ section{min-height:100vh;padding:100px 40px 60px;position:relative;}
 .contact-info h3{font-family:'Orbitron',monospace;font-size:.95rem;color:#fff;margin-bottom:12px;letter-spacing:2px;}
 .contact-info p{font-size:.88rem;line-height:1.7;color:rgba(200,230,240,.58);margin-bottom:24px;}
 .contact-links{display:flex;flex-direction:column;gap:9px;}
-.contact-link{display:flex;align-items:center;gap:13px;padding:10px 15px;border:1px solid var(--border);background:rgba(0,245,255,.02);text-decoration:none;transition:all .3s;cursor:none;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
-.contact-link:hover{border-color:var(--cyan);background:rgba(0,245,255,.06);padding-left:20px;}
+.contact-link{display:flex;align-items:center;gap:13px;padding:10px 15px;border:1px solid var(--border);background:rgba(255,69,0,.02);text-decoration:none;transition:all .3s;cursor:none;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
+.contact-link:hover{border-color:var(--cyan);background:rgba(255,69,0,.06);padding-left:20px;}
 .contact-link-icon{font-size:.95rem;}
-.contact-link-text{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:2px;color:rgba(200,230,240,.7);text-transform:uppercase;}
+.contact-link-text{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:2px;color:rgba(240,221,208,.7);text-transform:uppercase;}
 .contact-link:hover .contact-link-text{color:var(--cyan);}
 .contact-form{display:flex;flex-direction:column;gap:13px;}
 .form-group{display:flex;flex-direction:column;gap:5px;}
 .form-label{font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;opacity:.7;}
-.form-input,.form-textarea{background:rgba(0,15,30,.6);border:1px solid var(--border);color:rgba(200,230,240,.9);padding:10px 13px;font-family:'Rajdhani',sans-serif;font-size:.88rem;outline:none;transition:border-color .3s,box-shadow .3s;width:100%;resize:none;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);}
-.form-input:focus,.form-textarea:focus{border-color:var(--cyan);box-shadow:0 0 13px rgba(0,245,255,.1);}
-.form-input::placeholder,.form-textarea::placeholder{color:rgba(200,230,240,.28);}
+.form-input,.form-textarea{background:rgba(30,8,0,.6);border:1px solid var(--border);color:rgba(240,221,208,.9);padding:10px 13px;font-family:'Rajdhani',sans-serif;font-size:.88rem;outline:none;transition:border-color .3s,box-shadow .3s;width:100%;resize:none;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);}
+.form-input:focus,.form-textarea:focus{border-color:var(--cyan);box-shadow:0 0 13px rgba(255,69,0,.1);}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(240,221,208,.28);}
 .form-submit{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;padding:12px 22px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);cursor:none;position:relative;overflow:hidden;transition:color .3s;align-self:flex-start;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
 .form-submit::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:translateX(-100%);transition:transform .3s;}
 .form-submit:hover{color:var(--dark);}
@@ -216,7 +216,7 @@ section{min-height:100vh;padding:100px 40px 60px;position:relative;}
 @keyframes glitch2{0%,88%,100%{transform:translate(0);}89%{transform:translate(2px,-1px);}91%{transform:translate(-2px,1px);}93%{transform:translate(1px,2px);}}
 
 /* FOOTER */
-footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--border);background:rgba(2,8,16,.93);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--border);background:rgba(10,5,2,.93);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
 .footer-copy{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:rgba(200,230,240,.28);}
 .footer-status{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--green);}
 
@@ -416,7 +416,7 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 /* ═══ PASSWORD MODAL ═══ */
 #pw-modal{display:none;position:fixed;inset:0;z-index:20000;align-items:center;justify-content:center;background:rgba(0,2,8,.96);backdrop-filter:blur(8px);}
 #pw-modal.active{display:flex;}
-.pw-box{border:1px solid var(--border);background:rgba(0,15,30,.97);padding:40px 36px;max-width:400px;width:90%;position:relative;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));box-shadow:0 0 60px rgba(0,245,255,.12);}
+.pw-box{border:1px solid var(--border);background:rgba(20,5,0,.97);padding:40px 36px;max-width:400px;width:90%;position:relative;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));box-shadow:0 0 60px rgba(255,69,0,.12);}
 .pw-corner{position:absolute;width:16px;height:16px;}
 .pw-corner.tl{top:-1px;left:-1px;border-top:2px solid var(--cyan);border-left:2px solid var(--cyan);}
 .pw-corner.tr{top:-1px;right:-1px;border-top:2px solid var(--cyan);border-right:2px solid var(--cyan);}
@@ -455,36 +455,38 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 /* Threat feed & metrics */
 #threats{background:rgba(0,4,12,.4);}
 .threat-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
-.threat-feed{border:1px solid var(--border);background:rgba(0,15,30,.6);padding:18px;height:300px;overflow:hidden;position:relative;backdrop-filter:blur(8px);}
+.threat-feed{border:1px solid var(--border);background:rgba(30,8,0,.6);padding:18px;height:300px;overflow:hidden;position:relative;backdrop-filter:blur(8px);}
 .feed-header{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .feed-header::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse-dot 1.5s infinite;}
-.feed-item{padding:6px 0;border-bottom:1px solid rgba(0,245,255,.06);font-family:'Share Tech Mono',monospace;font-size:.64rem;display:flex;gap:10px;align-items:flex-start;}
-.feed-time{color:rgba(200,230,240,.28);white-space:nowrap;}
-.feed-msg{color:rgba(200,230,240,.68);line-height:1.4;}
+.feed-item{padding:6px 0;border-bottom:1px solid rgba(255,69,0,.06);font-family:'Share Tech Mono',monospace;font-size:.64rem;display:flex;gap:10px;align-items:flex-start;}
+.feed-time{color:rgba(240,221,208,.28);white-space:nowrap;}
+.feed-msg{color:rgba(240,221,208,.68);line-height:1.4;}
 .feed-msg .hi{color:var(--red);}
 .feed-msg .med{color:var(--orange);}
 .feed-msg .low{color:var(--green);}
 .metrics-panel{display:flex;flex-direction:column;gap:12px;}
-.metric-row{border:1px solid var(--border);background:rgba(0,15,30,.6);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;backdrop-filter:blur(8px);transition:border-color .3s;}
-.metric-row:hover{border-color:rgba(0,245,255,.4);}
+.metric-row{border:1px solid var(--border);background:rgba(30,8,0,.6);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;backdrop-filter:blur(8px);transition:border-color .3s;}
+.metric-row:hover{border-color:rgba(255,69,0,.4);}
 .metric-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:rgba(200,230,240,.48);text-transform:uppercase;flex:1;}
 .metric-value{font-family:'Orbitron',monospace;font-size:1.25rem;font-weight:700;}
 .v-cyan{color:var(--cyan);text-shadow:var(--glow);}
-.v-green{color:var(--green);text-shadow:0 0 15px rgba(0,255,136,.5);}
+.v-green{color:var(--green);text-shadow:0 0 15px rgba(255,153,0,.5);}
 .v-red{color:var(--red);text-shadow:0 0 15px rgba(255,0,60,.5);}
+.v-orange{color:var(--orange);text-shadow:0 0 15px rgba(255,102,0,.5);}
 .metric-bar-wrap{flex:2;height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;}
 .metric-bar{height:100%;border-radius:2px;}
-.bar-cyan{background:linear-gradient(90deg,rgba(0,245,255,.3),var(--cyan));}
-.bar-green{background:linear-gradient(90deg,rgba(0,255,136,.3),var(--green));}
+.bar-cyan{background:linear-gradient(90deg,rgba(255,69,0,.3),var(--cyan));}
+.bar-green{background:linear-gradient(90deg,rgba(255,153,0,.3),var(--green));}
 .bar-red{background:linear-gradient(90deg,rgba(255,0,60,.3),var(--red));}
+.bar-orange{background:linear-gradient(90deg,rgba(255,102,0,.3),var(--orange));}
 
 /* Tools */
 #tools{background:rgba(0,5,15,.3);}
 .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:13px;}
-.tool-item{border:1px solid var(--border);padding:16px 12px;text-align:center;cursor:none;transition:all .3s;background:rgba(0,15,30,.5);backdrop-filter:blur(6px);}
-.tool-item:hover{border-color:var(--cyan);box-shadow:var(--glow);transform:translateY(-2px);background:rgba(0,245,255,.05);}
+.tool-item{border:1px solid var(--border);padding:16px 12px;text-align:center;cursor:none;transition:all .3s;background:rgba(30,8,0,.5);backdrop-filter:blur(6px);}
+.tool-item:hover{border-color:var(--cyan);box-shadow:var(--glow);transform:translateY(-2px);background:rgba(255,69,0,.05);}
 .tool-icon{font-size:1.5rem;margin-bottom:7px;display:block;}
-.tool-name{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:1px;color:rgba(200,230,240,.78);text-transform:uppercase;}
+.tool-name{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:1px;color:rgba(240,221,208,.78);text-transform:uppercase;}
 .tool-cat{font-family:'Share Tech Mono',monospace;font-size:.5rem;letter-spacing:1px;color:var(--cyan);opacity:.55;margin-top:3px;text-transform:uppercase;}
 
 @media(max-width:900px){.threat-grid{grid-template-columns:1fr;}}
@@ -526,7 +528,7 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
   <div class="admin-shell">
     <div class="admin-topbar">
       <div>
-        <div class="admin-title">PORTFOLIO ADMIN PANEL</div>
+        <div class="admin-title">OFFENSIVE PORTFOLIO ADMIN PANEL</div>
         <div class="admin-subtitle">// Edit your portfolio — changes save to browser storage and update live</div>
       </div>
       <button class="admin-close" id="adminClose">✕ CLOSE PANEL</button>
@@ -547,20 +549,20 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
       <div class="admin-grid">
         <div class="admin-field"><label class="admin-label">First Name</label><input class="admin-input" id="f-fname" placeholder="Abhishek"></div>
         <div class="admin-field"><label class="admin-label">Last Name</label><input class="admin-input" id="f-lname" placeholder="Sharma"></div>
-        <div class="admin-field"><label class="admin-label">Role / Title</label><input class="admin-input" id="f-title" placeholder="SOC Analyst · Threat Detection · Incident Response"></div>
+        <div class="admin-field"><label class="admin-label">Role / Title</label><input class="admin-input" id="f-title" placeholder="Web Pentester · Bug Bounty Hunter · Recon Automation"></div>
         <div class="admin-field"><label class="admin-label">Location</label><input class="admin-input" id="f-location" placeholder="Ambala, Haryana"></div>
-        <div class="admin-field"><label class="admin-label">Hero Tag Line (small text above name)</label><input class="admin-input" id="f-herotag" placeholder="Final-Year B.Tech CSE — SOC / Blue Team"></div>
-        <div class="admin-field"><label class="admin-label">Nav Brand</label><input class="admin-input" id="f-navbrand" placeholder="ABHISHEK//SOC"></div>
+        <div class="admin-field"><label class="admin-label">Hero Tag Line (small text above name)</label><input class="admin-input" id="f-herotag" placeholder="Final-Year B.Tech CSE — Offensive Security & Bug Bounty Hunter"></div>
+        <div class="admin-field"><label class="admin-label">Nav Brand</label><input class="admin-input" id="f-navbrand" placeholder="ABHISHEK//0FFENSIVE"></div>
       </div>
       <div class="admin-divider"></div>
       <div class="admin-section-title">Stats Bar</div>
       <div class="admin-grid">
-        <div class="admin-field"><label class="admin-label">Stat 1 Number</label><input class="admin-input" id="f-s1n" placeholder="2"></div>
-        <div class="admin-field"><label class="admin-label">Stat 1 Label</label><input class="admin-input" id="f-s1l" placeholder="SOC Projects"></div>
+        <div class="admin-field"><label class="admin-label">Stat 1 Number</label><input class="admin-input" id="f-s1n" placeholder="3"></div>
+        <div class="admin-field"><label class="admin-label">Stat 1 Label</label><input class="admin-input" id="f-s1l" placeholder="Recon Tools Built"></div>
         <div class="admin-field"><label class="admin-label">Stat 2 Number</label><input class="admin-input" id="f-s2n" placeholder="4"></div>
         <div class="admin-field"><label class="admin-label">Stat 2 Label</label><input class="admin-input" id="f-s2l" placeholder="Certifications"></div>
-        <div class="admin-field"><label class="admin-label">Stat 3 Number</label><input class="admin-input" id="f-s3n" placeholder="7"></div>
-        <div class="admin-field"><label class="admin-label">Stat 3 Label</label><input class="admin-input" id="f-s3l" placeholder="CGPA / 10"></div>
+        <div class="admin-field"><label class="admin-label">Stat 3 Number</label><input class="admin-input" id="f-s3n" placeholder="1"></div>
+        <div class="admin-field"><label class="admin-label">Stat 3 Label</label><input class="admin-input" id="f-s3l" placeholder="TryHackMe Top %"></div>
         <div class="admin-field"><label class="admin-label">Stat 4 Number</label><input class="admin-input" id="f-s4n" placeholder="2026"></div>
         <div class="admin-field"><label class="admin-label">Stat 4 Label</label><input class="admin-input" id="f-s4l" placeholder="Grad Year"></div>
       </div>
@@ -647,18 +649,18 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 
 <!-- ═══════ PORTFOLIO ═══════ -->
 <nav>
-  <div class="nav-logo" id="navBrand">ABHISHEK//SOC</div>
+  <div class="nav-logo" id="navBrand">ABHISHEK//0FFENSIVE</div>
   <ul class="nav-links">
     <li><a href="#hero">Init</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#threats">Intel</a></li>
+    <li><a href="#projects">Exploits</a></li>
+    <li><a href="#skills">Arsenal</a></li>
+    <li><a href="#threats">Recon</a></li>
     <li><a href="#certifications">Creds</a></li>
     <li><a href="#contact">Comms</a></li>
   </ul>
   <div class="nav-right">
-    <div class="nav-status"><div class="status-bar"><div class="status-fill"></div></div>SOC_ONLINE</div>
+    <div class="nav-status"><div class="status-bar"><div class="status-fill"></div></div>PWNING_ONLINE</div>
     <div class="admin-hint" id="adminHintBtn" title="Open Admin Panel">⚙ ADMIN</div>
   </div>
   <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
@@ -667,14 +669,14 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 <div class="mobile-overlay" id="mobileOverlay"></div>
 <nav class="mobile-nav" id="mobileNav">
   <div class="mobile-nav-header">
-    <div class="mobile-nav-logo">ABHISHEK//SOC</div>
+    <div class="mobile-nav-logo">ABHISHEK//0FFENSIVE</div>
     <button class="mobile-nav-close" id="mobileNavClose">✕</button>
   </div>
   <a href="#hero">⚡ Init</a>
   <a href="#about">👤 About</a>
-  <a href="#projects">🛡 Projects</a>
-  <a href="#skills">⚙ Skills</a>
-  <a href="#threats">📡 Intel</a>
+  <a href="#projects">💀 Exploits</a>
+  <a href="#skills">⚔ Arsenal</a>
+  <a href="#threats">🔍 Recon</a>
   <a href="#certifications">🏆 Credentials</a>
   <a href="#experience">💼 Experience</a>
   <a href="#contact">📨 Comms</a>
@@ -682,24 +684,24 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 
 <main>
 <section id="hero">
-  <div class="hero-tag" id="heroTag">// Final-Year B.Tech CSE — SOC / Blue Team</div>
+  <div class="hero-tag" id="heroTag">// Final-Year B.Tech CSE — Offensive Security & Bug Bounty Hunter</div>
   <h1 class="hero-name">
     <span class="line1" id="heroFname">ABHISHEK</span>
     <span class="line2 glitch" id="heroLname" data-text="SHARMA">SHARMA</span>
   </h1>
-  <div class="hero-title" id="heroTitle">SOC Analyst · Threat Detection · Incident Response</div>
+  <div class="hero-title" id="heroTitle">Web Pentester · Bug Bounty Hunter · Recon Automation</div>
   <div class="hero-location" id="heroLocation">📍 Ambala, Haryana</div>
   <div class="terminal-line">
     <span id="typewriter"></span><span style="color:var(--cyan);animation:blink 1s step-end infinite;">_</span>
   </div>
   <div class="hero-btns">
-    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="#projects" class="btn-primary">View Exploits</a>
     <a href="#contact" class="btn-secondary">Open Channel</a>
   </div>
   <div class="hero-stats">
-    <div class="stat"><span class="stat-num" id="s1n" data-target="2">0</span><span class="stat-label" id="s1l">SOC Projects</span></div>
+    <div class="stat"><span class="stat-num" id="s1n" data-target="3">0</span><span class="stat-label" id="s1l">Recon Tools Built</span></div>
     <div class="stat"><span class="stat-num" id="s2n" data-target="4">0</span><span class="stat-label" id="s2l">Certifications</span></div>
-    <div class="stat"><span class="stat-num" id="s3n" data-target="7">0</span><span class="stat-label" id="s3l">CGPA / 10</span></div>
+    <div class="stat"><span class="stat-num" id="s3n" data-target="1">0</span><span class="stat-label" id="s3l">TryHackMe Top %</span></div>
     <div class="stat"><span class="stat-num" id="s4n" data-target="2026">0</span><span class="stat-label" id="s4l">Grad Year</span></div>
   </div>
 </section>
@@ -715,7 +717,7 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 </section>
 
 <section id="projects">
-  <div class="section-header reveal"><span class="section-tag">// OPS_LOG</span><h2 class="section-title">Active Operations</h2><div class="section-line"></div></div>
+  <div class="section-header reveal"><span class="section-tag">// EXPLOIT_LOG</span><h2 class="section-title">Active Operations</h2><div class="section-line"></div></div>
   <div class="projects-grid" id="projectsGrid"></div>
 </section>
 
@@ -725,15 +727,15 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 </section>
 
 <section id="threats">
-  <div class="section-header reveal"><span class="section-tag">// INTEL_FEED</span><h2 class="section-title">SOC Intelligence</h2><div class="section-line"></div></div>
+  <div class="section-header reveal"><span class="section-tag">// RECON_FEED</span><h2 class="section-title">Recon Intelligence</h2><div class="section-line"></div></div>
   <div class="threat-grid reveal">
-    <div class="threat-feed"><div class="feed-header">Live Detection Feed</div><div id="feedContainer"></div></div>
+    <div class="threat-feed"><div class="feed-header">Live Target Discovery Feed</div><div id="feedContainer"></div></div>
     <div class="metrics-panel">
-      <div class="metric-row"><div class="metric-label">Auth Events Analyzed</div><div class="metric-value v-cyan">12,400+</div><div class="metric-bar-wrap"><div class="metric-bar bar-cyan" style="width:90%"></div></div></div>
-      <div class="metric-row"><div class="metric-label">Brute-Force Detection</div><div class="metric-value v-green">Active</div><div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:100%"></div></div></div>
-      <div class="metric-row"><div class="metric-label">Ransomware Signatures</div><div class="metric-value v-red">Monitored</div><div class="metric-bar-wrap"><div class="metric-bar bar-red" style="width:80%"></div></div></div>
-      <div class="metric-row"><div class="metric-label">Severity Scoring</div><div class="metric-value v-cyan">Dynamic</div><div class="metric-bar-wrap"><div class="metric-bar bar-cyan" style="width:95%"></div></div></div>
-      <div class="metric-row"><div class="metric-label">Dashboard Uptime</div><div class="metric-value v-green">99.9%</div><div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:99.9%"></div></div></div>
+      <div class="metric-row"><div class="metric-label">Subdomains Enumerated</div><div class="metric-value v-cyan">500+</div><div class="metric-bar-wrap"><div class="metric-bar bar-cyan" style="width:90%"></div></div></div>
+      <div class="metric-row"><div class="metric-label">CVEs Matched (NVD API)</div><div class="metric-value v-red">12+</div><div class="metric-bar-wrap"><div class="metric-bar bar-red" style="width:75%"></div></div></div>
+      <div class="metric-row"><div class="metric-label">Web Vulns Detected</div><div class="metric-value v-orange">Active</div><div class="metric-bar-wrap"><div class="metric-bar bar-orange" style="width:85%"></div></div></div>
+      <div class="metric-row"><div class="metric-label">Ports Scanned (Nmap)</div><div class="metric-value v-cyan">17 Common</div><div class="metric-bar-wrap"><div class="metric-bar bar-cyan" style="width:100%"></div></div></div>
+      <div class="metric-row"><div class="metric-label">AI Report Generation</div><div class="metric-value v-green">Automated</div><div class="metric-bar-wrap"><div class="metric-bar bar-green" style="width:100%"></div></div></div>
     </div>
   </div>
 </section>
@@ -741,18 +743,18 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 <section id="tools">
   <div class="section-header reveal"><span class="section-tag">// ARSENAL</span><h2 class="section-title">Tool Stack</h2><div class="section-line"></div></div>
   <div class="tools-grid reveal">
-    <div class="tool-item"><span class="tool-icon">🐍</span><div class="tool-name">Python</div><div class="tool-cat">Scripting</div></div>
-    <div class="tool-item"><span class="tool-icon">⚡</span><div class="tool-name">PowerShell</div><div class="tool-cat">Automation</div></div>
-    <div class="tool-item"><span class="tool-icon">🌐</span><div class="tool-name">Flask</div><div class="tool-cat">Dashboard</div></div>
-    <div class="tool-item"><span class="tool-icon">🐧</span><div class="tool-name">Linux</div><div class="tool-cat">OS</div></div>
-    <div class="tool-item"><span class="tool-icon">🪟</span><div class="tool-name">Windows</div><div class="tool-cat">OS / Logs</div></div>
-    <div class="tool-item"><span class="tool-icon">🦈</span><div class="tool-name">Wireshark</div><div class="tool-cat">Network</div></div>
+    <div class="tool-item"><span class="tool-icon">🕷️</span><div class="tool-name">Burp Suite</div><div class="tool-cat">Web Proxy</div></div>
+    <div class="tool-item"><span class="tool-icon">🐍</span><div class="tool-name">Python</div><div class="tool-cat">Automation</div></div>
+    <div class="tool-item"><span class="tool-icon">🗺️</span><div class="tool-name">Nmap</div><div class="tool-cat">Port Scanner</div></div>
+    <div class="tool-item"><span class="tool-icon">🔍</span><div class="tool-name">Amass</div><div class="tool-cat">Subdomain Enum</div></div>
+    <div class="tool-item"><span class="tool-icon">📡</span><div class="tool-name">Sublist3r</div><div class="tool-cat">OSINT Recon</div></div>
+    <div class="tool-item"><span class="tool-icon">🐧</span><div class="tool-name">Kali Linux</div><div class="tool-cat">Pentest OS</div></div>
+    <div class="tool-item"><span class="tool-icon">🦈</span><div class="tool-name">Wireshark</div><div class="tool-cat">Packet Analysis</div></div>
+    <div class="tool-item"><span class="tool-icon">💣</span><div class="tool-name">Metasploit</div><div class="tool-cat">Exploitation</div></div>
+    <div class="tool-item"><span class="tool-icon">⚡</span><div class="tool-name">FastAPI</div><div class="tool-cat">Backend</div></div>
+    <div class="tool-item"><span class="tool-icon">⚛️</span><div class="tool-name">React</div><div class="tool-cat">Frontend</div></div>
     <div class="tool-item"><span class="tool-icon">🐙</span><div class="tool-name">GitHub</div><div class="tool-cat">Version Control</div></div>
-    <div class="tool-item"><span class="tool-icon">🐳</span><div class="tool-name">Docker</div><div class="tool-cat">Containers</div></div>
-    <div class="tool-item"><span class="tool-icon">💻</span><div class="tool-name">VMware</div><div class="tool-cat">Virtualization</div></div>
-    <div class="tool-item"><span class="tool-icon">📊</span><div class="tool-name">Pandas</div><div class="tool-cat">Data Analysis</div></div>
-    <div class="tool-item"><span class="tool-icon">📋</span><div class="tool-name">JSON / CSV</div><div class="tool-cat">Data Handling</div></div>
-    <div class="tool-item"><span class="tool-icon">🔍</span><div class="tool-name">MITRE ATT&CK</div><div class="tool-cat">Framework</div></div>
+    <div class="tool-item"><span class="tool-icon">🤖</span><div class="tool-name">Groq AI</div><div class="tool-cat">Report Gen</div></div>
   </div>
 </section>
 
@@ -793,7 +795,7 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
       </div>
       <div class="form-group">
         <label class="form-label">// Subject</label>
-        <input type="text" class="form-input" id="fc-subject" placeholder="SOC Role / Internship / Collaboration...">
+        <input type="text" class="form-input" id="fc-subject" placeholder="Bug Bounty Collab / Security Internship / Pentest Role...">
         <span class="field-error" id="err-subject">⛔ Subject is required</span>
       </div>
       <div class="form-group">
@@ -816,7 +818,7 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 
 <footer>
   <div class="footer-copy" id="footerCopy">© 2025 ABHISHEK SHARMA — B.TECH CSE '26 — MM UNIVERSITY</div>
-  <div class="footer-status"><div style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse-dot 2s infinite;"></div>SOC PIPELINE ACTIVE</div>
+  <div class="footer-status"><div style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse-dot 2s infinite;"></div>RECON PIPELINE ACTIVE</div>
 </footer>
 
 <script>
@@ -825,21 +827,21 @@ footer{position:relative;z-index:2;padding:24px 40px;border-top:1px solid var(--
 // ═══════════════════════════════════════════════
 const DEFAULT = {
   fname:'ABHISHEK', lname:'SHARMA',
-  herotag:'// Final-Year B.Tech CSE — SOC / Blue Team',
-  title:'SOC Analyst · Threat Detection · Incident Response',
-  location:'📍 Ambala, Haryana',
-  navbrand:'ABHISHEK//SOC',
-  s1n:'2', s1l:'SOC Projects', s2n:'4', s2l:'Certifications',
-  s3n:'7', s3l:'CGPA / 10', s4n:'2026', s4l:'Grad Year',
-  bio1:'Final-year B.Tech Computer Science Engineering student at Maharishi Markandeshwar (Deemed to be University), Ambala. Actively transitioning into <span style="color:var(--cyan)">SOC / Blue Team</span> roles with hands-on experience building real security pipelines.',
-  bio2:'Specializes in <span style="color:var(--green)">threat detection, log analysis, and security automation</span>. Built a full SOC-style intrusion detection and incident response system from scratch using live Windows Security Event Logs, Python, and Flask.',
-  bio3:'Passionate about converting raw security events into actionable intelligence — driven by a curiosity to understand attacker behavior and close the detection gap.',
+  herotag:'// Final-Year B.Tech CSE — Offensive Security & Bug Bounty Hunter',
+  title:'Web Pentester · Bug Bounty Hunter · Recon Automation',
+  location:'Ambala, Haryana',
+  navbrand:'ABHISHEK//0FFENSIVE',
+  s1n:'3', s1l:'Recon Tools Built', s2n:'4', s2l:'Certifications',
+  s3n:'1', s3l:'TryHackMe Top %', s4n:'2026', s4l:'Grad Year',
+  bio1:'Final-year B.Tech Computer Science Engineering student at Maharishi Markandeshwar (Deemed to be University), Ambala. Specializing in <span style="color:var(--cyan)">Offensive Security, Web Application Pentesting & Bug Bounty Hunting</span> with hands-on tool development and real-world target testing.',
+  bio2:'Built <span style="color:var(--green)">ReconAI</span> — a full 7-stage automated pentesting pipeline — and <span style="color:var(--green)">BugFlow</span> — an AI-powered bug bounty platform using Python, FastAPI, and React. Active hunter on HackerOne & Bugcrowd. TryHackMe Top 1% ranking.',
+  bio3:'Driven by the offensive mindset: find vulnerabilities before the bad guys do. Focused on web app pentesting, CVE research, recon automation, and turning raw attack surface data into actionable security reports.',
   phrases:[
-    'Building SOC pipelines. Detecting threats in real-time.',
-    'Windows Event Logs 4624/4625 — analyzed & correlated.',
-    'Ransomware behavioral detection. Endpoint protection.',
-    'Blue Team mindset. Automation-first approach.',
-    'Graduating 2026. Ready to defend the perimeter.'
+    'Enumerating subdomains. Mapping the attack surface.',
+    'XSS, SQLi, CORS Misconfig — hunting them all.',
+    'ReconAI: 7-stage automated pentest pipeline.',
+    'TryHackMe Top 1%. HackerOne. Bugcrowd.',
+    'Graduating 2026. Ready to break things ethically.'
   ],
   exprole:'Software Engineering Intern', expcompany:'MMEC, Ambala', expdate:'Jun 2025 — Jul 2025',
   expbullets:[
@@ -850,47 +852,62 @@ const DEFAULT = {
   email:'sanhishek72@gmail.com', phone:'+91 94707 29289',
   linkedin:'https://www.linkedin.com/in/abhishek-sharma-291a42250/',
   github:'https://github.com/Abhi-Sh4rma',
-  contactbio:'Looking to hire a motivated SOC / Blue Team candidate? My systems are online. Available for internships, entry-level SOC roles, and collaborative security projects.',
+  contactbio:'Looking for a motivated Offensive Security / Bug Bounty candidate? Systems are live. Available for security internships, web pentesting roles, and bug bounty collaborations.',
   university:'MM University, Ambala · 2022–2026',
   formspree:'mjgenovg',
   waphone:'919470729289',
   projects:[
     {
-      icon:'🛡', badge:'badge-red', badgeText:'CRITICAL',
-      title:'INTELLIGENT IDS-IR',
-      desc:'SOC-style intrusion detection & incident response pipeline for real-time authentication monitoring using live Windows Security Event Logs.',
+      icon:'🤖', badge:'badge-red', badgeText:'CRITICAL',
+      title:'RECONAI',
+      desc:'Full 7-stage automated pentesting pipeline: subdomain enumeration → DNS resolution → port scanning → tech fingerprinting → CVE matching → vuln checks → AI-generated PDF report.',
       bullets:[
-        'Collected & normalized Event ID 4625 (failed logon) and 4624 (successful logon) into structured detection logs',
-        'Implemented time-window brute-force detection, stateful alert persistence & success-after-failure correlation',
-        'Dynamic risk scoring & severity escalation with auto-refreshing Flask web dashboard',
+        'Integrated Sublist3r & Amass for subdomain discovery; Nmap for service detection across 17 ports',
+        'Real-time CVE matching via NVD API — detected 12 CVEs including 2 from 2025/2026',
+        'Detected missing security headers, open redirects, exposed admin panels & CORS misconfigs',
+        'Groq AI (Llama3) generates professional pentest PDF reports — cuts manual reporting time significantly',
+        'Tested on a real authorized target — found dangling subdomain, exposed /admin, 3 missing headers'
+      ],
+      tags:'Python,Nmap,Amass,Sublist3r,NVD API,Groq AI,Llama3',
+      link:'https://github.com/Abhi-Sh4rma/reconai',
+      dots:5, dotColor:'red'
+    },
+    {
+      icon:'🐛', badge:'badge-orange', badgeText:'HIGH',
+      title:'BUGFLOW',
+      desc:'Industry-level AI-powered bug bounty hunting platform managing the full workflow from target management to AI-generated vulnerability report submission.',
+      bullets:[
+        'JWT-based auth system with bcrypt password hashing and secure token management',
+        'RESTful API with FastAPI + PostgreSQL using async SQLAlchemy ORM with full CRUD',
+        'Integrated ReconAI engine as background scan pipeline with real-time status updates',
+        'React dashboard with Tailwind CSS — vuln severity breakdown, scan history & AI reports'
+      ],
+      tags:'Python,FastAPI,React,PostgreSQL,JWT,Tailwind CSS',
+      link:'https://github.com/Abhi-Sh4rma/bugflow',
+      dots:4, dotColor:'orange'
+    },
+    {
+      icon:'🛡', badge:'badge-green', badgeText:'MEDIUM',
+      title:'INTELLIGENT IDS-IR',
+      desc:'SOC-style intrusion detection pipeline using Windows Security Event Logs — demonstrates deep understanding of attacker behavior patterns from the defensive side.',
+      bullets:[
+        'Analyzed Event ID 4624/4625 (logon/failed logon) for brute-force pattern detection',
+        'Stateful alert persistence and success-after-failure correlation',
+        'Dynamic risk scoring & severity escalation — auto-refreshing Flask web dashboard',
         'Captured from live VM environment — not simulated test data'
       ],
       tags:'Python,PowerShell,Flask,Windows Logs,Event Correlation',
-      link:'https://github.com/Abhi-Sh4rma',
-      dots:4, dotColor:'red'
-    },
-    {
-      icon:'🔐', badge:'badge-orange', badgeText:'HIGH',
-      title:'RANSOMWATCH',
-      desc:'Real-time ransomware behavioral detection engine running in a controlled Windows environment — simulating endpoint detection workflows.',
-      bullets:[
-        'Behavioral detection for rapid file modifications, bulk renaming & suspicious extension changes',
-        'Configurable threshold-based alerting via config.json for dynamic tuning',
-        'Built a ransomware simulation module to emulate encryption-like activity for validation',
-        'Structured alerts with risk scoring & severity classification'
-      ],
-      tags:'Python,PowerShell,Behavioral Analysis,EDR Simulation',
-      link:'https://github.com/Abhi-Sh4rma',
-      dots:3, dotColor:'orange'
+      link:'https://github.com/Abhi-Sh4rma/intelligent-ids-ir',
+      dots:3, dotColor:'green'
     }
   ],
   skills:[
-    { title:'Core Security', tags:'SOC Monitoring,SIEM Fundamentals,Log Analysis,Alert Triage,Incident Response,Risk Assessment,Event Correlation,Vulnerability Assessment,Threat Intelligence' },
-    { title:'Windows Event Logs', tags:'Event ID 4624,Event ID 4625,Event ID 4672,Event ID 4688,Log Normalization,Brute-Force Detection' },
-    { title:'Networking & Security', tags:'TCP/IP,DNS,HTTP/HTTPS,Firewall Concepts,IDS/IPS,Network Traffic Analysis' },
-    { title:'Frameworks', tags:'MITRE ATT&CK,Cyber Kill Chain' },
-    { title:'Languages & Scripting', tags:'Python,PowerShell,Bash' },
-    { title:'Tools & Platforms', tags:'Linux,Windows,Git / GitHub,Docker,VMware,Wireshark,Flask,Pandas,JSON/CSV' }
+    { title:'Offensive Security', tags:'Web Application Pentesting,Subdomain Enumeration,Port Scanning,CVE Research,Vulnerability Assessment,Bug Bounty Hunting,Recon Automation' },
+    { title:'Web Vulnerabilities', tags:'XSS,SQL Injection,CORS Misconfiguration,Open Redirect,Missing Security Headers,Sensitive File Exposure,Clickjacking' },
+    { title:'Security Tools', tags:'Burp Suite,Nmap,Amass,Sublist3r,Kali Linux,Metasploit,Wireshark' },
+    { title:'Frameworks & Standards', tags:'OWASP Top 10,MITRE ATT&CK,Cyber Kill Chain,CVE/NVD' },
+    { title:'Languages & Scripting', tags:'Python,Bash,PowerShell,JavaScript' },
+    { title:'Development & Platforms', tags:'FastAPI,React,PostgreSQL,SQLite,Docker,Git/GitHub,HackerOne,Bugcrowd,TryHackMe' }
   ],
   certs:[
     { icon:'🏆', color:'gold', name:'IBM Cybersecurity Analyst', issuer:'IBM — Professional Certificate' },
@@ -903,8 +920,14 @@ const DEFAULT = {
 // ═══════════════════════════════════════════════
 // DATA STORE — load from localStorage or use default
 // ═══════════════════════════════════════════════
+const DATA_VERSION = 'offensive_v1';
 function loadData() {
   try {
+    const ver = localStorage.getItem('portfolio_version');
+    if(ver !== DATA_VERSION) {
+      localStorage.removeItem('portfolio_data');
+      localStorage.setItem('portfolio_version', DATA_VERSION);
+    }
     const saved = localStorage.getItem('portfolio_data');
     return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT));
   } catch(e) { return JSON.parse(JSON.stringify(DEFAULT)); }
@@ -935,7 +958,7 @@ function renderPortfolio() {
   document.getElementById('s3l').textContent = D.s3l;
   document.getElementById('s4n').textContent = D.s4n; document.getElementById('s4n').dataset.target = D.s4n;
   document.getElementById('s4l').textContent = D.s4l;
-  document.title = `${D.fname} ${D.lname} // SOC Portfolio`;
+  document.title = `${D.fname} ${D.lname} // Offensive Security Portfolio`;
 
   // Bio
   document.getElementById('bio1').innerHTML = D.bio1;
@@ -945,9 +968,9 @@ function renderPortfolio() {
   // About highlights
   const highlights = [
     {icon:'🎓', label:'Education', value: D.university},
-    {icon:'🔍', label:'Focus Area', value:'SOC Monitoring, SIEM, Log Analysis, Alert Triage, Incident Response'},
-    {icon:'⚙', label:'Primary Stack', value:'Python · PowerShell · Flask · Windows Event Logs · Bash'},
-    {icon:'🌐', label:'Frameworks', value:'MITRE ATT&CK (basic) · Cyber Kill Chain · TCP/IP · IDS/IPS'},
+    {icon:'🎯', label:'Focus Area', value:'Web App Pentesting, Bug Bounty Hunting, Subdomain Recon, CVE Research, Vuln Assessment'},
+    {icon:'⚔️', label:'Primary Stack', value:'Python · Burp Suite · Nmap · Amass · FastAPI · React'},
+    {icon:'🌐', label:'Platforms', value:'HackerOne · Bugcrowd · TryHackMe (Top 1%) · OWASP Top 10 · MITRE ATT&CK'},
     {icon:'💼', label:'Experience', value:`${D.exprole} — ${D.expcompany} · ${D.expdate}`}
   ];
   document.getElementById('aboutHighlights').innerHTML = highlights.map(h=>`
@@ -1453,17 +1476,17 @@ renderer.setSize(window.innerWidth,window.innerHeight);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000);
 camera.position.set(0,0,5);
-const grd = new THREE.Mesh(new THREE.PlaneGeometry(40,40,40,40),new THREE.MeshBasicMaterial({color:0x001830,wireframe:true,transparent:true,opacity:.12}));
+const grd = new THREE.Mesh(new THREE.PlaneGeometry(40,40,40,40),new THREE.MeshBasicMaterial({color:0x1a0500,wireframe:true,transparent:true,opacity:.12}));
 grd.rotation.x=-Math.PI/2; grd.position.y=-3; scene.add(grd);
 const ppos=new Float32Array(400*3);
 for(let i=0;i<400;i++){ppos[i*3]=(Math.random()-.5)*30;ppos[i*3+1]=(Math.random()-.5)*20;ppos[i*3+2]=(Math.random()-.5)*15;}
 const pg=new THREE.BufferGeometry(); pg.setAttribute('position',new THREE.BufferAttribute(ppos,3));
-const pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0x00f5ff,size:.04,transparent:true,opacity:.5,sizeAttenuation:true}));
+const pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0xff4500,size:.04,transparent:true,opacity:.5,sizeAttenuation:true}));
 scene.add(pts);
-const nodes3d=[],nc=[0x00f5ff,0x00ff88,0xff003c,0xff6600],ng=new THREE.SphereGeometry(.04,6,6);
+const nodes3d=[],nc=[0xff4500,0xff9900,0xff003c,0xff6600],ng=new THREE.SphereGeometry(.04,6,6);
 for(let i=0;i<22;i++){const m=new THREE.MeshBasicMaterial({color:nc[Math.floor(Math.random()*nc.length)],transparent:true,opacity:.8});const n=new THREE.Mesh(ng,m);n.position.set((Math.random()-.5)*20,(Math.random()-.5)*12,(Math.random()-.5)*8);n.userData={speed:Math.random()*.003+.001,offset:Math.random()*Math.PI*2};scene.add(n);nodes3d.push(n);}
 const rings3d=[];
-for(let i=0;i<3;i++){const m=new THREE.MeshBasicMaterial({color:i===0?0x00f5ff:i===1?0x00ff88:0xff6600,transparent:true,opacity:.1});const r=new THREE.Mesh(new THREE.TorusGeometry(1.5+i*.8,.004,6,60),m);r.rotation.x=Math.PI/3*i;r.rotation.y=Math.PI/4*i;r.position.z=-2;scene.add(r);rings3d.push(r);}
+for(let i=0;i<3;i++){const m=new THREE.MeshBasicMaterial({color:i===0?0xff4500:i===1?0xff9900:0xff6600,transparent:true,opacity:.1});const r=new THREE.Mesh(new THREE.TorusGeometry(1.5+i*.8,.004,6,60),m);r.rotation.x=Math.PI/3*i;r.rotation.y=Math.PI/4*i;r.position.z=-2;scene.add(r);rings3d.push(r);}
 let mx=0,my=0;
 document.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=-(e.clientY/window.innerHeight-.5)*2;});
 let t3=0;
@@ -1481,7 +1504,7 @@ window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.inn
 } else {
   // Mobile: simple CSS gradient background instead
   canvas3d.style.display='none';
-  document.body.style.background='radial-gradient(ellipse at 20% 50%, rgba(0,30,60,.6) 0%, #020810 60%)';
+  document.body.style.background='radial-gradient(ellipse at 20% 50%, rgba(60,10,0,.6) 0%, #0a0502 60%)';
 }
 
 // ═══════════════════════════════════════════════
@@ -1495,7 +1518,7 @@ document.addEventListener('mousemove',e=>{tx2=e.clientX;ty2=e.clientY;curd.style
 function animCur(){cx+=(tx2-cx)*.15;cy+=(ty2-cy)*.15;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(animCur);}
 animCur();
 document.querySelectorAll('a,button,.project-card,.tool-item,.cert-card,.contact-link,.skill-tag,.admin-input,.admin-tab,.highlight-row').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='36px';cur.style.height='36px';cur.style.background='rgba(0,245,255,.1)';});
+  el.addEventListener('mouseenter',()=>{cur.style.width='36px';cur.style.height='36px';cur.style.background='rgba(255,69,0,.1)';});
   el.addEventListener('mouseleave',()=>{cur.style.width='20px';cur.style.height='20px';cur.style.background='';});
 });
 } else {
@@ -1540,15 +1563,18 @@ const countObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isInt
 // LIVE THREAT FEED
 // ═══════════════════════════════════════════════
 const feedEvents=[
-  {msg:'<span class="hi">[CRITICAL]</span> Event 4625 — 120 failed logons in 60s — IP: 192.168.1.47'},
-  {msg:'<span class="med">[HIGH]</span> Brute-force threshold breached — alert escalated'},
-  {msg:'<span class="low">[INFO]</span> Event 4624 — successful logon after 80 failed attempts'},
-  {msg:'<span class="hi">[CRITICAL]</span> Ransomware behavior: 500+ files renamed in 10s'},
-  {msg:'<span class="med">[HIGH]</span> Suspicious extension change detected — .docx → .enc'},
-  {msg:'<span class="low">[LOW]</span> Event 4672 — Admin logon captured and logged'},
-  {msg:'<span class="hi">[CRITICAL]</span> Success-after-failure correlation triggered'},
-  {msg:'<span class="low">[INFO]</span> Event 4688 — Process creation: powershell.exe flagged'},
-  {msg:'<span class="med">[HIGH]</span> Bulk file modification: behavioral threshold exceeded'},
+  {msg:'<span class="hi">[CRITICAL]</span> Subdomain found: admin.target.com — exposed panel detected'},
+  {msg:'<span class="med">[HIGH]</span> CORS misconfiguration on api.target.com — origin bypass possible'},
+  {msg:'<span class="low">[INFO]</span> Nmap scan complete — port 8080 open, Apache/2.4.41 fingerprinted'},
+  {msg:'<span class="hi">[CRITICAL]</span> CVE-2024-1337 matched on target stack — CVSS 9.8'},
+  {msg:'<span class="med">[HIGH]</span> Missing security header: X-Frame-Options — Clickjacking risk'},
+  {msg:'<span class="low">[INFO]</span> DNS resolution complete — 47 subdomains resolved live'},
+  {msg:'<span class="hi">[CRITICAL]</span> Open redirect found: /redirect?url= — unvalidated input'},
+  {msg:'<span class="med">[HIGH]</span> Reflected XSS payload triggered on search endpoint'},
+  {msg:'<span class="low">[LOW]</span> robots.txt discloses hidden path: /internal/debug'},
+  {msg:'<span class="hi">[CRITICAL]</span> SQL error response — potential injection point detected'},
+  {msg:'<span class="med">[HIGH]</span> Sensitive file exposed: /.env — API keys in response body'},
+  {msg:'<span class="low">[INFO]</span> AI report generation complete — PDF pentest report ready'},
 ];
 let feedIdx=0;
 function addFeed(){
